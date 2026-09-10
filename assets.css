@@ -87,24 +87,35 @@ header.site{position:sticky;top:0;z-index:50;background:rgba(14,31,61,.94);backd
 .langbtn[aria-pressed="true"]{background:var(--amber);color:#3a2500}
 .langswitch .langbtn+.langbtn{border-left:1px solid rgba(255,255,255,.28)}
 .nav-cta{margin-left:12px}
+/* compact tap-to-call button — shown in the mobile header where "Call now" is hidden */
+.call-mini{display:none;place-items:center;width:42px;height:42px;flex:none;border-radius:10px;
+  background:var(--amber);color:#3a2500;text-decoration:none;box-shadow:0 6px 16px -6px rgba(245,166,35,.7)}
+.call-mini svg{width:20px;height:20px}
+.call-mini:hover{background:#ffb43a}
 .nav .menu-btn{margin-left:auto;background:none;border:1px solid rgba(255,255,255,.25);color:#fff;
   width:42px;height:42px;border-radius:10px;display:grid;place-items:center;cursor:pointer}
 .nav .menu-btn svg{width:22px;height:22px}
 @media(min-width:1040px){
   .nav-links{display:flex}
   .nav .menu-btn{display:none}
+  .call-mini{display:none}
 }
 @media(max-width:1039px){
   .nav-cta{display:none}
   .langswitch{margin-left:auto}
+  .call-mini{display:grid;margin-left:8px}
   .nav .menu-btn{margin-left:8px}
   .langbtn{padding:.62em .9em;font-size:.82rem}
 }
-@media(max-width:390px){
-  .brand span{font-size:.9rem;max-width:12ch}
-  .brand img{width:46px;height:46px}
+/* phones: logo only, and shrink controls so the toggle + call + menu row always fits */
+@media(max-width:600px){
+  .brand span{display:none}
+  .brand img{width:44px;height:44px}
   .nav{gap:8px}
-  .langbtn{padding:.6em .62em}
+  .langbtn{padding:.55em .68em;font-size:.8rem}
+  .call-mini,.nav .menu-btn{width:38px;height:38px}
+  .call-mini svg{width:18px;height:18px}
+  .nav .menu-btn svg{width:20px;height:20px}
 }
 /* mobile panel */
 .mnav{display:none;background:var(--navy-800);border-bottom:1px solid rgba(255,255,255,.08);max-height:calc(100vh - 64px);overflow-y:auto}

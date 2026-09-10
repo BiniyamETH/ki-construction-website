@@ -42,6 +42,7 @@
     "nav.contact": "አግኙን",
     "btn.callNow": "አሁን ይደውሉ",
     "menu.aria": "ማውጫ ክፈት",
+    "call.aria": "ወደ KI ይደውሉ",
     "mnav.call": "ይደውሉ",
     "topbar.tag": "ብቸኛ ወኪል · Power Trader Co. (ደቡብ ኮሪያ)",
     "cat.all": "ሁሉም ምርቶች",
