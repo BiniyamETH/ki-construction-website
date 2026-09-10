@@ -1,0 +1,14 @@
+# Client source documents / internal working files — not for the public repo
+*.docx
+amharic-review.md
+
+# Raw source images (already compressed into img/)
+a.jpeg
+WhatsApp Image *.jpeg
+
+# OS / editor cruft
+.DS_Store
+Thumbs.db
+desktop.ini
+*.swp
+.vscode/
