@@ -340,7 +340,19 @@ a:focus-visible,button:focus-visible{outline:3px solid var(--amber);outline-offs
 @media(max-width:1199px){ .nav-cta{display:none} }
 
 /* quote form (quote.html) */
-.quote-wrap{max-width:680px;margin-left:0;margin-right:auto}
+.quote-layout{display:grid;gap:36px}
+@media(min-width:960px){
+  .quote-layout{grid-template-columns:minmax(0,1fr) 320px;align-items:start;gap:44px}
+}
+.quote-aside .quote-card{background:var(--mist);border:1px solid var(--line);border-radius:var(--radius);padding:22px 22px 24px}
+@media(min-width:960px){ .quote-aside .quote-card{position:sticky;top:92px} }
+.quote-card h2{font-size:1.05rem;margin:0 0 .85em}
+.quote-card ul{list-style:none;margin:0 0 1em;padding:0;display:grid;gap:.8em}
+.quote-card li{display:flex;align-items:center;gap:.6em;font-weight:600;font-size:.92rem}
+.quote-card li svg{width:18px;height:18px;flex:none;fill:var(--navy-600)}
+.quote-card a{text-decoration:none;color:var(--ink);word-break:break-word}
+.quote-card a:hover{color:var(--navy-600);text-decoration:underline}
+.quote-card p{margin:0;font-size:.85rem;color:var(--muted)}
 .quote-form{display:grid;gap:20px}
 .quote-form .hp-field{position:absolute;left:-9999px;width:1px;height:1px;opacity:0}
 .quote-form .field{display:grid;gap:6px}

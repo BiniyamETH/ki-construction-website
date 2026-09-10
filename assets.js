@@ -359,6 +359,8 @@
     "quote.msg.waFallback": "በ WhatsApp ይላኩ",
     "quote.altH": "መነጋገር ይመርጣሉ?",
     "quote.altP": "ይደውሉ፣ WhatsApp ወይም Telegram — በቀጥታ ወደ ቡድናችን።",
+    "quote.card.h": "በቀጥታ ያግኙን",
+    "quote.card.reply": "በ24 ሰዓት ውስጥ እንመልሳለን።",
 
     /* ---- footer ---- */
     "footer.desc": "የግንባታ እና የኢንዱስትሪ ማሽነሪ እና ማቴሪያል አስመጪ፣ ላኪ እና አከፋፋይ። አዲስ አበባ፣ ኢትዮጵያ። የተመሠረተው በ2006 ዓ.ም።",
