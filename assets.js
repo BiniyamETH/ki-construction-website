@@ -315,6 +315,51 @@
     "map.title": "የ KI Construction Materials Importer አድራሻ — ፒያሳ፣ አዲስ አበባ",
     "map.fallback": "በGoogle Maps ይክፈቱ →",
 
+    /* ---- quote form ---- */
+    "btn.quote": "የዋጋ ማቅረቢያ ይጠይቁ",
+    "quote.eyebrow": "የዋጋ ጥያቄ",
+    "quote.h1": "የዋጋ ማቅረቢያ ይጠይቁ",
+    "quote.lead": "የሚፈልጉትን ይንገሩን፤ ቡድናችን አብዛኛውን ጊዜ በ24 ሰዓት ውስጥ የዋጋ ማቅረቢያ ይልክልዎታል። ፕሮፎርማ ደረሰኝ ከፈለጉ የቲን ቁጥርዎን ያካትቱ።",
+    "quote.f.company": "የኩባንያ ስም",
+    "quote.f.companyPh": "የኩባንያዎ ስም",
+    "quote.f.contact": "የመገናኛ ሰው (ሙሉ ስም)",
+    "quote.f.contactPh": "የመጀመሪያ እና የአባት ስም",
+    "quote.f.jobTitle": "የሥራ መደብ",
+    "quote.f.jobTitlePh": "ለምሳሌ የግዥ ኃላፊ",
+    "quote.f.optional": "(አማራጭ)",
+    "quote.f.phone": "ስልክ",
+    "quote.f.phonePh": "+251911234567",
+    "quote.f.phoneHelp": "+251XXXXXXXXX፣ 09XXXXXXXX ወይም 07XXXXXXXX",
+    "quote.f.email": "ኢሜይል",
+    "quote.f.emailPh": "you@company.com",
+    "quote.f.tin": "የቲን ቁጥር",
+    "quote.f.tinPh": "10 አሃዞች",
+    "quote.f.tinHelp": "ለፕሮፎርማ ደረሰኝ ያስፈልጋል",
+    "quote.f.category": "የምርት ዘርፍ",
+    "quote.f.catPh": "ዘርፍ ይምረጡ…",
+    "quote.f.catOther": "ሌላ",
+    "quote.f.specs": "ዝርዝር መግለጫ እና ብዛት",
+    "quote.f.specsPh": "ለምሳሌ 2 × Perkins 100 KVA ጸጥ ያለ ጄነሬተር ከ ATS ጋር",
+    "quote.f.location": "የመላኪያ ቦታ (ከተማ / ሳይት)",
+    "quote.f.locationPh": "ለምሳሌ አዲስ አበባ፣ ቦሌ",
+    "quote.f.neededBy": "የሚያስፈልግበት ቀን",
+    "quote.f.submit": "ጥያቄ ላክ",
+    "quote.f.sending": "በመላክ ላይ…",
+    "quote.f.note": "አካውንት አያስፈልግም። መረጃዎን የምንጠቀመው የዋጋ ማቅረቢያዎን ለማዘጋጀት እና ለመላክ ብቻ ነው።",
+    "quote.err.company": "እባክዎ የኩባንያዎን ስም ያስገቡ",
+    "quote.err.contact": "እባክዎ የመገናኛ ሰውን ስም ያስገቡ",
+    "quote.err.phone": "ትክክለኛ የኢትዮጵያ ስልክ ቁጥር ያስገቡ",
+    "quote.err.email": "ትክክለኛ የኢሜይል አድራሻ ያስገቡ",
+    "quote.err.tin": "ቲን በትክክል 10 አሃዞች መሆን አለበት",
+    "quote.err.category": "እባክዎ የምርት ዘርፍ ይምረጡ",
+    "quote.err.specs": "እባክዎ የሚፈልጉትን ይግለጹ",
+    "quote.err.location": "እባክዎ የመላኪያ ቦታ ያስገቡ",
+    "quote.msg.ok": "እናመሰግናለን — ቡድናችን በ24 ሰዓት ውስጥ ያገኝዎታል።",
+    "quote.msg.fail": "የሆነ ችግር ተፈጥሯል። እባክዎ እንደገና ይሞክሩ ወይም ጥያቄዎን በ WhatsApp ይላኩ።",
+    "quote.msg.waFallback": "በ WhatsApp ይላኩ",
+    "quote.altH": "መነጋገር ይመርጣሉ?",
+    "quote.altP": "ይደውሉ፣ WhatsApp ወይም Telegram — በቀጥታ ወደ ቡድናችን።",
+
     /* ---- footer ---- */
     "footer.desc": "የግንባታ እና የኢንዱስትሪ ማሽነሪ እና ማቴሪያል አስመጪ፣ ላኪ እና አከፋፋይ። አዲስ አበባ፣ ኢትዮጵያ። የተመሠረተው በ2006 ዓ.ም።",
     "footer.ptLine": "በኢትዮጵያ የ Power Trader Co. (ደቡብ ኮሪያ) ብቸኛ ወኪል።",
@@ -364,6 +409,7 @@
     apply("data-i18n-html", "html");
     apply("data-i18n-aria", "aria-label");
     apply("data-i18n-title", "title");
+    apply("data-i18n-placeholder", "placeholder");
     document.title = DOC_TITLE[l] || DOC_TITLE.en;
     stampYear();
     try { localStorage.setItem("ki_lang", l); } catch (e) {}
@@ -381,4 +427,135 @@
   var saved = "en";
   try { saved = localStorage.getItem("ki_lang") || "en"; } catch (e) {}
   setLang(saved);
+
+  /* ---------- quote form (quote.html only) ---------- */
+  var qForm = document.getElementById("quoteForm");
+  if (qForm) {
+    var CAT_MAP = {
+      gensets: "Generating sets & power",
+      breakers: "Hydraulic breakers",
+      pumps: "Pumps & solar pumps",
+      machinery: "Construction machinery",
+      electro: "Electro-mechanical"
+    };
+    var PH_RE = /^(\+251\d{9}|0[79]\d{8})$/;
+    var TIN_RE = /^\d{10}$/;
+    var EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+    var qMsg = document.getElementById("quoteMsg");
+    var qBtn = qForm.querySelector('button[type="submit"]');
+    var qBtnLabel = qBtn.querySelector("span") || qBtn;
+    var keyEl = qForm.querySelector('[name="access_key"]');
+    var KEY_OK = keyEl && keyEl.value && !/PASTE|YOUR_|_HERE/i.test(keyEl.value);
+
+    function t(key, en) {
+      var d = document.documentElement.lang === "am" ? I18N.am : null;
+      return (d && d[key] != null) ? d[key] : en;
+    }
+    function fieldOf(name) {
+      var el = qForm.querySelector('[name="' + name + '"]');
+      return el ? el.closest(".field") : null;
+    }
+    function mark(name, bad) {
+      var f = fieldOf(name);
+      if (f) f.classList.toggle("invalid", !!bad);
+      return !bad;
+    }
+    function val(name) {
+      var el = qForm.querySelector('[name="' + name + '"]');
+      return el ? el.value.trim() : "";
+    }
+    function validate() {
+      var ok = true;
+      ok = mark("company", !val("company")) && ok;
+      ok = mark("contact_name", !val("contact_name")) && ok;
+      ok = mark("phone", !PH_RE.test(val("phone"))) && ok;
+      ok = mark("email", !EMAIL_RE.test(val("email"))) && ok;
+      ok = mark("tin", !(val("tin") === "" || TIN_RE.test(val("tin")))) && ok;
+      ok = mark("category", !val("category")) && ok;
+      ok = mark("specs", !val("specs")) && ok;
+      ok = mark("delivery_location", !val("delivery_location")) && ok;
+      return ok;
+    }
+    function waLink() {
+      var lines = [
+        "Quote request — " + (val("company") || "?"),
+        "Contact: " + val("contact_name") + (val("job_title") ? " (" + val("job_title") + ")" : ""),
+        "Phone: " + val("phone"),
+        "Email: " + val("email"),
+        val("tin") ? "TIN: " + val("tin") : "",
+        "Category: " + val("category"),
+        "Details: " + val("specs"),
+        "Delivery: " + val("delivery_location"),
+        val("needed_by") ? "Needed by: " + val("needed_by") : ""
+      ].filter(Boolean);
+      return "https://wa.me/251911230787?text=" + encodeURIComponent(lines.join("\n"));
+    }
+    function showFail() {
+      qMsg.className = "form-msg fail";
+      qMsg.textContent = "";
+      var p = document.createElement("p");
+      p.textContent = t("quote.msg.fail", "Something went wrong. Please try again, or send your request via WhatsApp.");
+      var a = document.createElement("a");
+      a.className = "btn btn-wa";
+      a.href = waLink();
+      a.target = "_blank";
+      a.rel = "noopener";
+      a.textContent = t("quote.msg.waFallback", "Send via WhatsApp instead");
+      qMsg.appendChild(p);
+      qMsg.appendChild(a);
+      qMsg.hidden = false;
+      qMsg.scrollIntoView({ behavior: "smooth", block: "center" });
+    }
+    function showOk() {
+      qForm.reset();
+      var iv = qForm.querySelectorAll(".field.invalid");
+      for (var i = 0; i < iv.length; i++) iv[i].classList.remove("invalid");
+      qMsg.className = "form-msg ok";
+      qMsg.textContent = t("quote.msg.ok", "Thank you — our team will contact you within 24 hours.");
+      qMsg.hidden = false;
+      qMsg.scrollIntoView({ behavior: "smooth", block: "center" });
+    }
+
+    // pre-select category from ?cat=
+    var catParam = new URLSearchParams(location.search).get("cat");
+    if (catParam && CAT_MAP[catParam]) {
+      var catSel = qForm.querySelector('[name="category"]');
+      if (catSel) catSel.value = CAT_MAP[catParam];
+    }
+
+    // clear a field's error as the user fixes it
+    qForm.addEventListener("input", function (e) {
+      var f = e.target.closest && e.target.closest(".field");
+      if (f) f.classList.remove("invalid");
+    });
+
+    qForm.addEventListener("submit", function (e) {
+      e.preventDefault();
+      qMsg.hidden = true;
+      qMsg.className = "form-msg";
+      if (!validate()) {
+        var first = qForm.querySelector(".field.invalid input, .field.invalid select, .field.invalid textarea");
+        if (first) first.focus();
+        return;
+      }
+      if (!KEY_OK) { showFail(); return; }
+
+      var fd = new FormData(qForm);
+      fd.set("subject", "New Quote Request — " + fd.get("company") + " — " + fd.get("category"));
+      fd.set("replyto", fd.get("email"));
+
+      qBtn.disabled = true;
+      var restore = qBtnLabel.textContent;
+      qBtnLabel.textContent = t("quote.f.sending", "Sending…");
+
+      fetch("https://api.web3forms.com/submit", {
+        method: "POST", body: fd, headers: { "Accept": "application/json" }
+      })
+        .then(function (r) { return r.json(); })
+        .then(function (data) { if (data && data.success) showOk(); else throw new Error("fail"); })
+        .catch(function () { showFail(); })
+        .then(function () { qBtn.disabled = false; qBtnLabel.textContent = restore; });
+    });
+  }
 })();
