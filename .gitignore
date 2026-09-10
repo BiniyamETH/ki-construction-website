@@ -4,6 +4,8 @@ amharic-review.md
 
 # Raw source images (already compressed into img/)
 a.jpeg
+[0-9].jpeg
+[0-9].jpg
 WhatsApp Image *.jpeg
 
 # OS / editor cruft
