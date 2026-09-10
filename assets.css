@@ -110,7 +110,7 @@ header.site{position:sticky;top:0;z-index:50;background:rgba(14,31,61,.94);backd
 /* phones: logo only, and shrink controls so the toggle + call + menu row always fits */
 @media(max-width:600px){
   .brand span{display:none}
-  .brand img{width:44px;height:44px}
+  .brand img{width:50px;height:50px}
   .nav{gap:8px}
   .langbtn{padding:.55em .68em;font-size:.8rem}
   .call-mini,.nav .menu-btn{width:38px;height:38px}
