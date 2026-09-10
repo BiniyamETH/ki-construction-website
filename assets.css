@@ -340,7 +340,7 @@ a:focus-visible,button:focus-visible{outline:3px solid var(--amber);outline-offs
 @media(max-width:1199px){ .nav-cta{display:none} }
 
 /* quote form (quote.html) */
-.quote-wrap{max-width:680px}
+.quote-wrap{max-width:680px;margin-left:0;margin-right:auto}
 .quote-form{display:grid;gap:20px}
 .quote-form .hp-field{position:absolute;left:-9999px;width:1px;height:1px;opacity:0}
 .quote-form .field{display:grid;gap:6px}
