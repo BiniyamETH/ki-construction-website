@@ -30,6 +30,46 @@
     });
   }
 
+  /* ---------- home hero product carousel ---------- */
+  (function () {
+    var slides = document.querySelectorAll(".hero-slide");
+    var panels = document.querySelectorAll(".hero-panel");
+    var dots = document.querySelectorAll("#heroDots button");
+    if (!slides.length || !panels.length || !dots.length) return;
+
+    var i = 0;
+    var timer = null;
+    var reduceMotion = !!(window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches);
+
+    function show(idx) {
+      i = (idx + slides.length) % slides.length;
+      for (var k = 0; k < slides.length; k++) {
+        slides[k].classList.toggle("is-active", k === i);
+        panels[k].classList.toggle("is-active", k === i);
+        dots[k].classList.toggle("is-active", k === i);
+      }
+    }
+    function next() { show(i + 1); }
+    function stop() { if (timer) { clearInterval(timer); timer = null; } }
+    function start() {
+      if (reduceMotion) return;
+      stop();
+      timer = setInterval(next, 5000);
+    }
+
+    dots.forEach(function (dot, idx) {
+      dot.addEventListener("click", function () { show(idx); start(); });
+    });
+
+    var heroEl = document.querySelector(".hero");
+    if (heroEl) {
+      heroEl.addEventListener("mouseenter", stop);
+      heroEl.addEventListener("mouseleave", start);
+    }
+
+    start();
+  })();
+
   /* ---------- i18n ---------- */
   var I18N = { am: {
     /* nav / chrome */
@@ -54,7 +94,8 @@
 
     /* home hero */
     "hero.eyebrow": "የተመሠረተው በ2006 ዓ.ም · አዲስ አበባ",
-    "hero.h1": "የግንባታና የኢንዱስትሪ ማሽነሪ — ወደ ኢትዮጵያ አስመጥተን በመላ አገሪቱ እናደርሳለን",
+    "hero.h1": "የግንባታና የኢንዱስትሪ ማሽነሪ — <span class=\"hl\">ወደ ኢትዮጵያ አስመጥተን በመላ አገሪቱ እናደርሳለን</span>",
+    "hero.viewProducts": "ምርቶችን ይመልከቱ",
     "hero.slogan": "“ጥራት ቅድሚያ ነው፣ የደንበኛ እርካታ ፍላጎታችን ነው”",
     "hero.lead": "KI Construction Materials Importer ለተቋራጮች፣ ለኢንዱስትሪው እና ለመንግሥት ተቋማት ጄነሬተሮች፣ ሃይድሮሊክ ብሬከሮች፣ ፓምፖች፣ የግንባታ ማሽነሪ እና ኤሌክትሮ-ሜካኒካል ምርቶችን ያቀርባል። በኢትዮጵያ ውስጥ የ Power Trader Co. (ደቡብ ኮሪያ) ብቸኛ ወኪል።",
     "hero.badge1": "<span class=\"dot\">●</span><b>22 ዓመት</b> የዘርፉ ልምድ",

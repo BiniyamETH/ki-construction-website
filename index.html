@@ -84,27 +84,73 @@
 </header>
 <main>
 <section class="hero">
+  <div class="hero-slides" aria-hidden="true">
+    <div class="hero-slide is-active" style="background-image:url('img/gs.jpg')"></div>
+    <div class="hero-slide" style="background-image:url('img/hb.jpg')"></div>
+    <div class="hero-slide" style="background-image:url('img/pm.jpg')"></div>
+    <div class="hero-slide" style="background-image:url('img/cm.jpg')"></div>
+    <div class="hero-slide" style="background-image:url('img/em.jpg')"></div>
+  </div>
   <div class="wrap">
-    <div class="hero-grid">
-      <div>
-        <span class="eyebrow" style="color:var(--amber)" data-i18n="hero.eyebrow">Established 2006 E.C. &middot; Addis Ababa</span>
-        <h1 data-i18n="hero.h1">Construction &amp; industrial machinery, imported and delivered across Ethiopia</h1>
-        <p class="slogan" data-i18n="hero.slogan">"Quality is the First, Customer satisfaction is our passion"</p>
-        <p class="lead" data-i18n="hero.lead">KI Construction Materials Importer supplies generating sets, hydraulic breakers, pumps, construction machinery and electro-mechanical products to contractors, industry and government. Exclusive agent in Ethiopia for Power Trader Co. (South Korea).</p>
-        <div class="hero-cta">
-          <a class="btn btn-amber" href="tel:+251911230787"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M6.6 10.8a15.5 15.5 0 006.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.2.4 2.4.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1A17 17 0 013 4c0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.2.2 2.4.6 3.6.1.4 0 .8-.3 1z"/></svg>+251 911 230787</a>
-          <a class="btn btn-wa" href="https://wa.me/251911230787"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 00-8.6 15l-1.3 4.8 4.9-1.3A10 10 0 1012 2zm5.8 14.2c-.2.7-1.4 1.3-2 1.4-.5.1-1.2.1-1.9-.1-.4-.1-1-.3-1.8-.6-3.1-1.3-5.1-4.5-5.3-4.7-.1-.2-1.2-1.6-1.2-3.1s.8-2.2 1.1-2.5c.3-.3.6-.4.8-.4h.6c.2 0 .4 0 .7.5l.9 2.1c.1.2.1.4 0 .6l-.4.6-.4.4c-.1.1-.3.3-.1.6.2.3.8 1.4 1.8 2.2 1.3 1.1 2.3 1.5 2.6 1.6.3.1.5.1.7-.1l.9-1c.2-.3.4-.2.7-.1l2 1c.3.1.5.2.6.3.1.2.1.8-.1 1.5z"/></svg>WhatsApp</a>
-          <a class="btn btn-tg" href="https://t.me/KICMI2010"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M21.9 4.3l-3.1 14.7c-.2 1-.9 1.3-1.8.8l-4.9-3.6-2.4 2.3c-.3.3-.5.5-1 .5l.3-4.9 8.9-8c.4-.3-.1-.5-.6-.2L6.5 13 1.8 11.5c-1-.3-1-1 .2-1.5l18.4-7.1c.9-.3 1.6.2 1.5 1.4z"/></svg>Telegram</a>
+    <div class="hero-content">
+      <div class="hero-panels" id="heroPanels">
+        <div class="hero-panel is-active">
+          <span class="eyebrow" style="color:var(--amber)" data-i18n="cat.gensets">Generating sets &amp; power</span>
+          <h1 data-i18n="p1.title">Generating sets &amp; power equipment</h1>
+          <p class="lead" data-i18n="p1.desc">Perkins, Cummins and G&uuml;&ccedil;bir diesel gensets, silent and open type, from 20 KVA to 250 KVA.</p>
+          <div class="hero-cta">
+            <a class="btn btn-amber" href="quote?cat=gensets"><span data-i18n="btn.quote">Request a Quote</span>&nbsp;&rarr;</a>
+            <a class="btn btn-ghost" href="product-generating-sets" data-i18n="card.more">See the range &rarr;</a>
+          </div>
         </div>
-        <div class="hero-badges">
-          <span data-i18n-html="hero.badge1"><span class="dot">&#9679;</span><b>22 years</b> of industry experience</span>
-          <span data-i18n-html="hero.badge2"><span class="dot">&#9679;</span><b>150+</b> projects supplied</span>
-          <span data-i18n-html="hero.badge3"><span class="dot">&#9679;</span><b>Import &middot; Export &middot; Distribution</b></span>
+        <div class="hero-panel">
+          <span class="eyebrow" style="color:var(--amber)" data-i18n="cat.breakers">Hydraulic breakers</span>
+          <h1 data-i18n="p2.title">Hydraulic breakers &amp; attachments</h1>
+          <p class="lead" data-i18n="p2.desc">Power Trader Co., South Korea &mdash; hydraulic breakers built for reliable performance, long durability and low maintenance cost.</p>
+          <div class="hero-cta">
+            <a class="btn btn-amber" href="quote?cat=breakers"><span data-i18n="btn.quote">Request a Quote</span>&nbsp;&rarr;</a>
+            <a class="btn btn-ghost" href="product-hydraulic-breakers" data-i18n="card.more">See the range &rarr;</a>
+          </div>
+        </div>
+        <div class="hero-panel">
+          <span class="eyebrow" style="color:var(--amber)" data-i18n="cat.pumps">Pumps &amp; solar pumps</span>
+          <h1 data-i18n="p3.title">Pumps &amp; solar pumps</h1>
+          <p class="lead" data-i18n="p3.desc">Surface, submersible, centrifugal and solar pumps from 1 HP to 100 HP &mdash; brands from Turkey, Italy, China, India and the UAE.</p>
+          <div class="hero-cta">
+            <a class="btn btn-amber" href="quote?cat=pumps"><span data-i18n="btn.quote">Request a Quote</span>&nbsp;&rarr;</a>
+            <a class="btn btn-ghost" href="product-pumps" data-i18n="card.more">See the range &rarr;</a>
+          </div>
+        </div>
+        <div class="hero-panel">
+          <span class="eyebrow" style="color:var(--amber)" data-i18n="cat.machinery">Construction machinery</span>
+          <h1 data-i18n="p4.title">Construction machinery</h1>
+          <p class="lead" data-i18n="p4.desc">Compaction, concrete and material-handling equipment for sites of every size.</p>
+          <div class="hero-cta">
+            <a class="btn btn-amber" href="quote?cat=machinery"><span data-i18n="btn.quote">Request a Quote</span>&nbsp;&rarr;</a>
+            <a class="btn btn-ghost" href="product-construction-machinery" data-i18n="card.more">See the range &rarr;</a>
+          </div>
+        </div>
+        <div class="hero-panel">
+          <span class="eyebrow" style="color:var(--amber)" data-i18n="cat.electro">Electro-mechanical</span>
+          <h1 data-i18n="p5.title">Electro-mechanical</h1>
+          <p class="lead" data-i18n="p5.desc">Pipework and fittings for water supply, irrigation and industrial installations.</p>
+          <div class="hero-cta">
+            <a class="btn btn-amber" href="quote?cat=electro"><span data-i18n="btn.quote">Request a Quote</span>&nbsp;&rarr;</a>
+            <a class="btn btn-ghost" href="product-electro-mechanical" data-i18n="card.more">See the range &rarr;</a>
+          </div>
         </div>
       </div>
-      <div class="hero-media">
-        <img src="img/hero.jpg" width="684" height="600" alt="Wheel loader &mdash; heavy construction machinery supplied by KI" fetchpriority="high">
-        <span class="chip" data-i18n-html="hero.chip"><b>Nationwide</b> supply &amp; after-sales support</span>
+      <div class="hero-dots" id="heroDots">
+        <button type="button" class="is-active" data-i18n-aria="cat.gensets" aria-label="Generating sets &amp; power"></button>
+        <button type="button" data-i18n-aria="cat.breakers" aria-label="Hydraulic breakers"></button>
+        <button type="button" data-i18n-aria="cat.pumps" aria-label="Pumps &amp; solar pumps"></button>
+        <button type="button" data-i18n-aria="cat.machinery" aria-label="Construction machinery"></button>
+        <button type="button" data-i18n-aria="cat.electro" aria-label="Electro-mechanical"></button>
+      </div>
+      <div class="hero-badges">
+        <span class="b"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l7 3v6c0 4.5-3 7.5-7 9-4-1.5-7-4.5-7-9V6z"/></svg><span data-i18n-html="hero.badge1"><b>22 years</b> of industry experience</span></span>
+        <span class="b"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 12l2 2 4-4"/><circle cx="12" cy="12" r="9"/></svg><span data-i18n-html="hero.badge2"><b>150+</b> projects supplied</span></span>
+        <span class="b"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="7" width="18" height="13" rx="2"/><path d="M8 7V5a2 2 0 012-2h4a2 2 0 012 2v2"/></svg><span data-i18n-html="hero.badge3"><b>Import &middot; Export &middot; Distribution</b></span></span>
       </div>
     </div>
   </div>
@@ -120,16 +166,17 @@
   </div>
 </div>
 
-<section style="padding-top:46px;padding-bottom:0">
+<div class="stats-band">
   <div class="wrap">
     <div class="stats">
-      <div><div class="n" data-i18n="stats.n1">2006 E.C.</div><div class="l" data-i18n="stats.l1">Established &amp; registered</div></div>
-      <div><div class="n" data-i18n="stats.n2">22 yrs</div><div class="l" data-i18n="stats.l2">Founder's industry experience</div></div>
-      <div><div class="n">150+</div><div class="l" data-i18n="stats.l3">Major projects supplied</div></div>
-      <div><div class="n">5</div><div class="l" data-i18n="stats.l4">Product categories</div></div>
+      <div class="stat"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></svg><div><div class="n" data-i18n="stats.n1">2006 E.C.</div><div class="l" data-i18n="stats.l1">Established &amp; registered</div></div></div>
+      <div class="stat"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3.5 2"/></svg><div><div class="n" data-i18n="stats.n2">22 yrs</div><div class="l" data-i18n="stats.l2">Founder's industry experience</div></div></div>
+      <div class="stat"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 12l2 2 4-4"/><circle cx="12" cy="12" r="9"/></svg><div><div class="n">150+</div><div class="l" data-i18n="stats.l3">Major projects supplied</div></div></div>
+      <div class="stat"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="8" height="8" rx="1.5"/><rect x="13" y="3" width="8" height="8" rx="1.5"/><rect x="3" y="13" width="8" height="8" rx="1.5"/><rect x="13" y="13" width="8" height="8" rx="1.5"/></svg><div><div class="n">5</div><div class="l" data-i18n="stats.l4">Product categories</div></div></div>
+      <div class="quote"><span class="q">&#8220;</span><p data-i18n="hero.slogan">"Quality is the First, Customer satisfaction is our passion"</p></div>
     </div>
   </div>
-</section>
+</div>
 
 <section id="products">
   <div class="wrap">
@@ -190,11 +237,27 @@
       <span class="eyebrow" data-i18n="why.eyebrow">Why KI</span>
       <h2 data-i18n="why.h2">Not a shop &mdash; an importer with technical backup</h2>
     </div>
-    <div class="team" style="grid-template-columns:repeat(2,1fr)">
-      <div><b data-i18n="why.1t">Exclusive agency</b><span data-i18n="why.1d">Exclusive agent in Ethiopia for Power Trader Co. (South Korea) hydraulic breakers.</span></div>
-      <div><b data-i18n="why.2t">22 years' experience</b><span data-i18n="why.2d">The founder's experience across construction and industrial machinery.</span></div>
-      <div><b data-i18n="why.3t">Nationwide supply</b><span data-i18n="why.3d">A distribution network backed by strategic warehousing.</span></div>
-      <div><b data-i18n="why.4t">After-sales support</b><span data-i18n="why.4d">Installation, commissioning, maintenance, spare parts and technical consultancy.</span></div>
+    <div class="value-grid">
+      <div class="value-card">
+        <span class="ic-circle"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 12l2 2 4-4"/><circle cx="12" cy="12" r="9"/></svg></span>
+        <h3 data-i18n="why.1t">Exclusive agency</h3>
+        <p data-i18n="why.1d">Exclusive agent in Ethiopia for Power Trader Co. (South Korea) hydraulic breakers.</p>
+      </div>
+      <div class="value-card">
+        <span class="ic-circle"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3.5 2"/></svg></span>
+        <h3 data-i18n="why.2t">22 years' experience</h3>
+        <p data-i18n="why.2d">The founder's experience across construction and industrial machinery.</p>
+      </div>
+      <div class="value-card">
+        <span class="ic-circle"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s7-7.58 7-12A7 7 0 105 10c0 4.42 7 12 7 12z"/><circle cx="12" cy="10" r="2.5"/></svg></span>
+        <h3 data-i18n="why.3t">Nationwide supply</h3>
+        <p data-i18n="why.3d">A distribution network backed by strategic warehousing.</p>
+      </div>
+      <div class="value-card">
+        <span class="ic-circle"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.7 6.3a4 4 0 11-5.4 5.4L4 17v3h3l5.3-5.3"/></svg></span>
+        <h3 data-i18n="why.4t">After-sales support</h3>
+        <p data-i18n="why.4d">Installation, commissioning, maintenance, spare parts and technical consultancy.</p>
+      </div>
     </div>
   </div>
 </section>
@@ -269,6 +332,11 @@
         </a>
         <p style="max-width:44ch" data-i18n="footer.desc">Importer, exporter and distributor of construction and industrial machinery and materials. Addis Ababa, Ethiopia. Established 2006 E.C.</p>
         <p style="font-size:.82rem;color:#7e91b3" data-i18n="footer.ptLine">Exclusive agent in Ethiopia for Power Trader Co. (South Korea).</p>
+        <div class="foot-badges">
+          <span class="fbadge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 12l2 2 4-4"/><circle cx="12" cy="12" r="9"/></svg><span data-i18n="p2.tag">Exclusive agent</span></span>
+          <span class="fbadge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 12l2 2 4-4"/><circle cx="12" cy="12" r="9"/></svg><span data-i18n-html="hero.badge1"><b>22 years</b> of industry experience</span></span>
+          <span class="fbadge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 12l2 2 4-4"/><circle cx="12" cy="12" r="9"/></svg><span data-i18n-html="hero.badge2"><b>150+</b> projects supplied</span></span>
+        </div>
       </div>
       <div>
         <h4 data-i18n="footer.exploreH">Explore</h4>
