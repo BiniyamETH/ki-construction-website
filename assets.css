@@ -148,8 +148,9 @@ header.site{position:sticky;top:0;z-index:50;background:rgba(14,31,61,.94);backd
 .hero{position:relative;color:#fff;overflow:hidden;background:linear-gradient(180deg,var(--navy) 0%,var(--navy-800) 100%)}
 /* rotating photo + copy, one per product line, auto-advancing every 5s (assets.js) */
 .hero-slides{position:absolute;inset:0}
-.hero-slide{position:absolute;inset:0;background-size:cover;background-position:center;background-repeat:no-repeat;opacity:0;transition:opacity .6s ease}
-.hero-slide.is-active{opacity:1}
+.hero-slide{position:absolute;inset:0;background-size:cover;background-position:center;background-repeat:no-repeat;opacity:0;transition:opacity .55s ease}
+.hero-slide.is-active{opacity:1;animation:heroSlidePop .55s cubic-bezier(.34,1.56,.64,1) both}
+@keyframes heroSlidePop{from{opacity:0;transform:scale(.92)}to{opacity:1;transform:scale(1)}}
 .hero-slide:nth-child(1){background-position:center 62%}
 .hero-slide:nth-child(2){background-position:center 30%}
 .hero-slide:nth-child(3){background-position:center 55%}
