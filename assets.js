@@ -179,7 +179,7 @@
     "serveHome.c8": "የገበያ ማዕከላት",
 
     "fieldStrip.eyebrow": "በሥራ ላይ",
-    "fieldStrip.h2": "በኤግዚቢሽን እና በሜዳ ላይ ከምርቶቻችን ጋር",
+    "fieldStrip.h2": "በሜዳ ላይ ከምርቶቻችን ጋር",
 
     "testimonials.eyebrow": "የደንበኞች አስተያየት",
     "testimonials.h2": "ደንበኞቻችን ስለ እኛ የሚሉት",
