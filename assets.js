@@ -54,7 +54,7 @@
     function start() {
       if (reduceMotion) return;
       stop();
-      timer = setInterval(next, 5000);
+      timer = setInterval(next, 1500);
     }
 
     dots.forEach(function (dot, idx) {

@@ -145,11 +145,11 @@ header.site{position:sticky;top:0;z-index:50;background:rgba(14,31,61,.94);backd
 .hero{position:relative;color:#fff;overflow:hidden;background:linear-gradient(180deg,var(--navy) 0%,var(--navy-800) 100%)}
 /* rotating photo + copy, one per product line, auto-advancing every 5s (assets.js) */
 .hero-slides{position:absolute;inset:0}
-.hero-slide{position:absolute;inset:0;background-size:cover;background-position:center;background-repeat:no-repeat;opacity:0;transition:opacity 1s ease}
+.hero-slide{position:absolute;inset:0;background-size:cover;background-position:center;background-repeat:no-repeat;opacity:0;transition:opacity .6s ease}
 .hero-slide.is-active{opacity:1}
-.hero-slide:nth-child(1){background-position:center 45%}
+.hero-slide:nth-child(1){background-position:center 55%}
 .hero-slide:nth-child(3){background-position:center 55%}
-.hero-slide:nth-child(4){background-position:center 38%}
+.hero-slide:nth-child(4){background-position:center 70%}
 .hero-panel{display:none}
 .hero-panel.is-active{display:block;animation:heroPanelIn .6s ease both}
 @keyframes heroPanelIn{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
