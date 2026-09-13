@@ -115,6 +115,7 @@
         var eased = 1 - Math.pow(1 - progress, 3);
         el.textContent = Math.round(eased * target) + suffix;
         if (progress < 1) requestAnimationFrame(step);
+        else el.classList.add("sweep");
       }
       requestAnimationFrame(step);
     }
@@ -153,13 +154,14 @@
       var cols = getComputedStyle(grid).gridTemplateColumns.split(" ").filter(Boolean).length;
       return cols || 1;
     }
-    function revealGroup(containerSel, itemSel, stepMs) {
+    function revealGroup(containerSel, itemSel, stepMs, extraClass) {
       document.querySelectorAll(containerSel).forEach(function (container) {
         var items = container.querySelectorAll(itemSel);
         if (!items.length) return;
         var cols = colCount(container);
         items.forEach(function (el, i) {
           el.classList.add("reveal");
+          if (extraClass) el.classList.add(extraClass);
           el.style.transitionDelay = ((i % cols) * stepMs) + "ms";
           io.observe(el);
         });
@@ -174,8 +176,8 @@
 
     revealSingle(".brands");                        // home: brand strip — one block, no stagger
     revealGroup(".stats-band .stats", ":scope > *", 80); // home: stat counter band
-    revealGroup(".cards", ".card", 100);             // home + products.html: product-range cards
-    revealGroup(".value-grid", ".value-card", 80);   // home: Why KI + Who We Serve icon cards
+    revealGroup(".cards", ".card", 100, "reveal-pop");        // home + products.html: product-range cards
+    revealGroup(".value-grid", ".value-card", 80, "reveal-pop"); // home: Why KI + Who We Serve icon cards
     revealGroup(".gal", "figure", 70);                // home's field strip + achievements' cert/exhibition galleries
     revealGroup(".quotes", "blockquote", 100);       // home + achievements: testimonials
     revealGroup(".logos", "div", 60);                // home + achievements: customer logos
@@ -183,6 +185,8 @@
     revealGroup(".team", "div", 70);                 // about's org chart + achievements' who-we-serve list
     revealGroup(".photos", "figure", 40);            // achievements: masonry exhibition photos
     revealGroup(".contact-grid", ":scope > *", 100); // contact: info column + map card
+
+    document.querySelectorAll(".scan-line").forEach(function (el) { io.observe(el); }); // section dividers
   })();
 
   /* ---------- i18n ---------- */
