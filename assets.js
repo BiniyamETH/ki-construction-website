@@ -73,8 +73,8 @@
     // fetchpriority=high>'d in <head> — the LCP image, so this mostly just
     // waits on a fetch that's already well underway); the other 4 only start
     // downloading once the page has finished loading, so they don't compete
-    // with the critical first paint on slow connections. Either way, nothing
-    // is ever marked .is-active until its own promise above has resolved.
+    // with the critical first paint on slow connections. Either way, a
+    // slide is never displayed until its own promise above has resolved.
     startLoading(0);
     function loadDeferredSlides() {
       for (var k = 1; k < slides.length; k++) startLoading(k);
@@ -82,28 +82,70 @@
     if (document.readyState === "complete") loadDeferredSlides();
     else window.addEventListener("load", loadDeferredSlides);
 
-    if (reduceMotion) { startLoading(0).then(function () { slides[0].classList.add("is-active"); }); return; }
+    // Every slide starts fully out of the render tree (display:none, not
+    // just opacity:0) so an inactive one can never contribute a stray pixel
+    // no matter what the compositor is doing with the active layer.
+    slides.forEach(function (s) { s.style.display = "none"; s.style.opacity = "0"; });
 
-    // one photo at a time: fade+scale in, hold, fade+scale out (timing is
-    // owned by the heroImageCycle animation in assets.css — CYCLE_MS below
-    // must match its duration), then a brief pause with nothing visible
-    // before the next photo starts its own cycle. Slow and ambient by
-    // design, not a slideshow — ties to no button, dot or text change.
-    var CYCLE_MS = 8100;
-    var GAP_MS = 900;
+    function showStatic(idx) {
+      var el = slides[idx];
+      el.style.transition = "none";
+      el.style.zIndex = "1";
+      el.style.display = "block";
+      el.style.opacity = "1";
+    }
+
+    if (reduceMotion) { startLoading(0).then(function () { showStatic(0); }); return; }
+
+    var HOLD_MS = 4500;
+    var FADE_MS = 1800;
     var i = 0;
 
-    function loop() {
-      startLoading(i).then(function () {
-        slides[i].classList.add("is-active");
-        setTimeout(function () {
-          slides[i].classList.remove("is-active");
-          i = (i + 1) % slides.length;
-          setTimeout(loop, GAP_MS);
-        }, CYCLE_MS);
+    // True crossfade: the outgoing photo (z-index 1) is never itself
+    // animated — it just sits there, fully opaque, for the whole
+    // transition. The incoming photo is placed in its own layer directly
+    // above it (z-index 2) and only ITS opacity animates, 0 to 1. Only once
+    // that transition has fully finished — the incoming layer is 100%
+    // opaque and completely covering the hero — is the old layer hidden;
+    // at that exact instant nothing visible changes, since the new layer
+    // is already fully covering it. There is never a moment with less than
+    // one fully-loaded photo at full coverage, and never more than two
+    // layers (old + incoming) visible at once.
+    function crossfadeTo(nextIdx) {
+      return startLoading(nextIdx).then(function () {
+        return new Promise(function (resolve) {
+          var incoming = slides[nextIdx];
+          incoming.style.transition = "none";
+          incoming.style.zIndex = "2";
+          incoming.style.display = "block";
+          incoming.style.opacity = "0";
+          void incoming.offsetWidth; // force layout so the transition below is picked up, not coalesced
+          incoming.style.transition = "opacity " + FADE_MS + "ms cubic-bezier(.4,0,.2,1)";
+          requestAnimationFrame(function () {
+            requestAnimationFrame(function () { incoming.style.opacity = "1"; });
+          });
+          setTimeout(function () {
+            var outgoing = slides[i];
+            outgoing.style.display = "none";
+            outgoing.style.opacity = "0";
+            incoming.style.zIndex = "1";
+            i = nextIdx;
+            resolve();
+          }, FADE_MS + 60);
+        });
       });
     }
-    loop();
+
+    function loop() {
+      setTimeout(function () {
+        crossfadeTo((i + 1) % slides.length).then(loop);
+      }, HOLD_MS);
+    }
+
+    startLoading(0).then(function () {
+      showStatic(0);
+      loop();
+    });
   })();
 
   /* ---------- animated stat counters (home page): count up from 0 the first time they're scrolled into view ---------- */
