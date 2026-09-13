@@ -74,6 +74,20 @@
       panelsEl.style.minHeight = maxH + "px";
     }
     fixPanelHeight();
+
+    // the 1st slide loads eagerly (inline style, preloaded in <head> — it's
+    // the LCP image); the other 4 sit behind data-bg and only start
+    // downloading once the page has finished loading, so they don't compete
+    // with the critical first paint on slow connections.
+    function loadDeferredSlides() {
+      slides.forEach(function (s) {
+        var bg = s.getAttribute("data-bg");
+        if (bg) { s.style.backgroundImage = "url('" + bg + "')"; s.removeAttribute("data-bg"); }
+      });
+    }
+    if (document.readyState === "complete") loadDeferredSlides();
+    else window.addEventListener("load", loadDeferredSlides);
+
     var resizeTimer = null;
     window.addEventListener("resize", function () {
       clearTimeout(resizeTimer);

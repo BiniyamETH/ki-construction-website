@@ -180,22 +180,36 @@ header.site{position:sticky;top:0;z-index:50;background:rgba(14,31,61,.94);backd
 .hero-dots button.is-active::before{width:40px;background:var(--amber)}
 .hero-dots button:hover::before{background:rgba(255,255,255,.55)}
 .hero-dots button:focus-visible{outline:2px solid var(--amber);outline-offset:2px;border-radius:6px}
+/* drifting dot-grid texture — its own layer (not part of .hero::after) so the
+   drift animates via transform (GPU-composited) instead of background-position
+   (which forces a full repaint every frame — was a real jank/battery cost). */
+.hero-tex{position:absolute;inset:-48px;pointer-events:none;
+  background-image:radial-gradient(circle at 1px 1px,rgba(255,255,255,.16) 1px,transparent 1.6px);
+  background-size:24px 24px;background-repeat:repeat;
+  animation:heroGridDrift 34s linear infinite;will-change:transform}
+@keyframes heroGridDrift{from{transform:translate3d(0,0,0)}to{transform:translate3d(-48px,-48px,0)}}
 .hero::after{content:"";position:absolute;inset:0;
   background-image:
-    radial-gradient(circle at 1px 1px,rgba(255,255,255,.16) 1px,transparent 1.6px),
     linear-gradient(100deg,rgba(9,18,37,.95) 0%,rgba(9,18,37,.88) 34%,rgba(9,18,37,.6) 58%,rgba(9,18,37,.22) 80%,rgba(9,18,37,.4) 100%),
-    linear-gradient(0deg,rgba(7,14,28,.65),transparent 38%);
-  background-size:24px 24px,auto,auto;
-  background-repeat:repeat,no-repeat,no-repeat;
-  animation:heroGridDrift 34s linear infinite}
-@keyframes heroGridDrift{from{background-position:0 0,0 0,0 0}to{background-position:48px 48px,0 0,0 0}}
+    linear-gradient(0deg,rgba(7,14,28,.65),transparent 38%)}
+/* the diagonal reveal-gradient above assumes a wide viewport where the text
+   card sits beside an uncovered strip of photo; on narrow screens the card
+   spans the full width, so that strip doesn't exist and the photo reads as
+   invisible. Swap to a lighter, vertical gradient so the photo shows through
+   behind/around the card instead of trying to fully reveal a strip that has
+   nowhere to go. */
+@media(max-width:760px){
+  .hero::after{background-image:
+      linear-gradient(180deg,rgba(9,18,37,.72) 0%,rgba(9,18,37,.4) 42%,rgba(9,18,37,.68) 100%),
+      linear-gradient(0deg,rgba(7,14,28,.55),transparent 45%)}
+}
 .hero-cta .btn-amber{position:relative;overflow:hidden}
 .hero-cta .btn-amber::after{content:"";position:absolute;top:0;left:-60%;width:36%;height:100%;
   background:linear-gradient(120deg,transparent,rgba(255,255,255,.55),transparent);
   animation:heroBtnShimmer 3.6s ease-in-out infinite}
 @keyframes heroBtnShimmer{0%{left:-60%}28%{left:130%}100%{left:130%}}
 @media(prefers-reduced-motion:reduce){
-  .hero::after{animation:none}
+  .hero-tex{animation:none}
   .hero-cta .btn-amber::after{animation:none;display:none}
 }
 .hero .wrap{position:relative;z-index:1;padding-block:56px 42px}
@@ -203,6 +217,7 @@ header.site{position:sticky;top:0;z-index:50;background:rgba(14,31,61,.94);backd
   border-radius:20px;padding:26px 24px;backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);
   box-shadow:0 28px 70px -24px rgba(0,0,0,.6)}
 @media(max-width:640px){ .hero-content{padding:22px 18px;border-radius:16px} }
+@media(max-width:760px){ .hero-content{background:rgba(9,18,37,.3)} }
 .hero h1{font-size:clamp(2rem,5.6vw,3.15rem);margin-bottom:.35em}
 .hero h1 .hl{color:var(--amber)}
 .hero .slogan{color:var(--amber);font-weight:700;font-size:1.02rem;margin-bottom:1em}

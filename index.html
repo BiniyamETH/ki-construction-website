@@ -18,6 +18,7 @@
 <link rel="canonical" href="https://kiconstruction.site/">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%23c8202b'/%3E%3Ctext x='16' y='22' font-family='Arial,sans-serif' font-size='16' font-weight='700' fill='%23fff' text-anchor='middle'%3EKI%3C/text%3E%3C/svg%3E">
 <link rel="stylesheet" href="assets.css">
+<link rel="preload" as="image" href="img/hero-gensets.webp" fetchpriority="high">
 </head>
 <body>
 <div class="topbar">
@@ -86,11 +87,12 @@
 <section class="hero">
   <div class="hero-slides" aria-hidden="true">
     <div class="hero-slide is-active" style="background-image:url('img/hero-gensets.webp')"></div>
-    <div class="hero-slide" style="background-image:url('img/hero-breakers.webp')"></div>
-    <div class="hero-slide" style="background-image:url('img/hero-pumps.webp')"></div>
-    <div class="hero-slide" style="background-image:url('img/hero-machinery.webp')"></div>
-    <div class="hero-slide" style="background-image:url('img/hero-electro.webp')"></div>
+    <div class="hero-slide" data-bg="img/hero-breakers.webp"></div>
+    <div class="hero-slide" data-bg="img/hero-pumps.webp"></div>
+    <div class="hero-slide" data-bg="img/hero-machinery.webp"></div>
+    <div class="hero-slide" data-bg="img/hero-electro.webp"></div>
   </div>
+  <div class="hero-tex" aria-hidden="true"></div>
   <div class="hero-glow" aria-hidden="true"></div>
   <div class="wrap">
     <div class="hero-content">
