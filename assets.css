@@ -156,8 +156,8 @@ header.site{position:sticky;top:0;z-index:50;background:rgba(14,31,61,.94);backd
 .hero-slide:nth-child(3){background-position:center 55%}
 .hero-slide:nth-child(4){background-position:center 55%}
 .hero-panel{display:none}
-.hero-panel.is-active{display:block;animation:heroPanelIn .6s ease both}
-@keyframes heroPanelIn{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
+.hero-panel.is-active{display:block;animation:heroPanelIn .7s var(--ease) both}
+@keyframes heroPanelIn{from{opacity:0;transform:translateY(-26px)}to{opacity:1;transform:translateY(0)}}
 /* ambient color glows drifting slowly behind the dark overlay — sits above the photo, below .hero::after's gradient */
 .hero-glow{position:absolute;inset:0;overflow:hidden;pointer-events:none}
 .hero-glow::before,.hero-glow::after{content:"";position:absolute;border-radius:50%;filter:blur(60px)}
