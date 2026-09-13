@@ -37,20 +37,52 @@
 
     var reduceMotion = !!(window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches);
 
-    // the 1st slide loads eagerly (inline style, preloaded in <head> — it's
-    // the LCP image); the other 4 sit behind data-bg and only start
-    // downloading once the page has finished loading, so they don't compete
-    // with the critical first paint on slow connections.
-    function loadDeferredSlides() {
-      slides.forEach(function (s) {
-        var bg = s.getAttribute("data-bg");
-        if (bg) { s.style.backgroundImage = "url('" + bg + "')"; s.removeAttribute("data-bg"); }
+    // Preload a URL and resolve only once the browser has fully downloaded
+    // AND decoded it — img.decode() is what guarantees the next paint can
+    // show the real pixels with no partially-decoded WebP frame. Applying a
+    // background-image the instant the fetch merely *starts* (the old code)
+    // let the fade-in/scale animation begin compositing before decoding had
+    // finished, which is what produced the green/teal flash on the machinery
+    // photo. Never lets a broken file hang the rotation (onerror resolves too).
+    function preload(url) {
+      return new Promise(function (resolve) {
+        var img = new Image();
+        img.onload = function () {
+          if (img.decode) img.decode().then(resolve, resolve);
+          else resolve();
+        };
+        img.onerror = resolve;
+        img.src = url;
       });
+    }
+
+    // one promise per slide, created lazily so the network request itself
+    // still only fires when startLoading() is first called for that index
+    var ready = [];
+    function startLoading(idx) {
+      if (ready[idx]) return ready[idx];
+      var url = slides[idx].getAttribute("data-bg");
+      ready[idx] = preload(url).then(function () {
+        slides[idx].style.backgroundImage = "url('" + url + "')";
+        slides[idx].removeAttribute("data-bg");
+      });
+      return ready[idx];
+    }
+
+    // slide 0 starts preloading immediately (it's also <link rel=preload
+    // fetchpriority=high>'d in <head> — the LCP image, so this mostly just
+    // waits on a fetch that's already well underway); the other 4 only start
+    // downloading once the page has finished loading, so they don't compete
+    // with the critical first paint on slow connections. Either way, nothing
+    // is ever marked .is-active until its own promise above has resolved.
+    startLoading(0);
+    function loadDeferredSlides() {
+      for (var k = 1; k < slides.length; k++) startLoading(k);
     }
     if (document.readyState === "complete") loadDeferredSlides();
     else window.addEventListener("load", loadDeferredSlides);
 
-    if (reduceMotion) { slides[0].classList.add("is-active"); return; }
+    if (reduceMotion) { startLoading(0).then(function () { slides[0].classList.add("is-active"); }); return; }
 
     // one photo at a time: fade+scale in, hold, fade+scale out (timing is
     // owned by the heroImageCycle animation in assets.css — CYCLE_MS below
@@ -62,12 +94,14 @@
     var i = 0;
 
     function loop() {
-      slides[i].classList.add("is-active");
-      setTimeout(function () {
-        slides[i].classList.remove("is-active");
-        i = (i + 1) % slides.length;
-        setTimeout(loop, GAP_MS);
-      }, CYCLE_MS);
+      startLoading(i).then(function () {
+        slides[i].classList.add("is-active");
+        setTimeout(function () {
+          slides[i].classList.remove("is-active");
+          i = (i + 1) % slides.length;
+          setTimeout(loop, GAP_MS);
+        }, CYCLE_MS);
+      });
     }
     loop();
   })();
