@@ -200,8 +200,8 @@ header.site{position:sticky;top:0;z-index:50;background:rgba(14,31,61,.94);backd
    nowhere to go. */
 @media(max-width:760px){
   .hero::after{background-image:
-      linear-gradient(180deg,rgba(9,18,37,.72) 0%,rgba(9,18,37,.4) 42%,rgba(9,18,37,.68) 100%),
-      linear-gradient(0deg,rgba(7,14,28,.55),transparent 45%)}
+      linear-gradient(180deg,rgba(9,18,37,.55) 0%,rgba(9,18,37,.32) 42%,rgba(9,18,37,.52) 100%),
+      linear-gradient(0deg,rgba(7,14,28,.45),transparent 45%)}
 }
 .hero-cta .btn-amber{position:relative;overflow:hidden}
 .hero-cta .btn-amber::after{content:"";position:absolute;top:0;left:-60%;width:36%;height:100%;
@@ -217,7 +217,7 @@ header.site{position:sticky;top:0;z-index:50;background:rgba(14,31,61,.94);backd
   border-radius:20px;padding:26px 24px;backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);
   box-shadow:0 28px 70px -24px rgba(0,0,0,.6)}
 @media(max-width:640px){ .hero-content{padding:22px 18px;border-radius:16px} }
-@media(max-width:760px){ .hero-content{background:rgba(9,18,37,.3)} }
+@media(max-width:760px){ .hero-content{background:rgba(9,18,37,.25)} }
 .hero h1{font-size:clamp(2rem,5.6vw,3.15rem);margin-bottom:.35em}
 .hero h1 .hl{color:var(--amber)}
 .hero .slogan{color:var(--amber);font-weight:700;font-size:1.02rem;margin-bottom:1em}
