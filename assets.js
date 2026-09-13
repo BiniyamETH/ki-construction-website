@@ -485,8 +485,9 @@
     lb[i].addEventListener("click", function () { setLang(this.dataset.lang); });
   }
 
+  // Amharic temporarily disabled sitewide (langswitch hidden in assets.css) — always render English,
+  // even for a returning visitor with "am" saved. To re-enable, restore the localStorage read below.
   var saved = "en";
-  try { saved = localStorage.getItem("ki_lang") || "en"; } catch (e) {}
   setLang(saved);
 
   /* ---------- quote form (quote.html only) ---------- */
