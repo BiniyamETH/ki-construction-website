@@ -434,6 +434,11 @@ footer.site .fine{margin-top:34px;padding-top:20px;border-top:1px solid rgba(255
   transition:opacity .5s var(--ease),transform .5s var(--ease),filter .5s var(--ease)}
 .reveal-ready .reveal.reveal-pop.is-visible{opacity:1;transform:scale(1);filter:blur(0)}
 
+/* side reveal — large single product/project photos slide in from their own side instead of up */
+.reveal-ready .reveal.reveal-left{transform:translateX(-28px)}
+.reveal-ready .reveal.reveal-right{transform:translateX(28px)}
+.reveal-ready .reveal.reveal-left.is-visible,.reveal-ready .reveal.reveal-right.is-visible{transform:translateX(0)}
+
 /* faint dot-grid continuity from the hero into card-grid sections */
 .dot-tex{position:relative}
 .dot-tex::before{content:"";position:absolute;inset:0;pointer-events:none;z-index:0;

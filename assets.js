@@ -146,17 +146,19 @@
         });
       });
     }
-    function revealSingle(sel) {
-      var el = document.querySelector(sel);
-      if (!el) return;
-      el.classList.add("reveal");
-      io.observe(el);
+    function revealEach(sel, extraClass) {
+      document.querySelectorAll(sel).forEach(function (el) {
+        el.classList.add("reveal");
+        if (extraClass) el.classList.add(extraClass);
+        io.observe(el);
+      });
     }
 
-    revealSingle(".brands");                        // home: brand strip — one block, no stagger
+    revealEach(".brands");                           // home: brand strip — one block, no stagger
     revealGroup(".stats-band .stats", ":scope > *", 80); // home: stat counter band
     revealGroup(".cards", ".card", 100, "reveal-pop");        // home + products.html: product-range cards
     revealGroup(".value-grid", ".value-card", 80, "reveal-pop"); // home: Why KI + Who We Serve icon cards
+    revealGroup(".range-gal", "figure", 70, "reveal-pop");   // product pages: "other items in this range" thumbnail cards
     revealGroup(".gal", "figure", 70);                // home's field strip + achievements' cert/exhibition galleries
     revealGroup(".quotes", "blockquote", 100);       // home + achievements: testimonials
     revealGroup(".logos", "div", 60);                // home + achievements: customer logos
@@ -164,6 +166,11 @@
     revealGroup(".team", "div", 70);                 // about's org chart + achievements' who-we-serve list
     revealGroup(".photos", "figure", 40);            // achievements: masonry exhibition photos
     revealGroup(".contact-grid", ":scope > *", 100); // contact: info column + map card
+
+    revealEach(".sec-head");                         // home: the 6 eyebrow+heading+intro blocks above each card grid
+    revealEach(".cta-band .wrap");                   // every page: the bottom "need a quote?" heading + buttons
+    revealEach(".prod-detail > .media", "reveal-left");  // the 5 product pages: large hero photo slides in from its own (left) side
+    revealEach(".about-media", "reveal-right");      // about: Kedir's photo slides in from its own (right) side
 
     document.querySelectorAll(".scan-line").forEach(function (el) { io.observe(el); }); // section dividers
   })();
