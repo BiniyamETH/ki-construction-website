@@ -35,6 +35,7 @@
     var slides = document.querySelectorAll(".hero-slide");
     var panels = document.querySelectorAll(".hero-panel");
     var dots = document.querySelectorAll("#heroDots button");
+    var panelsEl = document.getElementById("heroPanels");
     if (!slides.length || !panels.length || !dots.length) return;
 
     var i = 0;
@@ -57,6 +58,28 @@
       timer = setInterval(next, 4500);
     }
 
+    // fix .hero-panels to the tallest of the 5 panels so the card doesn't
+    // change height as headlines/descriptions wrap differently per slide
+    function fixPanelHeight() {
+      if (!panelsEl) return;
+      panelsEl.style.visibility = "hidden";
+      var maxH = 0;
+      panels.forEach(function (p) {
+        var wasActive = p.classList.contains("is-active");
+        if (!wasActive) p.classList.add("is-active");
+        maxH = Math.max(maxH, p.offsetHeight);
+        if (!wasActive) p.classList.remove("is-active");
+      });
+      panelsEl.style.visibility = "";
+      panelsEl.style.minHeight = maxH + "px";
+    }
+    fixPanelHeight();
+    var resizeTimer = null;
+    window.addEventListener("resize", function () {
+      clearTimeout(resizeTimer);
+      resizeTimer = setTimeout(fixPanelHeight, 200);
+    });
+
     dots.forEach(function (dot, idx) {
       dot.addEventListener("click", function () { show(idx); start(); });
     });
@@ -70,9 +93,47 @@
     start();
   })();
 
-  /* ---------- scroll reveal (home page): fade + slide up the first time an element enters the viewport ---------- */
+  /* ---------- animated stat counters (home page): count up from 0 the first time they're scrolled into view ---------- */
   (function () {
-    if (!document.querySelector(".hero-slides")) return; // home page only
+    var nums = document.querySelectorAll(".stats .stat .n");
+    if (!nums.length) return;
+    if (!("IntersectionObserver" in window)) return;
+    var reduceMotion = !!(window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches);
+
+    function animateCount(el) {
+      var text = el.textContent.trim();
+      var match = text.match(/^(\d+)(.*)$/);
+      if (!match) return;
+      var target = parseInt(match[1], 10);
+      var suffix = match[2];
+      if (!target) return;
+      var duration = 1200;
+      var start = null;
+      function step(ts) {
+        if (start === null) start = ts;
+        var progress = Math.min((ts - start) / duration, 1);
+        var eased = 1 - Math.pow(1 - progress, 3);
+        el.textContent = Math.round(eased * target) + suffix;
+        if (progress < 1) requestAnimationFrame(step);
+      }
+      requestAnimationFrame(step);
+    }
+
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (entry.isIntersecting) {
+          if (reduceMotion) { /* leave the static number as-is */ }
+          else animateCount(entry.target);
+          io.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.4 });
+
+    nums.forEach(function (el) { io.observe(el); });
+  })();
+
+  /* ---------- scroll reveal (all pages): fade + slide up the first time an element enters the viewport ---------- */
+  (function () {
     if (!("IntersectionObserver" in window)) return;
     var reduceMotion = !!(window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches);
     if (reduceMotion) return;
@@ -111,13 +172,17 @@
       io.observe(el);
     }
 
-    revealSingle(".brands");                            // brand strip — one block, no stagger
-    revealGroup(".stats-band .stats", ":scope > *", 80); // stat counter band
-    revealGroup("#products .cards", ".card", 100);       // product range cards
-    revealGroup(".value-grid", ".value-card", 80);       // Why KI + Who We Serve icon cards
-    revealGroup(".gal", "figure", 70);                   // "in the field" photo strip
-    revealGroup(".quotes", "blockquote", 100);           // testimonials
-    revealGroup(".logos", "div", 60);                    // customer logos
+    revealSingle(".brands");                        // home: brand strip — one block, no stagger
+    revealGroup(".stats-band .stats", ":scope > *", 80); // home: stat counter band
+    revealGroup(".cards", ".card", 100);             // home + products.html: product-range cards
+    revealGroup(".value-grid", ".value-card", 80);   // home: Why KI + Who We Serve icon cards
+    revealGroup(".gal", "figure", 70);                // home's field strip + achievements' cert/exhibition galleries
+    revealGroup(".quotes", "blockquote", 100);       // home + achievements: testimonials
+    revealGroup(".logos", "div", 60);                // home + achievements: customer logos
+    revealGroup(".vm", ".box", 100);                 // about: vision / mission boxes
+    revealGroup(".team", "div", 70);                 // about's org chart + achievements' who-we-serve list
+    revealGroup(".photos", "figure", 40);            // achievements: masonry exhibition photos
+    revealGroup(".contact-grid", ":scope > *", 100); // contact: info column + map card
   })();
 
   /* ---------- i18n ---------- */
