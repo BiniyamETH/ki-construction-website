@@ -70,6 +70,56 @@
     start();
   })();
 
+  /* ---------- scroll reveal (home page): fade + slide up the first time an element enters the viewport ---------- */
+  (function () {
+    if (!document.querySelector(".hero-slides")) return; // home page only
+    if (!("IntersectionObserver" in window)) return;
+    var reduceMotion = !!(window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches);
+    if (reduceMotion) return;
+
+    document.documentElement.classList.add("reveal-ready");
+
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("is-visible");
+          io.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.15 });
+
+    function colCount(grid) {
+      var cols = getComputedStyle(grid).gridTemplateColumns.split(" ").filter(Boolean).length;
+      return cols || 1;
+    }
+    function revealGroup(containerSel, itemSel, stepMs) {
+      document.querySelectorAll(containerSel).forEach(function (container) {
+        var items = container.querySelectorAll(itemSel);
+        if (!items.length) return;
+        var cols = colCount(container);
+        items.forEach(function (el, i) {
+          el.classList.add("reveal");
+          el.style.transitionDelay = ((i % cols) * stepMs) + "ms";
+          io.observe(el);
+        });
+      });
+    }
+    function revealSingle(sel) {
+      var el = document.querySelector(sel);
+      if (!el) return;
+      el.classList.add("reveal");
+      io.observe(el);
+    }
+
+    revealSingle(".brands");                            // brand strip — one block, no stagger
+    revealGroup(".stats-band .stats", ":scope > *", 80); // stat counter band
+    revealGroup("#products .cards", ".card", 100);       // product range cards
+    revealGroup(".value-grid", ".value-card", 80);       // Why KI + Who We Serve icon cards
+    revealGroup(".gal", "figure", 70);                   // "in the field" photo strip
+    revealGroup(".quotes", "blockquote", 100);           // testimonials
+    revealGroup(".logos", "div", 60);                    // customer logos
+  })();
+
   /* ---------- i18n ---------- */
   var I18N = { am: {
     /* nav / chrome */

@@ -374,6 +374,12 @@ footer.site .fine{margin-top:34px;padding-top:20px;border-top:1px solid rgba(255
 .fab svg{width:28px;height:28px}
 @media(min-width:980px){ .fab{right:24px;bottom:24px} }
 
+/* scroll reveal (home page, assets.js): fade + slide up the first time an element scrolls into view */
+.reveal-ready .reveal{opacity:0;transform:translateY(20px);transition:opacity .5s ease-out,transform .5s ease-out}
+.reveal-ready .reveal.is-visible{opacity:1;transform:translateY(0)}
+.reveal-ready a.card.reveal:hover{transition:transform .14s ease,box-shadow .14s ease}
+@media(prefers-reduced-motion:reduce){ .reveal-ready .reveal{opacity:1;transform:none;transition:none} }
+
 a:focus-visible,button:focus-visible{outline:3px solid var(--amber);outline-offset:2px;border-radius:6px}
 @media(prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto!important}}
 
