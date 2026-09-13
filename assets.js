@@ -30,50 +30,12 @@
     });
   }
 
-  /* ---------- home hero product carousel ---------- */
+  /* ---------- home hero: fixed headline, slowly-cycling ambient photos ---------- */
   (function () {
     var slides = document.querySelectorAll(".hero-slide");
-    var panels = document.querySelectorAll(".hero-panel");
-    var dots = document.querySelectorAll("#heroDots button");
-    var panelsEl = document.getElementById("heroPanels");
-    if (!slides.length || !panels.length || !dots.length) return;
+    if (!slides.length) return;
 
-    var i = 0;
-    var timer = null;
     var reduceMotion = !!(window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches);
-
-    function show(idx) {
-      i = (idx + slides.length) % slides.length;
-      for (var k = 0; k < slides.length; k++) {
-        slides[k].classList.toggle("is-active", k === i);
-        panels[k].classList.toggle("is-active", k === i);
-        dots[k].classList.toggle("is-active", k === i);
-      }
-    }
-    function next() { show(i + 1); }
-    function stop() { if (timer) { clearInterval(timer); timer = null; } }
-    function start() {
-      if (reduceMotion) return;
-      stop();
-      timer = setInterval(next, 4500);
-    }
-
-    // fix .hero-panels to the tallest of the 5 panels so the card doesn't
-    // change height as headlines/descriptions wrap differently per slide
-    function fixPanelHeight() {
-      if (!panelsEl) return;
-      panelsEl.style.visibility = "hidden";
-      var maxH = 0;
-      panels.forEach(function (p) {
-        var wasActive = p.classList.contains("is-active");
-        if (!wasActive) p.classList.add("is-active");
-        maxH = Math.max(maxH, p.offsetHeight);
-        if (!wasActive) p.classList.remove("is-active");
-      });
-      panelsEl.style.visibility = "";
-      panelsEl.style.minHeight = maxH + "px";
-    }
-    fixPanelHeight();
 
     // the 1st slide loads eagerly (inline style, preloaded in <head> — it's
     // the LCP image); the other 4 sit behind data-bg and only start
@@ -88,23 +50,26 @@
     if (document.readyState === "complete") loadDeferredSlides();
     else window.addEventListener("load", loadDeferredSlides);
 
-    var resizeTimer = null;
-    window.addEventListener("resize", function () {
-      clearTimeout(resizeTimer);
-      resizeTimer = setTimeout(fixPanelHeight, 200);
-    });
+    if (reduceMotion) { slides[0].classList.add("is-active"); return; }
 
-    dots.forEach(function (dot, idx) {
-      dot.addEventListener("click", function () { show(idx); start(); });
-    });
+    // one photo at a time: fade+scale in, hold, fade+scale out (timing is
+    // owned by the heroImageCycle animation in assets.css — CYCLE_MS below
+    // must match its duration), then a brief pause with nothing visible
+    // before the next photo starts its own cycle. Slow and ambient by
+    // design, not a slideshow — ties to no button, dot or text change.
+    var CYCLE_MS = 8100;
+    var GAP_MS = 900;
+    var i = 0;
 
-    var heroEl = document.querySelector(".hero");
-    if (heroEl) {
-      heroEl.addEventListener("mouseenter", stop);
-      heroEl.addEventListener("mouseleave", start);
+    function loop() {
+      slides[i].classList.add("is-active");
+      setTimeout(function () {
+        slides[i].classList.remove("is-active");
+        i = (i + 1) % slides.length;
+        setTimeout(loop, GAP_MS);
+      }, CYCLE_MS);
     }
-
-    start();
+    loop();
   })();
 
   /* ---------- animated stat counters (home page): count up from 0 the first time they're scrolled into view ---------- */

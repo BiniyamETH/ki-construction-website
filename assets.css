@@ -146,19 +146,25 @@ header.site{position:sticky;top:0;z-index:50;background:rgba(14,31,61,.94);backd
 
 /* hero (home) — full-bleed photo with a dark gradient for legible text */
 .hero{position:relative;color:#fff;overflow:hidden;background:linear-gradient(180deg,var(--navy) 0%,var(--navy-800) 100%);padding:0}
-/* rotating photo + copy, one per product line, auto-advancing every 5s (assets.js) */
+/* ambient machinery photos behind a fixed headline (assets.js): each photo
+   slowly fades+scales in, holds for a few seconds, then fades+scales back
+   out before the next one appears — a slow rotation, not a slideshow, and
+   fully decoupled from the (now static) hero copy below. */
 .hero-slides{position:absolute;inset:0}
-.hero-slide{position:absolute;inset:0;background-size:cover;background-position:center;background-repeat:no-repeat;opacity:0;transition:opacity .9s cubic-bezier(.25,.46,.45,.94)}
-.hero-slide.is-active{opacity:1;animation:heroSlidePop .9s cubic-bezier(.25,.46,.45,.94) both}
-@keyframes heroSlidePop{from{opacity:0;transform:scale(.97)}to{opacity:1;transform:scale(1)}}
+.hero-slide{position:absolute;inset:0;background-size:cover;background-position:center;background-repeat:no-repeat;opacity:0}
+.hero-slide.is-active{animation:heroImageCycle 8.1s cubic-bezier(.4,0,.2,1) both}
+@keyframes heroImageCycle{
+  0%{opacity:0;transform:scale(.94)}
+  22%{opacity:1;transform:scale(1)}
+  78%{opacity:1;transform:scale(1)}
+  100%{opacity:0;transform:scale(1.05)}
+}
 .hero-slide:nth-child(1){background-position:center 62%}
 .hero-slide:nth-child(2){background-position:40% 45%}
 .hero-slide:nth-child(3){background-position:35% 50%}
 .hero-slide:nth-child(4){background-position:72% 45%}
-#heroPanels{display:flex;flex-direction:column;justify-content:center}
-.hero-panel{display:none}
-.hero-panel.is-active{display:block;animation:heroPanelIn .7s var(--ease) both}
-@keyframes heroPanelIn{from{opacity:0;transform:translateY(-26px)}to{opacity:1;transform:translateY(0)}}
+.hero-panel{animation:heroPanelIn .8s var(--ease) both}
+@keyframes heroPanelIn{from{opacity:0;transform:translateY(-22px)}to{opacity:1;transform:translateY(0)}}
 /* ambient color glows drifting slowly behind the dark overlay — sits above the photo, below .hero::after's gradient */
 .hero-glow{position:absolute;inset:0;overflow:hidden;pointer-events:none}
 .hero-glow::before,.hero-glow::after{content:"";position:absolute;border-radius:50%;filter:blur(60px)}
@@ -169,17 +175,10 @@ header.site{position:sticky;top:0;z-index:50;background:rgba(14,31,61,.94);backd
 @keyframes heroGlowA{0%,100%{transform:translate(0,0) scale(1)}50%{transform:translate(-4%,6%) scale(1.12)}}
 @keyframes heroGlowB{0%,100%{transform:translate(0,0) scale(1)}50%{transform:translate(5%,-5%) scale(1.1)}}
 @media(prefers-reduced-motion:reduce){
-  .hero-panel.is-active{animation:none}
+  .hero-slide.is-active{animation:none;opacity:1}
+  .hero-panel{animation:none}
   .hero-glow::before,.hero-glow::after{animation:none}
 }
-.hero-dots{display:flex;gap:4px;margin:20px 0 0 -8px}
-.hero-dots button{appearance:none;-webkit-appearance:none;border:0;background:none;padding:9px 8px;margin:0;
-  cursor:pointer;display:flex;align-items:center;line-height:0}
-.hero-dots button::before{content:"";display:block;width:24px;height:6px;border-radius:999px;
-  background:rgba(255,255,255,.35);transition:background .2s var(--ease),width .2s var(--ease)}
-.hero-dots button.is-active::before{width:40px;background:var(--amber)}
-.hero-dots button:hover::before{background:rgba(255,255,255,.55)}
-.hero-dots button:focus-visible{outline:2px solid var(--amber);outline-offset:2px;border-radius:6px}
 /* drifting dot-grid texture — its own layer (not part of .hero::after) so the
    drift animates via transform (GPU-composited) instead of background-position
    (which forces a full repaint every frame — was a real jank/battery cost). */
