@@ -145,7 +145,7 @@ header.site{position:sticky;top:0;z-index:50;background:rgba(14,31,61,.94);backd
 @media(min-width:900px){ .page-hero{padding:60px 0 64px} }
 
 /* hero (home) — full-bleed photo with a dark gradient for legible text */
-.hero{position:relative;color:#fff;overflow:hidden;background:linear-gradient(180deg,var(--navy) 0%,var(--navy-800) 100%)}
+.hero{position:relative;color:#fff;overflow:hidden;background:linear-gradient(180deg,var(--navy) 0%,var(--navy-800) 100%);padding:0}
 /* rotating photo + copy, one per product line, auto-advancing every 5s (assets.js) */
 .hero-slides{position:absolute;inset:0}
 .hero-slide{position:absolute;inset:0;background-size:cover;background-position:center;background-repeat:no-repeat;opacity:0;transition:opacity .9s cubic-bezier(.25,.46,.45,.94)}
@@ -172,7 +172,7 @@ header.site{position:sticky;top:0;z-index:50;background:rgba(14,31,61,.94);backd
   .hero-panel.is-active{animation:none}
   .hero-glow::before,.hero-glow::after{animation:none}
 }
-.hero-dots{display:flex;gap:4px;margin:28px 0 0 -8px}
+.hero-dots{display:flex;gap:4px;margin:16px 0 0 -8px}
 .hero-dots button{appearance:none;-webkit-appearance:none;border:0;background:none;padding:9px 8px;margin:0;
   cursor:pointer;display:flex;align-items:center;line-height:0}
 .hero-dots button::before{content:"";display:block;width:24px;height:6px;border-radius:999px;
@@ -189,21 +189,21 @@ header.site{position:sticky;top:0;z-index:50;background:rgba(14,31,61,.94);backd
   background-repeat:repeat,no-repeat,no-repeat}
 .hero .wrap{position:relative;z-index:1;padding-block:56px 42px}
 .hero-content{max-width:660px;background:rgba(9,18,37,.4);border:1px solid rgba(255,255,255,.14);
-  border-radius:20px;padding:30px 26px;backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);
+  border-radius:20px;padding:22px 24px;backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);
   box-shadow:0 28px 70px -24px rgba(0,0,0,.6)}
 @media(max-width:640px){ .hero-content{padding:22px 18px;border-radius:16px} }
-.hero h1{font-size:clamp(2rem,5.6vw,3.15rem);margin-bottom:.35em}
+.hero h1{font-size:clamp(2rem,5.6vw,3.15rem);margin-bottom:.3em}
 .hero h1 .hl{color:var(--amber)}
 .hero .slogan{color:var(--amber);font-weight:700;font-size:1.02rem;margin-bottom:1em}
-.hero p.lead{color:#c5d1e6;font-size:1.06rem;max-width:54ch;margin-bottom:1.6em}
+.hero p.lead{color:#c5d1e6;font-size:1.06rem;max-width:54ch;margin-bottom:1.2em}
 .hero-cta{display:flex;flex-wrap:wrap;gap:12px}
-.hero-badges{display:flex;flex-wrap:wrap;gap:10px;margin-top:30px}
+.hero-badges{display:flex;flex-wrap:wrap;gap:10px;margin-top:16px}
 .hero-badges .b{display:flex;align-items:center;gap:.6em;font-size:.85rem;color:#eef2f9;font-weight:600;
   background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.18);border-radius:999px;padding:.6em 1.05em}
 .hero-badges .b .ic{width:18px;height:18px;flex:none;color:var(--amber)}
 .hero-badges b{color:#fff}
 .hero-badges .dot{display:none}
-@media(min-width:900px){ .hero .wrap{padding-block:88px 64px} }
+@media(min-width:900px){ .hero .wrap{padding-block:24px 32px} }
 
 /* brand strip — "Our partners" */
 .brands{background:var(--mist);border-block:1px solid var(--line);padding:26px 0}
