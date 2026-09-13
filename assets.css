@@ -8,6 +8,7 @@
   --wa:#1fa855; --tg:#2aabee;
   --maxw:1160px; --radius:14px;
   --shadow:0 1px 2px rgba(14,31,61,.06),0 12px 32px -12px rgba(14,31,61,.18);
+  --ease:cubic-bezier(.4,0,.2,1);
 }
 *,*::before,*::after{box-sizing:border-box}
 html{scroll-behavior:smooth}
@@ -38,10 +39,11 @@ section.alt{background:var(--mist);border-block:1px solid var(--line)}
   display:inline-flex;align-items:center;gap:.5em;justify-content:center;
   padding:.8em 1.35em;border-radius:999px;font-weight:700;font-size:.96rem;
   text-decoration:none;border:1.5px solid transparent;cursor:pointer;
-  transition:transform .12s ease,box-shadow .12s ease,background .12s ease;white-space:nowrap;
+  transition:transform .18s var(--ease),box-shadow .18s var(--ease),background .18s var(--ease);white-space:nowrap;
 }
 .btn svg{width:1.15em;height:1.15em;flex:none}
-.btn:hover{transform:translateY(-1px)}
+.btn:hover{transform:translateY(-2px)}
+.btn:active{transform:translateY(0);transition-duration:.08s}
 .btn-amber{background:var(--amber);color:#3a2500;box-shadow:0 8px 20px -8px rgba(245,166,35,.7)}
 .btn-amber:hover{background:#ffb43a}
 .btn-ghost{border-color:rgba(255,255,255,.5);color:#fff}
@@ -71,7 +73,8 @@ header.site{position:sticky;top:0;z-index:50;background:rgba(14,31,61,.94);backd
 .brand span{font-size:1.02rem;line-height:1.15;max-width:15ch}
 .brand span b{display:block;font-size:.72rem;font-weight:600;color:#9fb1cd;letter-spacing:.02em}
 .nav-links{display:none;margin-left:auto;gap:4px;align-items:center}
-.nav-links a{text-decoration:none;color:#dce4f1;font-weight:600;font-size:.95rem;padding:.5em .7em;border-radius:8px;white-space:nowrap}
+.nav-links a{text-decoration:none;color:#dce4f1;font-weight:600;font-size:.95rem;padding:.5em .7em;border-radius:8px;white-space:nowrap;
+  transition:background .2s var(--ease),color .2s var(--ease)}
 .nav-links a:hover{background:rgba(255,255,255,.1);color:#fff}
 .nav-links a.active,.nav-links a[aria-current="page"]{color:var(--amber)}
 /* products dropdown */
@@ -147,9 +150,10 @@ header.site{position:sticky;top:0;z-index:50;background:rgba(14,31,61,.94);backd
 .hero-slides{position:absolute;inset:0}
 .hero-slide{position:absolute;inset:0;background-size:cover;background-position:center;background-repeat:no-repeat;opacity:0;transition:opacity .6s ease}
 .hero-slide.is-active{opacity:1}
-.hero-slide:nth-child(1){background-position:center 55%}
+.hero-slide:nth-child(1){background-position:center 62%}
+.hero-slide:nth-child(2){background-position:center 30%}
 .hero-slide:nth-child(3){background-position:center 55%}
-.hero-slide:nth-child(4){background-position:center 70%}
+.hero-slide:nth-child(4){background-position:center 55%}
 .hero-panel{display:none}
 .hero-panel.is-active{display:block;animation:heroPanelIn .6s ease both}
 @keyframes heroPanelIn{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
@@ -170,7 +174,7 @@ header.site{position:sticky;top:0;z-index:50;background:rgba(14,31,61,.94);backd
 .hero-dots button{appearance:none;-webkit-appearance:none;border:0;background:none;padding:9px 8px;margin:0;
   cursor:pointer;display:flex;align-items:center;line-height:0}
 .hero-dots button::before{content:"";display:block;width:24px;height:6px;border-radius:999px;
-  background:rgba(255,255,255,.35);transition:background .2s ease,width .2s ease}
+  background:rgba(255,255,255,.35);transition:background .2s var(--ease),width .2s var(--ease)}
 .hero-dots button.is-active::before{width:40px;background:var(--amber)}
 .hero-dots button:hover::before{background:rgba(255,255,255,.55)}
 .hero-dots button:focus-visible{outline:2px solid var(--amber);outline-offset:2px;border-radius:6px}
@@ -229,8 +233,8 @@ header.site{position:sticky;top:0;z-index:50;background:rgba(14,31,61,.94);backd
 @media(min-width:680px){ .cards{grid-template-columns:repeat(2,1fr)} }
 @media(min-width:1000px){ .cards{grid-template-columns:repeat(3,1fr)} }
 .card{background:#fff;border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;box-shadow:var(--shadow);display:flex;flex-direction:column}
-a.card{text-decoration:none;color:inherit;transition:transform .14s ease,box-shadow .14s ease}
-a.card:hover{transform:translateY(-3px);box-shadow:0 3px 6px rgba(14,31,61,.08),0 22px 44px -16px rgba(14,31,61,.28)}
+a.card{text-decoration:none;color:inherit;transition:transform .2s var(--ease),box-shadow .2s var(--ease)}
+a.card:hover{transform:translateY(-4px);box-shadow:0 3px 6px rgba(14,31,61,.08),0 22px 44px -16px rgba(14,31,61,.28)}
 .card .ph{aspect-ratio:16/10;background:var(--mist);overflow:hidden}
 .card .ph img{width:100%;height:100%;object-fit:cover;transition:transform .4s ease}
 a.card:hover .ph img,.card:hover .ph img{transform:scale(1.04)}
@@ -268,7 +272,9 @@ a.card:hover .ph img,.card:hover .ph img{transform:scale(1.04)}
 /* why-KI value cards (home) */
 .value-grid{margin-top:8px;display:grid;gap:16px;grid-template-columns:repeat(2,1fr)}
 @media(min-width:760px){ .value-grid{grid-template-columns:repeat(4,1fr)} }
-.value-card{background:#fff;border:1px solid var(--line);border-radius:var(--radius);padding:22px 20px}
+.value-card{background:#fff;border:1px solid var(--line);border-radius:var(--radius);padding:22px 20px;
+  transition:transform .2s var(--ease),box-shadow .2s var(--ease),border-color .2s var(--ease)}
+.value-card:hover{transform:translateY(-3px);box-shadow:var(--shadow);border-color:var(--navy-600)}
 .value-card .ic-circle{width:44px;height:44px;border-radius:50%;background:var(--mist);border:1px solid var(--line);display:grid;place-items:center;margin-bottom:14px;color:var(--navy-600)}
 .value-card .ic-circle svg{width:22px;height:22px}
 .value-card h3{font-size:1rem;margin-bottom:.35em}
@@ -377,7 +383,8 @@ footer.site .fine{margin-top:34px;padding-top:20px;border-top:1px solid rgba(255
 /* scroll reveal (home page, assets.js): fade + slide up the first time an element scrolls into view */
 .reveal-ready .reveal{opacity:0;transform:translateY(20px);transition:opacity .5s ease-out,transform .5s ease-out}
 .reveal-ready .reveal.is-visible{opacity:1;transform:translateY(0)}
-.reveal-ready a.card.reveal:hover{transition:transform .14s ease,box-shadow .14s ease}
+.reveal-ready a.card.reveal:hover{transition:transform .2s var(--ease),box-shadow .2s var(--ease)}
+.reveal-ready .value-card.reveal:hover{transition:transform .2s var(--ease),box-shadow .2s var(--ease),border-color .2s var(--ease)}
 @media(prefers-reduced-motion:reduce){ .reveal-ready .reveal{opacity:1;transform:none;transition:none} }
 
 a:focus-visible,button:focus-visible{outline:3px solid var(--amber);outline-offset:2px;border-radius:6px}
