@@ -108,7 +108,7 @@
 
     "stats.n1": "2006 ዓ.ም",
     "stats.n2": "22 ዓመት",
-    "stats.l1": "ተመሥርቶ የተመዘገበ",
+    "stats.l1": "ብቸኛ የደቡብ ኮሪያ ወኪልነት (Power Trader)",
     "stats.l2": "የመሥራቹ የዘርፍ ልምድ",
     "stats.l3": "ትላልቅ ፕሮጀክቶች አቅርቦት",
     "stats.l4": "የምርት ዘርፎች",
@@ -165,6 +165,24 @@
     "why.3d": "በስትራቴጂክ መጋዘን የተደገፈ የስርጭት መረብ።",
     "why.4t": "የድህረ-ሽያጭ ድጋፍ",
     "why.4d": "ተከላ፣ ማስጀመር፣ መደበኛ ጥገና፣ መለዋወጫ እና የቴክኒክ ማማከር።",
+
+    /* homepage expansion: who-we-serve grid, field/exhibition strip, testimonials */
+    "serveHome.eyebrow": "የምናገለግላቸው",
+    "serveHome.h2": "በመላ ኢትዮጵያ በተቋራጮች፣ በተቋማት እና በኢንዱስትሪ የታመንን",
+    "serveHome.c1": "ተቋራጮች",
+    "serveHome.c2": "መንግሥት እና መንግሥታዊ ያልሆኑ ድርጅቶች",
+    "serveHome.c3": "የሪል እስቴት አልሚዎች",
+    "serveHome.c4": "ፋብሪካዎች",
+    "serveHome.c5": "ባንኮች",
+    "serveHome.c6": "ሆስፒታሎች",
+    "serveHome.c7": "ሆቴሎች",
+    "serveHome.c8": "የገበያ ማዕከላት",
+
+    "fieldStrip.eyebrow": "በሥራ ላይ",
+    "fieldStrip.h2": "በኤግዚቢሽን እና በሜዳ ላይ ከምርቶቻችን ጋር",
+
+    "testimonials.eyebrow": "የደንበኞች አስተያየት",
+    "testimonials.h2": "ደንበኞቻችን ስለ እኛ የሚሉት",
 
     /* CTA band (most pages) */
     "band.h": "የዋጋ ማቅረቢያ ወይም የቴክኒክ መልስ ይፈልጋሉ?",
