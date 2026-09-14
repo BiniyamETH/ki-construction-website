@@ -68,6 +68,14 @@ section.alt{background:var(--mist);border-block:1px solid var(--line)}
 /* header */
 header.site{position:sticky;top:0;z-index:50;background:rgba(14,31,61,.94);backdrop-filter:blur(10px);
   border-bottom:1px solid rgba(255,255,255,.08);color:#fff}
+/* mobile: the topbar buffer above is hidden here, so the header sits flush at
+   the very top of the viewport with a rotating photo right behind it —
+   without the topbar's own edge to lean on it read as flat. A slightly
+   stronger border + a soft downward shadow gives it separation without
+   adding gloss (no gradient/shine, background/blur unchanged). */
+@media(max-width:760px){
+  header.site{border-bottom:1px solid rgba(255,255,255,.16);box-shadow:0 8px 20px -10px rgba(0,0,0,.55)}
+}
 .nav{display:flex;align-items:center;gap:14px;min-height:64px}
 .brand{display:flex;align-items:center;gap:11px;text-decoration:none;color:#fff;font-weight:800;letter-spacing:-.02em}
 .brand img{width:58px;height:58px;border-radius:50%;background:#fff;flex:none;object-fit:cover}
@@ -237,6 +245,16 @@ header.site{position:sticky;top:0;z-index:50;background:rgba(14,31,61,.94);backd
 .hero-badges b{color:#fff}
 .hero-badges .dot{display:none}
 @media(min-width:900px){ .hero .wrap{padding-block:40px 48px} }
+/* mobile hero text hierarchy: the card is far more transparent here (.25 vs
+   desktop's .92), so bright patches of the rotating photo show through more.
+   H1 stays pure white. Lead + badge-label text step down to a softer
+   blue-gray so the headline reads first — verified >=4.5:1 (WCAG AA) against
+   the brightest composited backdrop (photo + overlay gradient + card tint)
+   sampled across all 5 rotating hero images. */
+@media(max-width:760px){
+  .hero p.lead{color:#b9c4d8}
+  .hero-badges .b{color:#d7deea}
+}
 /* narrow phones (375-430px): the base hero card sizing is tuned for desktop
    and comfortably-wide phones — at these widths the h1 wraps to 5-6 lines
    and pushes the CTA/badges well past one screen height. Trim type size and
