@@ -232,7 +232,7 @@ header.site{position:sticky;top:0;z-index:50;background:rgba(14,31,61,.94);backd
   border-radius:20px;padding:26px 24px;backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);
   box-shadow:0 28px 70px -24px rgba(0,0,0,.6)}
 @media(max-width:640px){ .hero-content{padding:22px 18px;border-radius:16px} }
-@media(max-width:760px){ .hero-content{background:rgba(9,18,37,.25)} }
+@media(max-width:760px){ .hero-content{background:rgba(8,18,35,.78)} }
 .hero h1{font-size:clamp(2rem,5.6vw,3.15rem);margin-bottom:.35em}
 .hero h1 .hl{color:var(--amber)}
 .hero .slogan{color:var(--amber);font-weight:700;font-size:1.02rem;margin-bottom:1em}
@@ -245,15 +245,16 @@ header.site{position:sticky;top:0;z-index:50;background:rgba(14,31,61,.94);backd
 .hero-badges b{color:#fff}
 .hero-badges .dot{display:none}
 @media(min-width:900px){ .hero .wrap{padding-block:40px 48px} }
-/* mobile hero text hierarchy: the card is far more transparent here (.25 vs
-   desktop's .92), so bright patches of the rotating photo show through more.
-   H1 stays pure white. Lead + badge-label text step down to a softer
-   blue-gray so the headline reads first — verified >=4.5:1 (WCAG AA) against
-   the brightest composited backdrop (photo + overlay gradient + card tint)
-   sampled across all 5 rotating hero images. */
+/* mobile hero text hierarchy: the card background is now solidly opaque
+   (.78 vs desktop's .92) so it holds contrast against every rotating hero
+   photo, including the bright solar-panel shot. Lead + badge-label text are
+   lightened and the amber slogan brightened to match — verified >=4.5:1
+   (WCAG AA) against the composited backdrop (photo + overlay gradient +
+   card tint) sampled across all rotating hero images. */
 @media(max-width:760px){
-  .hero p.lead{color:#b9c4d8}
-  .hero-badges .b{color:#d7deea}
+  .hero p.lead{color:#f1f5f9}
+  .hero-badges .b{color:#e2e8f0}
+  .hero .slogan{color:#ffb545}
 }
 /* narrow phones (375-430px): the base hero card sizing is tuned for desktop
    and comfortably-wide phones — at these widths the h1 wraps to 5-6 lines
