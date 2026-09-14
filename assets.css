@@ -146,10 +146,11 @@ header.site{position:sticky;top:0;z-index:50;background:rgba(14,31,61,.94);backd
 
 /* hero (home) — full-bleed photo with a dark gradient for legible text */
 .hero{position:relative;color:#fff;overflow:hidden;background:linear-gradient(180deg,var(--navy) 0%,var(--navy-800) 100%);padding:0}
-/* ambient machinery photos behind a fixed headline (assets.js): each photo
-   slowly fades+scales in, holds for a few seconds, then fades+scales back
-   out before the next one appears — a slow rotation, not a slideshow, and
-   fully decoupled from the (now static) hero copy below. */
+/* Two fully independent layers: .hero-slides (below) is the only thing that
+   ever changes — a slow opacity-only crossfade between photos, driven
+   entirely by assets.js. .hero-content (the text/button card, further down)
+   is never read from or written to by that code, has no animation of its
+   own, and never changes when the photo does. */
 .hero-slides{position:absolute;inset:0}
 /* display:none (not just opacity:0) on every inactive slide — it fully
    removes them from the render/compositing tree so an inactive photo can
@@ -162,8 +163,6 @@ header.site{position:sticky;top:0;z-index:50;background:rgba(14,31,61,.94);backd
 .hero-slide:nth-child(2){background-position:35% 65%}
 .hero-slide:nth-child(3){background-position:center 55%}
 .hero-slide:nth-child(4){background-position:40% 60%}
-.hero-panel{animation:heroPanelIn .8s var(--ease) both}
-@keyframes heroPanelIn{from{opacity:0;transform:translateY(-22px)}to{opacity:1;transform:translateY(0)}}
 /* ambient color glows drifting slowly behind the dark overlay — sits above the photo, below .hero::after's gradient */
 .hero-glow{position:absolute;inset:0;overflow:hidden;pointer-events:none}
 .hero-glow::before,.hero-glow::after{content:"";position:absolute;border-radius:50%;filter:blur(60px)}
@@ -174,7 +173,6 @@ header.site{position:sticky;top:0;z-index:50;background:rgba(14,31,61,.94);backd
 @keyframes heroGlowA{0%,100%{transform:translate(0,0) scale(1)}50%{transform:translate(-4%,6%) scale(1.12)}}
 @keyframes heroGlowB{0%,100%{transform:translate(0,0) scale(1)}50%{transform:translate(5%,-5%) scale(1.1)}}
 @media(prefers-reduced-motion:reduce){
-  .hero-panel{animation:none}
   .hero-glow::before,.hero-glow::after{animation:none}
 }
 /* drifting dot-grid texture — its own layer (not part of .hero::after) so the
