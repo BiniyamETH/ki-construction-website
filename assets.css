@@ -144,13 +144,15 @@ header.site{position:sticky;top:0;z-index:50;background:rgba(14,31,61,.94);backd
 .page-hero .pcta{margin-top:24px;display:flex;flex-wrap:wrap;gap:12px}
 @media(min-width:900px){ .page-hero{padding:60px 0 64px} }
 
-/* hero (home) — full-bleed photo with a dark gradient for legible text */
+/* hero (home) — full-bleed photo with a dark gradient for legible text.
+   Two explicitly separate layers, each its own stacking context:
+   .hero-backgrounds (z-index 1) holds everything that ever animates —
+   photos, ambient glow, dot texture, dark overlay. .hero-card (z-index 10,
+   further down) holds the fixed text/button card. assets.js only ever
+   queries/touches elements inside .hero-backgrounds; nothing in this file
+   or that script reads, writes, or animates .hero-card or its children. */
 .hero{position:relative;color:#fff;overflow:hidden;background:linear-gradient(180deg,var(--navy) 0%,var(--navy-800) 100%);padding:0}
-/* Two fully independent layers: .hero-slides (below) is the only thing that
-   ever changes — a slow opacity-only crossfade between photos, driven
-   entirely by assets.js. .hero-content (the text/button card, further down)
-   is never read from or written to by that code, has no animation of its
-   own, and never changes when the photo does. */
+.hero-backgrounds{position:absolute;inset:0;z-index:1}
 .hero-slides{position:absolute;inset:0}
 /* display:none (not just opacity:0) on every inactive slide — it fully
    removes them from the render/compositing tree so an inactive photo can
@@ -163,7 +165,7 @@ header.site{position:sticky;top:0;z-index:50;background:rgba(14,31,61,.94);backd
 .hero-slide:nth-child(2){background-position:35% 65%}
 .hero-slide:nth-child(3){background-position:center 55%}
 .hero-slide:nth-child(4){background-position:40% 60%}
-/* ambient color glows drifting slowly behind the dark overlay — sits above the photo, below .hero::after's gradient */
+/* ambient color glows drifting slowly behind the dark overlay — sits above the photo, below .hero-backgrounds::after's gradient */
 .hero-glow{position:absolute;inset:0;overflow:hidden;pointer-events:none}
 .hero-glow::before,.hero-glow::after{content:"";position:absolute;border-radius:50%;filter:blur(60px)}
 .hero-glow::before{width:46vw;height:46vw;max-width:560px;max-height:560px;top:-16%;right:-8%;
@@ -175,7 +177,7 @@ header.site{position:sticky;top:0;z-index:50;background:rgba(14,31,61,.94);backd
 @media(prefers-reduced-motion:reduce){
   .hero-glow::before,.hero-glow::after{animation:none}
 }
-/* drifting dot-grid texture — its own layer (not part of .hero::after) so the
+/* drifting dot-grid texture — its own layer (not part of .hero-backgrounds::after) so the
    drift animates via transform (GPU-composited) instead of background-position
    (which forces a full repaint every frame — was a real jank/battery cost). */
 .hero-tex{position:absolute;inset:-48px;pointer-events:none;
@@ -183,7 +185,10 @@ header.site{position:sticky;top:0;z-index:50;background:rgba(14,31,61,.94);backd
   background-size:24px 24px;background-repeat:repeat;
   animation:heroGridDrift 34s linear infinite;will-change:transform}
 @keyframes heroGridDrift{from{transform:translate3d(0,0,0)}to{transform:translate3d(-48px,-48px,0)}}
-.hero::after{content:"";position:absolute;inset:0;
+/* the dark overlay belongs to .hero-backgrounds (not .hero), so it stays
+   inside the same isolated layer as the photos it darkens rather than
+   spanning the whole hero (which would otherwise sit over the card too). */
+.hero-backgrounds::after{content:"";position:absolute;inset:0;
   background-image:
     linear-gradient(100deg,rgba(9,18,37,.95) 0%,rgba(9,18,37,.88) 34%,rgba(9,18,37,.6) 58%,rgba(9,18,37,.22) 80%,rgba(9,18,37,.4) 100%),
     linear-gradient(0deg,rgba(7,14,28,.65),transparent 38%)}
@@ -194,7 +199,7 @@ header.site{position:sticky;top:0;z-index:50;background:rgba(14,31,61,.94);backd
    behind/around the card instead of trying to fully reveal a strip that has
    nowhere to go. */
 @media(max-width:760px){
-  .hero::after{background-image:
+  .hero-backgrounds::after{background-image:
       linear-gradient(180deg,rgba(9,18,37,.55) 0%,rgba(9,18,37,.32) 42%,rgba(9,18,37,.52) 100%),
       linear-gradient(0deg,rgba(7,14,28,.45),transparent 45%)}
 }
@@ -207,8 +212,13 @@ header.site{position:sticky;top:0;z-index:50;background:rgba(14,31,61,.94);backd
   .hero-tex{animation:none}
   .hero-cta .btn-amber::after{animation:none;display:none}
 }
-.hero .wrap{position:relative;z-index:1;padding-block:56px 42px}
-.hero-content{max-width:660px;background:rgba(9,18,37,.6);border:1px solid rgba(255,255,255,.14);
+.hero .wrap{position:relative;padding-block:56px 42px}
+/* Layer 2: the fixed card. Explicit high z-index (well above
+   .hero-backgrounds' z-index:1) plus opacity/animation/transition locked to
+   their neutral values with !important — belt-and-braces on top of the fact
+   that nothing in this file or assets.js ever touches this element anyway. */
+.hero .hero-card{position:relative;z-index:10;opacity:1!important;animation:none!important;transition:none!important}
+.hero-content{max-width:660px;background:rgba(9,18,37,.92);border:1px solid rgba(255,255,255,.14);
   border-radius:20px;padding:26px 24px;backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);
   box-shadow:0 28px 70px -24px rgba(0,0,0,.6)}
 @media(max-width:640px){ .hero-content{padding:22px 18px;border-radius:16px} }
