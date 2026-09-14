@@ -164,7 +164,8 @@ header.site{position:sticky;top:0;z-index:50;background:rgba(14,31,61,.94);backd
 .hero-slide:nth-child(1){background-position:center 55%}
 .hero-slide:nth-child(2){background-position:35% 65%}
 .hero-slide:nth-child(3){background-position:center 55%}
-.hero-slide:nth-child(4){background-position:40% 60%}
+.hero-slide:nth-child(4){background-position:68% 50%}
+.hero-slide:nth-child(5){background-position:40% 60%}
 /* ambient color glows drifting slowly behind the dark overlay — sits above the photo, below .hero-backgrounds::after's gradient */
 .hero-glow{position:absolute;inset:0;overflow:hidden;pointer-events:none}
 .hero-glow::before,.hero-glow::after{content:"";position:absolute;border-radius:50%;filter:blur(60px)}
