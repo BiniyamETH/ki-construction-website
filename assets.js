@@ -39,20 +39,32 @@
 
     // Preload a URL and resolve only once the browser has fully downloaded
     // AND decoded it — img.decode() is what guarantees the next paint can
-    // show the real pixels with no partially-decoded WebP frame. Applying a
-    // background-image the instant the fetch merely *starts* (the old code)
-    // let the fade-in/scale animation begin compositing before decoding had
-    // finished, which is what produced the green/teal flash on the machinery
-    // photo. Never lets a broken file hang the rotation (onerror resolves too).
+    // show the real pixels with no partially-decoded WebP frame. The probe
+    // image is briefly attached to the DOM (invisible, 1x1) because
+    // decode() can stall indefinitely on a fully detached Image() in some
+    // browser configurations — a real, reproducible hang, not a maybe.
+    // A safety-net timeout guarantees the rotation can never get stuck
+    // forever even if decode() never settles for some other reason, and a
+    // broken file resolves too via onerror.
     function preload(url) {
       return new Promise(function (resolve) {
         var img = new Image();
+        var settled = false;
+        function done() {
+          if (settled) return;
+          settled = true;
+          img.remove();
+          resolve();
+        }
+        img.style.cssText = "position:absolute;width:1px;height:1px;opacity:0;pointer-events:none;top:0;left:0";
         img.onload = function () {
-          if (img.decode) img.decode().then(resolve, resolve);
-          else resolve();
+          if (img.decode) img.decode().then(done, done);
+          else done();
         };
-        img.onerror = resolve;
+        img.onerror = done;
+        document.body.appendChild(img);
         img.src = url;
+        setTimeout(done, 4000);
       });
     }
 
@@ -97,41 +109,56 @@
 
     if (reduceMotion) { startLoading(0).then(function () { showStatic(0); }); return; }
 
-    var HOLD_MS = 4500;
-    var FADE_MS = 1800;
+    var HOLD_MS = 7500;
+    var FADE_MS = 2000;
     var i = 0;
 
     // True crossfade: the outgoing photo (z-index 1) is never itself
     // animated — it just sits there, fully opaque, for the whole
     // transition. The incoming photo is placed in its own layer directly
-    // above it (z-index 2) and only ITS opacity animates, 0 to 1. Only once
-    // that transition has fully finished — the incoming layer is 100%
-    // opaque and completely covering the hero — is the old layer hidden;
-    // at that exact instant nothing visible changes, since the new layer
-    // is already fully covering it. There is never a moment with less than
-    // one fully-loaded photo at full coverage, and never more than two
-    // layers (old + incoming) visible at once.
+    // above it (z-index 2) and only ITS opacity animates, 0 to 1. The old
+    // layer is hidden only once the browser itself confirms (transitionend)
+    // that the incoming layer's opacity transition has actually finished —
+    // not a guessed timeout — so it can never be hidden a moment before the
+    // new layer has genuinely reached full, opaque coverage. That guess-vs-
+    // confirmed distinction is what let a brief dark flash through
+    // previously: a fixed setTimeout can fire slightly before the real CSS
+    // transition completes (device load, frame-rate drift), and hiding the
+    // old layer at that instant briefly exposes the dark background under
+    // both. There is never a moment with less than one fully-loaded photo
+    // at full coverage, and never more than two layers visible at once.
     function crossfadeTo(nextIdx) {
       return startLoading(nextIdx).then(function () {
         return new Promise(function (resolve) {
           var incoming = slides[nextIdx];
+          var outgoing = slides[i];
           incoming.style.transition = "none";
           incoming.style.zIndex = "2";
           incoming.style.display = "block";
           incoming.style.opacity = "0";
           void incoming.offsetWidth; // force layout so the transition below is picked up, not coalesced
-          incoming.style.transition = "opacity " + FADE_MS + "ms cubic-bezier(.4,0,.2,1)";
-          requestAnimationFrame(function () {
-            requestAnimationFrame(function () { incoming.style.opacity = "1"; });
-          });
-          setTimeout(function () {
-            var outgoing = slides[i];
+          incoming.style.transition = "opacity " + FADE_MS + "ms linear";
+
+          var fallback;
+          function finish(e) {
+            if (e && e.propertyName && e.propertyName !== "opacity") return;
+            incoming.removeEventListener("transitionend", finish);
+            clearTimeout(fallback);
             outgoing.style.display = "none";
             outgoing.style.opacity = "0";
             incoming.style.zIndex = "1";
             i = nextIdx;
             resolve();
-          }, FADE_MS + 60);
+          }
+          incoming.addEventListener("transitionend", finish);
+          // safety net only — covers the rare case transitionend never fires
+          // (e.g. the tab was backgrounded mid-transition); comfortably
+          // longer than the transition itself so it never fires early.
+          fallback = setTimeout(finish, FADE_MS + 1000);
+
+          requestAnimationFrame(function () {
+            requestAnimationFrame(function () { incoming.style.opacity = "1"; });
+          });
         });
       });
     }

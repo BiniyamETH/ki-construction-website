@@ -210,7 +210,7 @@ header.site{position:sticky;top:0;z-index:50;background:rgba(14,31,61,.94);backd
   .hero-cta .btn-amber::after{animation:none;display:none}
 }
 .hero .wrap{position:relative;z-index:1;padding-block:56px 42px}
-.hero-content{max-width:660px;background:rgba(9,18,37,.4);border:1px solid rgba(255,255,255,.14);
+.hero-content{max-width:660px;background:rgba(9,18,37,.6);border:1px solid rgba(255,255,255,.14);
   border-radius:20px;padding:26px 24px;backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);
   box-shadow:0 28px 70px -24px rgba(0,0,0,.6)}
 @media(max-width:640px){ .hero-content{padding:22px 18px;border-radius:16px} }
