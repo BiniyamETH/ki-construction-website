@@ -7,6 +7,7 @@ a.jpeg
 [0-9].jpeg
 [0-9].jpg
 WhatsApp Image *.jpeg
+img2/
 
 # OS / editor cruft
 .DS_Store
