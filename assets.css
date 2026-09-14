@@ -159,7 +159,7 @@ header.site{position:sticky;top:0;z-index:50;background:rgba(14,31,61,.94);backd
 .hero-slide{position:absolute;inset:0;background-size:cover;background-position:center;background-repeat:no-repeat;
   display:none;opacity:0}
 .hero-slide:nth-child(1){background-position:center 62%}
-.hero-slide:nth-child(2){background-position:40% 45%}
+.hero-slide:nth-child(2){background-position:15% 55%}
 .hero-slide:nth-child(3){background-position:35% 50%}
 .hero-slide:nth-child(4){background-position:72% 45%}
 .hero-panel{animation:heroPanelIn .8s var(--ease) both}
