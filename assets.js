@@ -306,7 +306,7 @@
     "hero.viewProducts": "ምርቶችን ይመልከቱ",
     "hero.slogan": "“ጥራት ቅድሚያ ነው፣ የደንበኛ እርካታ ፍላጎታችን ነው”",
     "hero.lead": "KI Construction Materials Importer ለተቋራጮች፣ ለኢንዱስትሪው እና ለመንግሥት ተቋማት ጄነሬተሮች፣ ሃይድሮሊክ ብሬከሮች፣ ፓምፖች፣ የግንባታ ማሽነሪ እና ኤሌክትሮ-ሜካኒካል ምርቶችን ያቀርባል። በኢትዮጵያ ውስጥ የ Power Trader Co. (ደቡብ ኮሪያ) ብቸኛ ወኪል።",
-    "hero.badge1": "<span class=\"dot\">●</span><b>22 ዓመት</b> የዘርፉ ልምድ",
+    "hero.badge1": "<span class=\"dot\">●</span><b>13 ዓመት</b> የዘርፉ ልምድ",
     "hero.badge2": "<span class=\"dot\">●</span><b>150+</b> ፕሮጀክቶች አቅርቦት",
     "hero.badge3": "<span class=\"dot\">●</span><b>ማስመጣት · ወደ ውጭ መላክ · ስርጭት</b>",
     "hero.chip": "<b>በመላ አገሪቱ</b> አቅርቦት እና የድህረ-ሽያጭ ድጋፍ",
@@ -315,7 +315,7 @@
     "brands.pt": "ብቸኛ<br>ወኪል · ኢትዮጵያ",
 
     "stats.n1": "2006 ዓ.ም",
-    "stats.n2": "22 ዓመት",
+    "stats.n2": "13 ዓመት",
     "stats.l1": "ብቸኛ የደቡብ ኮሪያ ወኪልነት (Power Trader)",
     "stats.l2": "የመሥራቹ የዘርፍ ልምድ",
     "stats.l3": "ትላልቅ ፕሮጀክቶች አቅርቦት",
@@ -367,7 +367,7 @@
     "why.h2": "ሱቅ አይደለንም — የቴክኒክ ድጋፍ ያለው አስመጪ ነን",
     "why.1t": "ብቸኛ ውክልና",
     "why.1d": "በኢትዮጵያ የ Power Trader Co. (ደቡብ ኮሪያ) ሃይድሮሊክ ብሬከሮች ብቸኛ ወኪል።",
-    "why.2t": "22 ዓመት ልምድ",
+    "why.2t": "13 ዓመት ልምድ",
     "why.2d": "የመሥራቹ በግንባታ እና በኢንዱስትሪ ማሽነሪ ዘርፍ ያካበቱት ልምድ።",
     "why.3t": "በመላ አገሪቱ አቅርቦት",
     "why.3d": "በስትራቴጂክ መጋዘን የተደገፈ የስርጭት መረብ።",
@@ -423,6 +423,7 @@
     "cm.g4": "ታምፒንግ ራመር",
     "cm.g5": "ዊል ሎደር",
     "cm.g6": "የኮንክሪት ማቀላቀያ መኪና",
+    "cm.g7": "ኮንክሪት ፓምፕ በስራ ላይ",
 
     /* ---- Generating sets page ---- */
     "gs.h1": "ጄነሬተሮችና የኃይል መሣሪያዎች",
@@ -503,7 +504,7 @@
     "about.eyebrow": "እኛ ማን ነን",
     "about.h2": "የተመሠረተ አስመጪ ነን፣ ሱቅ አይደለንም",
     "about.lead": "KI Construction Materials Importer በ2006 ዓ.ም የተመሠረተ የግንባታ እና የኢንዱስትሪ ማሽነሪ አስመጪ፣ አከፋፋይ እና የቴክኒክ አገልግሎት ድርጅት ነው።",
-    "about.p1": "KI Construction Materials Importer በ<b>2006 ዓ.ም</b> ተመሥርቶ የተመዘገበ ሲሆን፣ መሥራች እና ሥራ አስኪያጅ ዳይሬክተር <b>ኢንጂነር ከድር ኢብራሂም</b> በግንባታ እና በኢንዱስትሪ ማሽነሪ ዘርፍ — ጄነሬተሮች፣ የውኃ እና የፀሐይ ፓምፖች፣ የፀሐይ ኃይል እና ኤሌክትሮ-ሜካኒካል ሥራዎች — በሽያጭ እና በግብይት <b>22 ዓመት ልምድ</b> አላቸው።",
+    "about.p1": "KI Construction Materials Importer በ<b>2006 ዓ.ም</b> ተመሥርቶ የተመዘገበ ሲሆን፣ መሥራች እና ሥራ አስኪያጅ ዳይሬክተር <b>ኢንጂነር ከድር ኢብራሂም</b> በግንባታ እና በኢንዱስትሪ ማሽነሪ ዘርፍ — ጄነሬተሮች፣ የውኃ እና የፀሐይ ፓምፖች፣ የፀሐይ ኃይል እና ኤሌክትሮ-ሜካኒካል ሥራዎች — በሽያጭ እና በግብይት <b>13 ዓመት ልምድ</b> አላቸው።",
     "about.p2": "ዋናው ጽ/ቤት በአዲስ አበባ፣ አራዳ ክፍለ ከተማ፣ ወረዳ 01፣ ሳሙኤል ደረሳ ሕንፃ፣ ፒያሳ ይገኛል። KI በአንድ ቀላል መርሕ ላይ ጠንካራ እና ጤናማ የገበያ እምነት ገንብቷል፦ <i>“ጥራት ቅድሚያ ነው፣ የደንበኛ እርካታ ፍላጎታችን ነው።”</i>",
     "about.p3": "KI የግንባታ ማሽነሪ እና መለዋወጫ፣ ጄነሬተሮች፣ የውኃ እና የፀሐይ ፓምፖች፣ የቧንቧ ማያያዣዎች እና ኤሌክትሮ-ሜካኒካል ሥራዎች ግንባር ቀደም አስመጪ እና አከፋፋይ ነው። የሃይድሮሊክ ብሬከሮች እና ተጨማሪ መሣሪያዎች አምራች የሆነው የደቡብ ኮሪያው <b>Power Trader Co.</b> ብቸኛ ወኪል ነን፤ የምናቀርበውን እያንዳንዱን ምርት በቴክኒክ ምክር፣ በማማከር እና በድህረ-ሽያጭ አገልግሎት እንደግፋለን።",
     "about.visionLabel": "ራእይ",
@@ -515,8 +516,6 @@
     "about.obj3": "<b>ዕድገት</b> — የታዳሽ ኃይል መፍትሔዎችን ጨምሮ እያደገ የሚሄድ የምርት ስብስብ",
     "about.mgmtSubhead": "አመራር እና አደረጃጀት",
     "team.t1": "መሥራች እና ሥራ አስኪያጅ ዳይሬክተር",
-    "team.t2": "የሽያጭ ተወካይ",
-    "team.t3": "ገንዘብ ያዥ",
     "about.figcap": "ኢንጂነር ከድር ኢብራሂም፣ መሥራች እና ሥራ አስኪያጅ ዳይሬክተር፣ በዓለም አቀፍ የማሽነሪ ኤግዚቢሽን ላይ።",
 
     /* ---- Achievements page ---- */
@@ -635,7 +634,7 @@
     "footer.exploreH": "ዳስስ",
     "footer.contactH": "አግኙን",
     "footer.pobox": "ፖ.ሳ.ቁ. 11127፣ አዲስ አበባ",
-    "footer.copyright": "&copy; <span id=\"yr\">2026</span> KI Construction Materials Importer። መብቱ በሕግ የተጠበቀ ነው።",
+    "footer.copyright": "&copy; <span id=\"yr\">2019</span> ዓ.ም KI Construction Materials Importer። መብቱ በሕግ የተጠበቀ ነው።",
     "footer.velora": "ድረ-ገጹ በ Velora Software የተሠራ",
     "fab.aria": "በWhatsApp ያነጋግሩን"
   }};
@@ -666,9 +665,19 @@
     }
   }
 
+  function gregorianToEthiopianYear(date) {
+    var gYear = date.getFullYear();
+    var isLeap = function (y) { return (y % 4 === 0 && y % 100 !== 0) || y % 400 === 0; };
+    // Ethiopian New Year (Meskerem 1) falls on Sep 11, or Sep 12 in the year
+    // before a Gregorian leap year.
+    var newYearDay = isLeap(gYear + 1) ? 12 : 11;
+    var newYear = new Date(gYear, 8, newYearDay);
+    return date >= newYear ? gYear - 7 : gYear - 8;
+  }
+
   function stampYear() {
     var yr = document.getElementById("yr");
-    if (yr) yr.textContent = new Date().getFullYear();
+    if (yr) yr.textContent = gregorianToEthiopianYear(new Date());
   }
 
   function setLang(l) {
