@@ -3,9 +3,9 @@
 
 :root{
   --navy:#0e1f3d; --navy-800:#13264a; --navy-700:#1d3766; --navy-600:#274a86;
-  --amber:#f5a623; --amber-600:#dd8a0d; --red:#c8202b;
+  --amber:#f5a623; --amber-600:#a66000; --red:#c8202b;
   --ink:#17212f; --muted:#586373; --paper:#ffffff; --mist:#f4f6fa; --line:#e3e8f0;
-  --wa:#1fa855; --tg:#2aabee;
+  --wa:#08783f; --tg:#00669c;
   --maxw:1160px; --radius:14px;
   --shadow:0 1px 2px rgba(14,31,61,.06),0 12px 32px -12px rgba(14,31,61,.18);
   --ease:cubic-bezier(.4,0,.2,1);
@@ -25,6 +25,7 @@ h2{font-size:clamp(1.55rem,4.2vw,2.3rem)}
 h3{font-size:1.18rem}
 p{margin:0 0 1em}
 .wrap{max-width:var(--maxw);margin:0 auto;padding:0 20px}
+.sr-only{position:absolute!important;width:1px!important;height:1px!important;padding:0!important;margin:-1px!important;overflow:hidden!important;clip:rect(0,0,0,0)!important;white-space:nowrap!important;border:0!important}
 .eyebrow{
   display:inline-block;font-size:.74rem;font-weight:800;letter-spacing:.16em;
   text-transform:uppercase;color:var(--amber-600);margin-bottom:.6em;
@@ -123,8 +124,8 @@ header.site{position:sticky;top:0;z-index:50;background:rgba(14,31,61,.94);backd
 }
 /* phones: logo only, and shrink controls so the toggle + call + menu row always fits */
 @media(max-width:600px){
-  .brand span{display:none}
-  .brand img{width:54px;height:54px}
+  header.site .brand span{display:none}
+  header.site .brand img{width:54px;height:54px}
   .nav{gap:8px}
   .langbtn{padding:.55em .68em;font-size:.8rem}
   .call-mini,.nav .menu-btn{width:38px;height:38px}
@@ -168,13 +169,14 @@ header.site{position:sticky;top:0;z-index:50;background:rgba(14,31,61,.94);backd
    never contribute a stray pixel. assets.js drives the crossfade purely by
    toggling display/opacity/z-index inline; no CSS animation/transition is
    defined here beyond what JS sets for the one layer that's actually fading. */
-.hero-slide{position:absolute;inset:0;background-size:cover;background-position:center;background-repeat:no-repeat;
-  display:none;opacity:0}
-.hero-slide:nth-child(1){background-position:center 55%}
-.hero-slide:nth-child(2){background-position:35% 65%}
-.hero-slide:nth-child(3){background-position:center 55%}
-.hero-slide:nth-child(4){background-position:68% 50%}
-.hero-slide:nth-child(5){background-position:40% 60%}
+.hero-slide{position:absolute;inset:0;display:none;opacity:0}
+.hero-slide.is-active{display:block;opacity:1}
+.hero-slide img{width:100%;height:100%;object-fit:cover}
+.hero-slide:nth-child(1) img{object-position:center 55%}
+.hero-slide:nth-child(2) img{object-position:35% 65%}
+.hero-slide:nth-child(3) img{object-position:center 55%}
+.hero-slide:nth-child(4) img{object-position:68% 50%}
+.hero-slide:nth-child(5) img{object-position:40% 60%}
 /* ambient color glows drifting slowly behind the dark overlay — sits above the photo, below .hero-backgrounds::after's gradient */
 .hero-glow{position:absolute;inset:0;overflow:hidden;pointer-events:none}
 .hero-glow::before,.hero-glow::after{content:"";position:absolute;border-radius:50%;filter:blur(60px)}
@@ -214,10 +216,10 @@ header.site{position:sticky;top:0;z-index:50;background:rgba(14,31,61,.94);backd
       linear-gradient(0deg,rgba(7,14,28,.45),transparent 45%)}
 }
 .hero-cta .btn-amber{position:relative;overflow:hidden}
-.hero-cta .btn-amber::after{content:"";position:absolute;top:0;left:-60%;width:36%;height:100%;
+.hero-cta .btn-amber::after{content:"";position:absolute;top:0;left:0;width:36%;height:100%;
   background:linear-gradient(120deg,transparent,rgba(255,255,255,.55),transparent);
-  animation:heroBtnShimmer 3.6s ease-in-out infinite}
-@keyframes heroBtnShimmer{0%{left:-60%}28%{left:130%}100%{left:130%}}
+  transform:translate3d(-180%,0,0);animation:heroBtnShimmer 3.6s ease-in-out infinite}
+@keyframes heroBtnShimmer{0%{transform:translate3d(-180%,0,0)}28%{transform:translate3d(400%,0,0)}100%{transform:translate3d(400%,0,0)}}
 @media(prefers-reduced-motion:reduce){
   .hero-tex{animation:none}
   .hero-cta .btn-amber::after{animation:none;display:none}
@@ -363,7 +365,7 @@ a.card:hover .ph img,.card:hover .ph img{transform:scale(1.04)}
 .about-media figcaption{font-size:.8rem;color:var(--muted);margin-top:8px}
 .vm{display:grid;gap:16px;margin-top:8px}
 .vm .box{background:#fff;border:1px solid var(--line);border-left:3px solid var(--amber);border-radius:10px;padding:16px 18px}
-.vm .box h4{margin:0 0 .3em;font-size:.95rem;letter-spacing:.02em;text-transform:uppercase;color:var(--navy)}
+.vm .box h2{margin:0 0 .3em;font-size:.95rem;letter-spacing:.02em;text-transform:uppercase;color:var(--navy)}
 .vm .box p{margin:0;font-size:.92rem;color:var(--muted)}
 .obj{margin:26px 0 0;padding:0;list-style:none}
 .obj li{padding-left:1.8em;position:relative;margin-bottom:.6em;font-size:.95rem}
@@ -443,7 +445,7 @@ footer.site{background:var(--navy);color:#aebfd8;padding:48px 0 30px;font-size:.
 footer.site .cols{display:grid;gap:26px}
 @media(min-width:760px){ footer.site .cols{grid-template-columns:2fr 1fr 1fr} }
 footer.site .brand{margin-bottom:12px}
-footer.site h4{color:#fff;font-size:.8rem;letter-spacing:.12em;text-transform:uppercase;margin-bottom:.9em;padding-left:11px;border-left:3px solid var(--amber)}
+footer.site h2{color:#fff;font-size:.8rem;letter-spacing:.12em;text-transform:uppercase;margin-bottom:.9em;padding-left:11px;border-left:3px solid var(--amber)}
 footer.site a{color:#aebfd8;text-decoration:none}
 footer.site a:hover{color:#fff}
 footer.site ul{list-style:none;margin:0;padding:0;display:grid;gap:.5em}
@@ -468,9 +470,9 @@ footer.site .fine{margin-top:34px;padding-top:20px;border-top:1px solid rgba(255
 @media(prefers-reduced-motion:reduce){ .reveal-ready .reveal{opacity:1;transform:none;transition:none} }
 
 /* card "materialize" entrance — scale+blur instead of the default slide-up, cards only */
-.reveal-ready .reveal.reveal-pop{opacity:0;transform:scale(.96);filter:blur(4px);
-  transition:opacity .5s var(--ease),transform .5s var(--ease),filter .5s var(--ease)}
-.reveal-ready .reveal.reveal-pop.is-visible{opacity:1;transform:scale(1);filter:blur(0)}
+.reveal-ready .reveal.reveal-pop{opacity:0;transform:scale(.96);
+  transition:opacity .5s var(--ease),transform .5s var(--ease)}
+.reveal-ready .reveal.reveal-pop.is-visible{opacity:1;transform:scale(1)}
 
 /* side reveal — large single product/project photos slide in from their own side instead of up */
 .reveal-ready .reveal.reveal-left{transform:translateX(-28px)}
@@ -499,10 +501,10 @@ footer.site .fine{margin-top:34px;padding-top:20px;border-top:1px solid rgba(255
 
 /* stat number HUD sweep, once, when the count-up finishes (assets.js adds .sweep) */
 .stats .stat .n{position:relative;overflow:hidden;display:inline-block}
-.stats .stat .n.sweep::after{content:"";position:absolute;top:0;left:-30%;width:26%;height:100%;
+.stats .stat .n.sweep::after{content:"";position:absolute;top:0;left:0;width:26%;height:100%;
   background:linear-gradient(120deg,transparent,rgba(255,255,255,.75),transparent);
-  animation:statSweepMove .8s var(--ease)}
-@keyframes statSweepMove{from{left:-30%}to{left:130%}}
+  transform:translate3d(-120%,0,0);animation:statSweepMove .8s var(--ease)}
+@keyframes statSweepMove{from{transform:translate3d(-120%,0,0)}to{transform:translate3d(500%,0,0)}}
 @media(prefers-reduced-motion:reduce){
   .value-card .ic-circle,.value-card .ic-circle::before,.value-card .ic-circle svg{transition:none}
   .stats .stat .n.sweep::after{animation:none;display:none}
@@ -569,5 +571,5 @@ a:focus-visible,button:focus-visible{outline:3px solid var(--amber);outline-offs
 /* Amharic typography */
 html[lang="am"] body{font-family:"Noto Sans Ethiopic","Nyala","Kefa","Abyssinica SIL",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;line-height:1.78}
 html[lang="am"] h1,html[lang="am"] h2,html[lang="am"] h3,html[lang="am"] h4{letter-spacing:0;line-height:1.4}
-html[lang="am"] .eyebrow,html[lang="am"] .subhead,html[lang="am"] .cinfo .k,html[lang="am"] .brands .label,html[lang="am"] footer.site h4{letter-spacing:.02em}
+html[lang="am"] .eyebrow,html[lang="am"] .subhead,html[lang="am"] .cinfo .k,html[lang="am"] .brands .label,html[lang="am"] footer.site h2{letter-spacing:.02em}
 html[lang="am"] .hero .slogan,html[lang="am"] i{font-style:normal}

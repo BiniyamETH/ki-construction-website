@@ -37,67 +37,35 @@
 
     var reduceMotion = !!(window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches);
 
-    // Preload a URL and resolve only once the browser has fully downloaded
-    // AND decoded it — img.decode() is what guarantees the next paint can
-    // show the real pixels with no partially-decoded WebP frame. The probe
-    // image is briefly attached to the DOM (invisible, 1x1) because
-    // decode() can stall indefinitely on a fully detached Image() in some
-    // browser configurations — a real, reproducible hang, not a maybe.
-    // A safety-net timeout guarantees the rotation can never get stuck
-    // forever even if decode() never settles for some other reason, and a
-    // broken file resolves too via onerror.
-    function preload(url) {
-      return new Promise(function (resolve) {
-        var img = new Image();
+    // The first image is real HTML, visible without JavaScript and discoverable
+    // by the preload scanner. Later slides keep their URLs in data attributes
+    // so they cannot compete with the LCP image during the initial load.
+    var ready = [Promise.resolve()];
+    function startLoading(idx) {
+      if (ready[idx]) return ready[idx];
+      var img = slides[idx].querySelector("img");
+      if (!img) return Promise.resolve();
+
+      ready[idx] = new Promise(function (resolve) {
         var settled = false;
         function done() {
           if (settled) return;
           settled = true;
-          img.remove();
-          resolve();
+          if (img.decode) img.decode().then(resolve, resolve);
+          else resolve();
         }
-        img.style.cssText = "position:absolute;width:1px;height:1px;opacity:0;pointer-events:none;top:0;left:0";
-        img.onload = function () {
-          if (img.decode) img.decode().then(done, done);
-          else done();
-        };
+        img.onload = done;
         img.onerror = done;
-        document.body.appendChild(img);
-        img.src = url;
+        var srcset = img.getAttribute("data-srcset");
+        var src = img.getAttribute("data-src");
+        if (srcset) img.srcset = srcset;
+        if (src) img.src = src;
+        img.removeAttribute("data-srcset");
+        img.removeAttribute("data-src");
         setTimeout(done, 4000);
-      });
-    }
-
-    // one promise per slide, created lazily so the network request itself
-    // still only fires when startLoading() is first called for that index
-    var ready = [];
-    function startLoading(idx) {
-      if (ready[idx]) return ready[idx];
-      var url = slides[idx].getAttribute("data-bg");
-      ready[idx] = preload(url).then(function () {
-        slides[idx].style.backgroundImage = "url('" + url + "')";
-        slides[idx].removeAttribute("data-bg");
       });
       return ready[idx];
     }
-
-    // slide 0 starts preloading immediately (it's also <link rel=preload
-    // fetchpriority=high>'d in <head> — the LCP image, so this mostly just
-    // waits on a fetch that's already well underway); the other 4 only start
-    // downloading once the page has finished loading, so they don't compete
-    // with the critical first paint on slow connections. Either way, a
-    // slide is never displayed until its own promise above has resolved.
-    startLoading(0);
-    function loadDeferredSlides() {
-      for (var k = 1; k < slides.length; k++) startLoading(k);
-    }
-    if (document.readyState === "complete") loadDeferredSlides();
-    else window.addEventListener("load", loadDeferredSlides);
-
-    // Every slide starts fully out of the render tree (display:none, not
-    // just opacity:0) so an inactive one can never contribute a stray pixel
-    // no matter what the compositor is doing with the active layer.
-    slides.forEach(function (s) { s.style.display = "none"; s.style.opacity = "0"; });
 
     function showStatic(idx) {
       var el = slides[idx];
@@ -105,28 +73,18 @@
       el.style.zIndex = "1";
       el.style.display = "block";
       el.style.opacity = "1";
+      el.classList.add("is-active");
     }
 
-    if (reduceMotion) { startLoading(0).then(function () { showStatic(0); }); return; }
+    showStatic(0);
+    if (reduceMotion) return;
 
     var HOLD_MS = 7500;
     var FADE_MS = 2000;
     var i = 0;
 
-    // True crossfade: the outgoing photo (z-index 1) is never itself
-    // animated — it just sits there, fully opaque, for the whole
-    // transition. The incoming photo is placed in its own layer directly
-    // above it (z-index 2) and only ITS opacity animates, 0 to 1. The old
-    // layer is hidden only once the browser itself confirms (transitionend)
-    // that the incoming layer's opacity transition has actually finished —
-    // not a guessed timeout — so it can never be hidden a moment before the
-    // new layer has genuinely reached full, opaque coverage. That guess-vs-
-    // confirmed distinction is what let a brief dark flash through
-    // previously: a fixed setTimeout can fire slightly before the real CSS
-    // transition completes (device load, frame-rate drift), and hiding the
-    // old layer at that instant briefly exposes the dark background under
-    // both. There is never a moment with less than one fully-loaded photo
-    // at full coverage, and never more than two layers visible at once.
+    // Only the incoming layer animates. Two animation frames separate the
+    // initial and final opacity values without a synchronous layout read.
     function crossfadeTo(nextIdx) {
       return startLoading(nextIdx).then(function () {
         return new Promise(function (resolve) {
@@ -136,8 +94,6 @@
           incoming.style.zIndex = "2";
           incoming.style.display = "block";
           incoming.style.opacity = "0";
-          void incoming.offsetWidth; // force layout so the transition below is picked up, not coalesced
-          incoming.style.transition = "opacity " + FADE_MS + "ms linear";
 
           var fallback;
           function finish(e) {
@@ -146,18 +102,21 @@
             clearTimeout(fallback);
             outgoing.style.display = "none";
             outgoing.style.opacity = "0";
+            outgoing.classList.remove("is-active");
             incoming.style.zIndex = "1";
+            incoming.style.transition = "none";
+            incoming.classList.add("is-active");
             i = nextIdx;
             resolve();
           }
-          incoming.addEventListener("transitionend", finish);
-          // safety net only — covers the rare case transitionend never fires
-          // (e.g. the tab was backgrounded mid-transition); comfortably
-          // longer than the transition itself so it never fires early.
-          fallback = setTimeout(finish, FADE_MS + 1000);
 
           requestAnimationFrame(function () {
-            requestAnimationFrame(function () { incoming.style.opacity = "1"; });
+            requestAnimationFrame(function () {
+              incoming.style.transition = "opacity " + FADE_MS + "ms linear";
+              incoming.addEventListener("transitionend", finish);
+              incoming.style.opacity = "1";
+              fallback = setTimeout(finish, FADE_MS + 1000);
+            });
           });
         });
       });
@@ -169,10 +128,7 @@
       }, HOLD_MS);
     }
 
-    startLoading(0).then(function () {
-      showStatic(0);
-      loop();
-    });
+    loop();
   })();
 
   /* ---------- animated stat counters (home page): count up from 0 the first time they're scrolled into view ---------- */
