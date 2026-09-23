@@ -48,10 +48,11 @@
     });
   }
 
-  /* ---------- home hero: fixed headline, slowly-cycling ambient photos ---------- */
+  /* ---------- home hero: fixed headline, photos slide in one after another ---------- */
   (function () {
     var slides = document.querySelectorAll(".hero-slide");
     if (!slides.length) return;
+    var hero = document.querySelector(".hero");
 
     var reduceMotion = !!(window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches);
 
@@ -71,6 +72,7 @@
           settled = true;
           if (img.decode) img.decode().then(resolve, resolve);
           else resolve();
+          setTimeout(resolve, 1500); // decode() can stall in a background tab — never let it block the slider
         }
         img.onload = done;
         img.onerror = done;
@@ -85,68 +87,109 @@
       return ready[idx];
     }
 
-    function showStatic(idx) {
-      var el = slides[idx];
-      el.style.transition = "none";
-      el.style.zIndex = "1";
-      el.style.display = "block";
-      el.style.opacity = "1";
-      el.classList.add("is-active");
+    var HOLD_MS = 5000;
+    var SLIDE_MS = 900;
+    var i = 0, busy = false, timer = null;
+
+    // dot indicators — one per photo; clicking jumps straight to that photo
+    var dots = [];
+    if (hero && slides.length > 1) {
+      var nav = document.createElement("div");
+      nav.className = "hero-dots";
+      for (var d = 0; d < slides.length; d++) {
+        var b = document.createElement("button");
+        b.type = "button";
+        b.setAttribute("aria-label", "Show photo " + (d + 1) + " of " + slides.length);
+        b.addEventListener("click", (function (idx) { return function () { go(idx); }; })(d));
+        nav.appendChild(b);
+        dots.push(b);
+      }
+      hero.appendChild(nav);
+    }
+    function markDot(idx) {
+      for (var k = 0; k < dots.length; k++) {
+        dots[k].classList.toggle("is-active", k === idx);
+        if (k === idx) dots[k].setAttribute("aria-current", "true");
+        else dots[k].removeAttribute("aria-current");
+      }
     }
 
-    showStatic(0);
-    if (reduceMotion) return;
+    function show(el, x) {
+      el.style.transition = "none";
+      el.style.display = "block";
+      el.style.opacity = "1";
+      el.style.transform = "translate3d(" + x + "%,0,0)";
+    }
 
-    var HOLD_MS = 7500;
-    var FADE_MS = 2000;
-    var i = 0;
+    show(slides[0], 0);
+    slides[0].style.zIndex = "1";
+    slides[0].classList.add("is-active");
+    markDot(0);
 
-    // Only the incoming layer animates. Two animation frames separate the
-    // initial and final opacity values without a synchronous layout read.
-    function crossfadeTo(nextIdx) {
+    // incoming photo slides in from the right while the current one slides out to the left
+    function slideTo(nextIdx) {
+      if (busy || nextIdx === i) return Promise.resolve();
+      busy = true;
       return startLoading(nextIdx).then(function () {
         return new Promise(function (resolve) {
           var incoming = slides[nextIdx];
           var outgoing = slides[i];
-          incoming.style.transition = "none";
-          incoming.style.zIndex = "2";
-          incoming.style.display = "block";
-          incoming.style.opacity = "0";
+          markDot(nextIdx);
 
-          var fallback;
-          function finish(e) {
-            if (e && e.propertyName && e.propertyName !== "opacity") return;
-            incoming.removeEventListener("transitionend", finish);
+          function finish() {
             clearTimeout(fallback);
             outgoing.style.display = "none";
-            outgoing.style.opacity = "0";
+            outgoing.style.transition = "none";
             outgoing.classList.remove("is-active");
-            incoming.style.zIndex = "1";
             incoming.style.transition = "none";
+            incoming.style.transform = "translate3d(0,0,0)";
+            incoming.style.zIndex = "1";
             incoming.classList.add("is-active");
             i = nextIdx;
+            busy = false;
             resolve();
           }
 
-          requestAnimationFrame(function () {
-            requestAnimationFrame(function () {
-              incoming.style.transition = "opacity " + FADE_MS + "ms linear";
-              incoming.addEventListener("transitionend", finish);
-              incoming.style.opacity = "1";
-              fallback = setTimeout(finish, FADE_MS + 1000);
-            });
-          });
+          if (reduceMotion) {
+            show(incoming, 0);
+            var fallback = null;
+            finish();
+            return;
+          }
+
+          show(incoming, 100);
+          incoming.style.zIndex = "2";
+          var fallback = setTimeout(finish, SLIDE_MS + 400);
+          void incoming.offsetWidth; // commit the off-screen start position before animating
+          var t = "transform " + SLIDE_MS + "ms cubic-bezier(.65,0,.35,1)";
+          incoming.style.transition = t;
+          outgoing.style.transition = t;
+          incoming.style.transform = "translate3d(0,0,0)";
+          outgoing.style.transform = "translate3d(-100%,0,0)";
         });
       });
     }
 
-    function loop() {
-      setTimeout(function () {
-        crossfadeTo((i + 1) % slides.length).then(loop);
+    function schedule() {
+      clearTimeout(timer);
+      if (reduceMotion) return;
+      timer = setTimeout(function () {
+        slideTo((i + 1) % slides.length).then(schedule);
       }, HOLD_MS);
     }
+    function go(idx) {
+      if (busy) return;
+      clearTimeout(timer);
+      slideTo(idx).then(schedule);
+    }
 
-    loop();
+    // pause while the tab is hidden so photos don't pile up in the background
+    document.addEventListener("visibilitychange", function () {
+      if (document.hidden) clearTimeout(timer);
+      else schedule();
+    });
+
+    schedule();
   })();
 
   /* ---------- animated stat counters (home page): count up from 0 the first time they're scrolled into view ---------- */
@@ -291,7 +334,7 @@
     "stats.n1": "13 ዓመት",
     "stats.n2": "23 ዓመት",
     "stats.l1": "የኩባንያው ዕድሜ",
-    "stats.l2": "የመሥራቹ የዘርፍ ልምድ",
+    "stats.l2": "የዘርፍ ልምድ",
     "stats.l3": "ትላልቅ ፕሮጀክቶች አቅርቦት",
     "stats.l4": "የምርት ዘርፎች",
 
