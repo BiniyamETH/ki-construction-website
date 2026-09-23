@@ -18,15 +18,33 @@
   var btn = document.getElementById("menuBtn");
   var mnav = document.getElementById("mnav");
   if (btn && mnav) {
-    btn.addEventListener("click", function () {
-      var open = mnav.classList.toggle("open");
+    function setMenu(open) {
+      mnav.classList.toggle("open", open);
+      document.documentElement.classList.toggle("menu-open", open);
       btn.setAttribute("aria-expanded", open ? "true" : "false");
+      btn.setAttribute("aria-label", open ? "Close menu" : "Open menu");
+    }
+    btn.addEventListener("click", function () {
+      setMenu(!mnav.classList.contains("open"));
     });
     mnav.addEventListener("click", function (e) {
-      if (e.target.closest("a")) {
-        mnav.classList.remove("open");
-        btn.setAttribute("aria-expanded", "false");
+      if (e.target.closest("a")) setMenu(false);
+    });
+    document.addEventListener("keydown", function (e) {
+      if (e.key === "Escape" && mnav.classList.contains("open")) {
+        setMenu(false);
+        btn.focus();
       }
+    });
+    document.addEventListener("click", function (e) {
+      if (!mnav.contains(e.target) && !btn.contains(e.target)) setMenu(false);
+    });
+    document.addEventListener("focusin", function (e) {
+      if (!mnav.contains(e.target) && !btn.contains(e.target)) setMenu(false);
+    });
+    var desktopNav = window.matchMedia("(min-width: 1040px)");
+    desktopNav.addEventListener("change", function (e) {
+      if (e.matches) setMenu(false);
     });
   }
 
@@ -689,7 +707,7 @@
       machinery: "Construction machinery",
       electro: "Electro-mechanical"
     };
-    var PH_RE = /^(\+251\d{9}|0[79]\d{8})$/;
+    var PH_RE = /^(\+251[1-9]\d{8}|0[1-9]\d{8})$/;
     var TIN_RE = /^\d{10}$/;
     var EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
@@ -707,20 +725,46 @@
       var el = qForm.querySelector('[name="' + name + '"]');
       return el ? el.closest(".field") : null;
     }
+    function describeField(field, input, bad) {
+      var descriptions = [];
+      field.querySelectorAll(".help, .err").forEach(function (note, index) {
+        if (!note.id) note.id = input.id + "-description-" + index;
+        if (bad || !note.classList.contains("err")) descriptions.push(note.id);
+      });
+      if (descriptions.length) input.setAttribute("aria-describedby", descriptions.join(" "));
+      else input.removeAttribute("aria-describedby");
+    }
     function mark(name, bad) {
       var f = fieldOf(name);
-      if (f) f.classList.toggle("invalid", !!bad);
+      if (f) {
+        f.classList.toggle("invalid", !!bad);
+        var input = f.querySelector("input, select, textarea");
+        if (input) {
+          if (bad) input.setAttribute("aria-invalid", "true");
+          else input.removeAttribute("aria-invalid");
+          describeField(f, input, bad);
+        }
+      }
       return !bad;
     }
     function val(name) {
       var el = qForm.querySelector('[name="' + name + '"]');
       return el ? el.value.trim() : "";
     }
+    function phoneValue() {
+      return val("phone").replace(/[\s().-]/g, "").replace(/^00251/, "+251");
+    }
+    // Expose inline errors and help text when a screen reader focuses a field.
+    qForm.querySelectorAll(".field").forEach(function (field) {
+      var input = field.querySelector("input, select, textarea");
+      if (!input || !input.id) return;
+      describeField(field, input, false);
+    });
     function validate() {
       var ok = true;
       ok = mark("company", !val("company")) && ok;
       ok = mark("contact_name", !val("contact_name")) && ok;
-      ok = mark("phone", !PH_RE.test(val("phone"))) && ok;
+      ok = mark("phone", !PH_RE.test(phoneValue())) && ok;
       ok = mark("email", !EMAIL_RE.test(val("email"))) && ok;
       ok = mark("tin", !(val("tin") === "" || TIN_RE.test(val("tin")))) && ok;
       ok = mark("category", !val("category")) && ok;
@@ -760,8 +804,9 @@
     }
     function showOk() {
       qForm.reset();
-      var iv = qForm.querySelectorAll(".field.invalid");
-      for (var i = 0; i < iv.length; i++) iv[i].classList.remove("invalid");
+      qForm.querySelectorAll("input, select, textarea").forEach(function (input) {
+        mark(input.name, false);
+      });
       qMsg.className = "form-msg ok";
       qMsg.textContent = t("quote.msg.ok", "Thank you — our team will contact you within 24 hours.");
       qMsg.hidden = false;
@@ -776,13 +821,13 @@
     }
 
     // clear a field's error as the user fixes it
-    qForm.addEventListener("input", function (e) {
-      var f = e.target.closest && e.target.closest(".field");
-      if (f) f.classList.remove("invalid");
-    });
+    function clearError(e) { if (e.target.name) mark(e.target.name, false); }
+    qForm.addEventListener("input", clearError);
+    qForm.addEventListener("change", clearError);
 
     qForm.addEventListener("submit", function (e) {
       e.preventDefault();
+      if (qBtn.disabled) return;
       qMsg.hidden = true;
       qMsg.className = "form-msg";
       if (!validate()) {
@@ -794,19 +839,29 @@
 
       var fd = new FormData(qForm);
       fd.set("subject", "New Quote Request — " + fd.get("company") + " — " + fd.get("category"));
-      fd.set("replyto", fd.get("email"));
+      fd.set("phone", phoneValue());
+      fd.set("email", val("email"));
+      fd.set("replyto", val("email"));
 
       qBtn.disabled = true;
       var restore = qBtnLabel.textContent;
       qBtnLabel.textContent = t("quote.f.sending", "Sending…");
+      qForm.setAttribute("aria-busy", "true");
+      var controller = new AbortController();
+      var timeout = setTimeout(function () { controller.abort(); }, 15000);
 
       fetch("https://api.web3forms.com/submit", {
-        method: "POST", body: fd, headers: { "Accept": "application/json" }
+        method: "POST", body: fd, headers: { "Accept": "application/json" }, signal: controller.signal
       })
-        .then(function (r) { return r.json(); })
+        .then(function (r) { if (!r.ok) throw new Error("Request failed"); return r.json(); })
         .then(function (data) { if (data && data.success) showOk(); else throw new Error("fail"); })
         .catch(function () { showFail(); })
-        .then(function () { qBtn.disabled = false; qBtnLabel.textContent = restore; });
+        .then(function () {
+          clearTimeout(timeout);
+          qBtn.disabled = false;
+          qBtnLabel.textContent = restore;
+          qForm.removeAttribute("aria-busy");
+        });
     });
   }
 })();

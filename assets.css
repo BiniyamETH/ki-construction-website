@@ -11,7 +11,7 @@
   --ease:cubic-bezier(.4,0,.2,1);
 }
 *,*::before,*::after{box-sizing:border-box}
-html{scroll-behavior:smooth}
+html{scroll-behavior:smooth;scroll-padding-top:88px}
 body{
   margin:0;color:var(--ink);background:var(--paper);
   font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
@@ -39,7 +39,7 @@ section.alt{background:var(--mist);border-block:1px solid var(--line)}
 /* buttons */
 .btn{
   display:inline-flex;align-items:center;gap:.5em;justify-content:center;
-  padding:.8em 1.35em;border-radius:999px;font-weight:700;font-size:.96rem;
+  padding:.8em 1.35em;min-height:44px;border-radius:999px;font-weight:700;font-size:.96rem;
   text-decoration:none;border:1.5px solid transparent;cursor:pointer;
   transition:transform .18s var(--ease),box-shadow .18s var(--ease),background .18s var(--ease);white-space:nowrap;
 }
@@ -103,12 +103,13 @@ header.site{position:sticky;top:0;z-index:50;background:rgba(25,28,35,.94);backd
 .langswitch{display:none}
 .nav-cta{margin-left:12px}
 /* compact tap-to-call button — shown in the mobile header where "Call now" is hidden */
-.call-mini{display:none;place-items:center;width:42px;height:42px;flex:none;border-radius:10px;
+.call-mini{display:none;place-items:center;width:44px;height:44px;flex:none;border-radius:10px;
   background:var(--brand);color:#fff;text-decoration:none;box-shadow:0 6px 16px -6px rgba(209,11,11,.7)}
 .call-mini svg{width:20px;height:20px}
+.home-call span{display:none}
 .call-mini:hover{background:var(--brand-hover)}
 .nav .menu-btn{margin-left:auto;background:none;border:1px solid rgba(255,255,255,.25);color:#fff;
-  width:42px;height:42px;border-radius:10px;display:grid;place-items:center;cursor:pointer}
+  width:44px;height:44px;flex:none;border-radius:10px;display:grid;place-items:center;cursor:pointer}
 .nav .menu-btn svg{width:22px;height:22px}
 @media(min-width:1040px){
   .nav-links{display:flex}
@@ -118,23 +119,28 @@ header.site{position:sticky;top:0;z-index:50;background:rgba(25,28,35,.94);backd
 @media(max-width:1039px){
   .nav-cta{display:none}
   .langswitch{margin-left:auto}
-  .call-mini{display:grid;margin-left:8px}
+  .call-mini{display:grid;margin-left:auto}
   .nav .menu-btn{margin-left:8px}
   .langbtn{padding:.62em .9em;font-size:.82rem}
 }
-/* phones: logo only, and shrink controls so the toggle + call + menu row always fits */
+/* Keep the business name visible and both phone controls easy to tap. */
 @media(max-width:600px){
-  header.site .brand span{display:none}
-  header.site .brand img{width:54px;height:54px}
+  header.site .brand{gap:8px;min-width:0}
+  header.site .brand span{display:block;font-size:.82rem;max-width:15ch}
+  header.site .brand span b{font-size:.59rem}
+  header.site .brand img{width:46px;height:46px;border-radius:10px}
   .nav{gap:8px}
   .langbtn{padding:.55em .68em;font-size:.8rem}
-  .call-mini,.nav .menu-btn{width:38px;height:38px}
-  .call-mini svg{width:18px;height:18px}
-  .nav .menu-btn svg{width:20px;height:20px}
+  .nav .menu-btn{margin-left:0}
+  .call-mini svg{width:20px;height:20px}
+  .nav .menu-btn svg{width:22px;height:22px}
 }
 /* mobile panel */
-.mnav{display:none;background:var(--charcoal-800);border-bottom:1px solid rgba(255,255,255,.08);max-height:calc(100vh - 64px);overflow-y:auto}
+.mnav{display:none;position:absolute;top:100%;left:0;right:0;background:var(--charcoal-800);border-bottom:1px solid rgba(255,255,255,.08);max-height:calc(100vh - 66px);max-height:calc(100dvh - 66px);overflow-y:auto;overscroll-behavior:contain;box-shadow:0 16px 30px rgba(0,0,0,.2)}
 .mnav.open{display:block}
+@media(min-width:761px) and (max-width:1039px){
+  .mnav{max-height:calc(100vh - 104px);max-height:calc(100dvh - 104px)}
+}
 .mnav a{display:block;padding:13px 20px;color:#e5e7eb;text-decoration:none;font-weight:600;border-top:1px solid rgba(255,255,255,.06)}
 .mnav a:first-child{border-top:none}
 .mnav a.active,.mnav a[aria-current="page"]{color:var(--brand-light)}
@@ -201,6 +207,7 @@ header.site{position:sticky;top:0;z-index:50;background:rgba(25,28,35,.94);backd
    inside the same isolated layer as the photos it darkens rather than
    spanning the whole hero (which would otherwise sit over the card too). */
 .hero-backgrounds::after{content:"";position:absolute;inset:0;
+  z-index:3;pointer-events:none;
   background-image:
     linear-gradient(100deg,rgba(19,21,27,.95) 0%,rgba(19,21,27,.88) 34%,rgba(19,21,27,.6) 58%,rgba(19,21,27,.22) 80%,rgba(19,21,27,.4) 100%),
     linear-gradient(0deg,rgba(14,16,21,.65),transparent 38%)}
@@ -268,6 +275,52 @@ header.site{position:sticky;top:0;z-index:50;background:rgba(25,28,35,.94);backd
   .hero .slogan{font-size:.92rem;margin-bottom:.65em}
   .hero p.lead{font-size:.92rem;margin-bottom:1em}
   .hero-badges{margin-top:14px;gap:8px}
+}
+
+/* Homepage hero — strong full-bleed composition inspired by industrial service sites. */
+.hero{border-bottom:4px solid var(--brand)}
+.hero .wrap{padding-block:88px 44px;min-height:690px;display:flex;align-items:flex-end}
+.hero-content{max-width:900px;background:transparent;border:0;border-radius:0;padding:0;backdrop-filter:none;-webkit-backdrop-filter:none;box-shadow:none}
+.hero-panel>.eyebrow{display:flex;align-items:center;gap:16px;margin-bottom:22px;font-size:.78rem;color:#fff!important}
+.hero-panel>.eyebrow::before{content:"";width:42px;height:3px;background:var(--brand);flex:none}
+.hero h1{max-width:17ch;font-size:clamp(2.6rem,4.3vw,3.7rem);line-height:1.04;text-transform:uppercase;letter-spacing:-.035em;margin-bottom:.38em}
+.hero h1 .hl{color:#f11e28}
+.hero .slogan{font-size:1.08rem;color:#fff;margin-bottom:1em}
+.hero p.lead{max-width:60ch;color:#eef1f5;font-size:1.08rem;line-height:1.65;margin-bottom:1.75em}
+.hero-cta{gap:16px}
+.hero-cta .btn{border-radius:4px;min-width:220px;min-height:58px;font-size:1rem}
+.hero-cta .btn-ghost{border-color:rgba(255,255,255,.8);background:rgba(8,18,28,.28)}
+.hero-badges{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:0;margin-top:56px;padding-top:24px;border-top:1px solid rgba(255,255,255,.25)}
+.hero-badges .b{justify-content:center;min-height:58px;border:0;border-radius:0;background:transparent;padding:8px 18px;border-right:1px solid rgba(255,255,255,.25);font-size:.86rem}
+.hero-badges .b:first-child{padding-left:0;justify-content:flex-start}
+.hero-badges .b:last-child{border-right:0;padding-right:0;justify-content:flex-end}
+.hero-backgrounds::after{background-image:linear-gradient(90deg,rgba(4,17,28,.98) 0%,rgba(4,17,28,.91) 38%,rgba(4,17,28,.54) 66%,rgba(4,17,28,.28) 100%),linear-gradient(0deg,rgba(4,17,28,.78),transparent 52%)}
+
+@media(max-width:760px){
+  header.site .brand span{display:none}
+  header.site .brand img{width:58px;height:58px}
+  header.site .home-call{display:flex;width:auto;height:44px;padding:0 7px;margin-left:auto;gap:7px;border-radius:8px;background:transparent;box-shadow:none;color:#fff;font-weight:800;font-size:.72rem;white-space:nowrap}
+  header.site .home-call span{display:inline}
+  header.site .home-call svg{color:var(--brand-light)}
+  .hero .wrap{min-height:calc(100svh - 64px);padding-block:54px 26px;align-items:flex-start}
+  .hero-content{width:100%;background:transparent;padding:0;border-radius:0}
+  .hero-backgrounds::after{background-image:linear-gradient(90deg,rgba(4,17,28,.98) 0%,rgba(4,17,28,.92) 64%,rgba(4,17,28,.68) 100%),linear-gradient(0deg,rgba(4,17,28,.88),rgba(4,17,28,.3) 60%)}
+  .hero-panel>.eyebrow{font-size:.7rem;gap:12px;margin-bottom:20px}
+  .hero-panel>.eyebrow::before{width:34px}
+  .hero h1{max-width:14ch;font-size:clamp(2rem,8.2vw,3rem);line-height:1.08;margin-bottom:.55em}
+  .hero .slogan{font-size:.9rem;margin-bottom:1em}
+  .hero p.lead{font-size:.98rem;line-height:1.6;margin-bottom:1.5em}
+  .hero-cta{display:grid;grid-template-columns:1fr;gap:12px}
+  .hero-cta .btn{width:100%;min-height:58px;font-size:.96rem;border-radius:4px}
+  .hero-badges{grid-template-columns:repeat(3,minmax(0,1fr));margin-top:42px;padding-top:20px}
+  .hero-badges .b,.hero-badges .b:first-child,.hero-badges .b:last-child{grid-column:auto;justify-content:center;padding:8px 10px;min-width:0;text-align:center;font-size:.72rem;flex-direction:column}
+  .hero-badges .b:last-child{border-right:0}
+}
+@media(max-width:379px){
+  header.site .home-call{font-size:.66rem;padding-inline:4px;gap:5px}
+  header.site .home-call svg{width:17px;height:17px}
+  .hero .wrap{padding-top:42px}
+  .hero h1{font-size:1.85rem}
 }
 
 /* brand strip — "Our partners" */
@@ -340,11 +393,8 @@ a.card:hover .ph img,.card:hover .ph img{transform:scale(1.04)}
   .range-gal>figure:last-child:nth-child(3n+1){grid-column:2}
 }
 .range-gal figure{margin:0;background:#fff;border:1px solid var(--line);border-radius:12px;overflow:hidden;box-shadow:var(--shadow)}
-.range-gal img{width:100%;aspect-ratio:4/3;object-fit:cover;background:var(--mist)}
+.range-gal img{width:100%;height:auto;aspect-ratio:4/3;object-fit:contain;background:var(--mist)}
 .range-gal figcaption{padding:10px 12px;font-size:.85rem;font-weight:600;border-top:1px solid var(--line);color:var(--ink)}
-.em-gallery{grid-template-columns:1fr}
-.em-gallery img{height:auto;aspect-ratio:auto}
-@media(min-width:680px){ .em-gallery{grid-template-columns:repeat(3,1fr)} }
 
 /* why-KI value cards (home) */
 .value-grid{margin-top:8px;display:grid;gap:16px;grid-template-columns:repeat(2,1fr)}
@@ -466,9 +516,13 @@ footer.site .fine{margin-top:34px;padding-top:20px;border-top:1px solid rgba(255
 .foot-badges .dot{display:none}
 
 /* floating whatsapp */
-.fab{position:fixed;right:16px;bottom:16px;z-index:60;width:56px;height:56px;border-radius:50%;background:var(--wa);
+.fab{position:fixed;right:16px;bottom:calc(16px + env(safe-area-inset-bottom,0px));z-index:60;width:56px;height:56px;border-radius:50%;background:var(--wa);
   color:#fff;display:grid;place-items:center;box-shadow:0 10px 28px -8px rgba(31,168,85,.8);text-decoration:none}
 .fab svg{width:28px;height:28px}
+.menu-open .fab{visibility:hidden}
+@supports selector(body:has(input:focus)){
+  body:has(.quote-form input:focus,.quote-form textarea:focus,.quote-form select:focus) .fab{visibility:hidden}
+}
 @media(min-width:980px){ .fab{right:24px;bottom:24px} }
 
 /* scroll reveal (home page, assets.js): fade + slide up the first time an element scrolls into view */
@@ -548,6 +602,7 @@ header.site :focus-visible,.hero :focus-visible,.page-hero :focus-visible,.cta-b
 .quote-form{display:grid;gap:20px}
 .quote-form .hp-field{position:absolute;left:-9999px;width:1px;height:1px;opacity:0}
 .quote-form .field{display:grid;gap:6px}
+.quote-form .field,.quote-form .row-2,.contact-grid>*{min-width:0}
 .quote-form label{font-weight:700;font-size:.92rem;color:var(--ink)}
 .quote-form label .req{color:var(--red);margin-left:.15em}
 .quote-form label .opt{color:var(--muted);font-weight:500;font-size:.85rem}
@@ -573,10 +628,106 @@ header.site :focus-visible,.hero :focus-visible,.page-hero :focus-visible,.cta-b
 @media(min-width:620px){ .quote-form .form-actions .btn{width:auto;min-width:230px;justify-self:start} }
 .quote-form button[disabled]{opacity:.65;cursor:progress;transform:none}
 .form-msg{margin-top:20px;padding:16px 18px;border-radius:12px;font-weight:600;display:grid;gap:12px;justify-items:start}
+.form-msg[hidden]{display:none}
 .form-msg.ok{background:#e9f7ef;border:1px solid #a9dcbd;color:#1c6b3d}
 .form-msg.fail{background:#fdecea;border:1px solid #f2bcb4;color:#9c261a}
 .form-msg p{margin:0}
-.form-msg .btn{align-self:start}
+.form-msg .btn{align-self:start;max-width:100%;white-space:normal;text-align:center}
+
+/* Phone layouts: readable galleries, balanced spacing and generous touch targets. */
+@media(max-width:600px){
+  .wrap{padding-inline:16px}
+  section{padding:44px 0}
+  .sec-head{margin-bottom:24px}
+  .page-hero{padding:30px 0 32px}
+  .page-hero h1{font-size:clamp(1.65rem,7vw,2.1rem)}
+  .page-hero p{font-size:1rem}
+  .hero .wrap{padding-block:24px}
+  .hero-content{padding:22px 18px}
+  .hero h1{font-size:clamp(1.6rem,6.2vw,2rem);line-height:1.2}
+  .hero .eyebrow{font-size:.63rem;letter-spacing:.1em}
+  .hero .slogan{font-size:.88rem;margin-bottom:.8em}
+  .hero p.lead{font-size:.92rem;line-height:1.6}
+  .hero-cta{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:10px}
+  .hero-cta .btn{padding:12px 8px;font-size:.8rem;white-space:normal;border-radius:12px}
+  .hero-badges{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:18px}
+  .hero-badges .b{font-size:.72rem;padding:9px 10px;border-radius:10px;gap:6px}
+  .hero-badges .b:last-child{grid-column:1/-1}
+  .hero-badges .b .ic{width:16px;height:16px}
+  .brands .wrap{gap:14px}
+  .brands-row{gap:8px}
+  .brands .label{width:100%}
+  .brands .wm{font-size:.75rem;padding:7px 9px}
+  .stats-band{padding:28px 0}
+  .stats{gap:22px 14px}
+  .stats .stat{gap:9px}
+  .stats .stat .ic{width:26px;height:26px}
+  .cards{gap:20px}
+  .card .body{padding:20px}
+  .value-grid{gap:12px}
+  .value-card{padding:18px 14px}
+  .value-card h3{font-size:.98rem;overflow-wrap:anywhere}
+  .value-card p{font-size:.9rem}
+  .subhead{margin-top:28px;letter-spacing:.1em}
+  .range-gal figcaption,.photos figcaption,.gal figcaption{font-size:.87rem;padding:12px}
+  .other-cats a{display:inline-flex;align-items:center;min-height:44px;white-space:normal}
+  .page-hero .pcta,.cta-row,.cta-band .btns{display:grid;grid-template-columns:1fr;width:100%;gap:10px}
+  .page-hero .pcta .btn,.cta-row .btn,.cta-band .btn{width:100%;white-space:normal;text-align:center}
+  .cta-band{padding:32px 0}
+  .cta-band .wrap{gap:22px}
+  .cta-band h2{font-size:1.3rem}
+  .cinfo .v{overflow-wrap:anywhere}
+  .cinfo .v a{display:inline-block;padding-block:8px}
+  .quote-layout{gap:24px}
+  .quote-form{gap:18px}
+  .quote-form .form-actions .btn{white-space:normal}
+  footer.site{padding:36px 0 84px}
+  footer.site .cols{grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:26px 18px}
+  footer.site .cols>div:first-child{grid-column:1/-1}
+  footer.site ul{gap:0}
+  footer.site li a{display:flex;align-items:center;min-height:44px;overflow-wrap:anywhere}
+  footer.site .fine{margin-top:24px;font-size:.78rem}
+  .fab{width:48px;height:48px;right:12px;bottom:calc(12px + env(safe-area-inset-bottom,0px))}
+  .fab svg{width:25px;height:25px}
+}
+@media(max-width:479px){
+  .range-gal,.gal.certs{grid-template-columns:minmax(0,1fr)}
+  .photos{columns:1}
+  .gal.certs img{aspect-ratio:auto;max-height:440px;object-fit:contain}
+}
+@media(max-width:359px){
+  header.site .brand span{font-size:.75rem}
+  header.site .brand span b{font-size:.53rem}
+  .value-grid{grid-template-columns:1fr}
+  footer.site .cols{grid-template-columns:1fr}
+}
+@media(hover:none){
+  .btn:hover,a.card:hover,.value-card:hover{transform:none}
+  a.card:hover .ph img,.card:hover .ph img{transform:none}
+}
+
+/* Keep the homepage's reference-inspired hero dominant over generic phone rules above. */
+@media(max-width:760px){
+  header.site .brand span{display:none}
+  header.site .brand img{width:58px;height:58px}
+  header.site .home-call{display:flex;width:auto;height:44px;padding:0 7px;margin-left:auto;gap:7px;border-radius:8px;background:transparent;box-shadow:none;color:#fff;font-weight:800;font-size:.72rem;white-space:nowrap}
+  header.site .home-call span{display:inline}
+  .hero .wrap{min-height:calc(100svh - 64px);padding-block:54px 26px;align-items:flex-start}
+  .hero-content{width:100%;background:transparent;padding:0;border:0;border-radius:0;box-shadow:none;backdrop-filter:none;-webkit-backdrop-filter:none}
+  .hero h1{max-width:14ch;font-size:clamp(2rem,8.2vw,3rem);line-height:1.08;margin-bottom:.55em}
+  .hero .slogan{font-size:.9rem;margin-bottom:1em}
+  .hero p.lead{font-size:.98rem;line-height:1.6;margin-bottom:1.5em}
+  .hero-cta{display:grid;grid-template-columns:1fr;gap:12px}
+  .hero-cta .btn{width:100%;min-height:58px;font-size:.96rem;border-radius:4px}
+  .hero-badges{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:0;margin-top:42px;padding-top:20px}
+  .hero-badges .b,.hero-badges .b:first-child,.hero-badges .b:last-child{grid-column:auto;justify-content:center;padding:8px 10px;min-width:0;text-align:center;font-size:.72rem;flex-direction:column;border-radius:0;background:transparent}
+}
+@media(max-width:379px){
+  header.site .home-call{font-size:.66rem;padding-inline:4px;gap:5px}
+  header.site .home-call svg{width:17px;height:17px}
+  .hero .wrap{padding-top:42px}
+  .hero h1{font-size:1.85rem}
+}
 
 /* Amharic typography */
 html[lang="am"] body{font-family:"Noto Sans Ethiopic","Nyala","Kefa","Abyssinica SIL",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;line-height:1.78}
