@@ -62,6 +62,7 @@ section.alt{background:var(--mist);border-block:1px solid var(--line)}
 .topbar .wrap{display:flex;gap:22px;align-items:center;min-height:38px;flex-wrap:wrap}
 .topbar a{text-decoration:none;color:#d6d8dd;display:inline-flex;align-items:center;gap:.4em}
 .topbar a:hover{color:#fff}
+.topbar-phones{display:inline-flex;align-items:center;gap:.45em}
 .topbar .spacer{margin-left:auto}
 .topbar .tag{color:var(--brand-light);font-weight:700}
 @media(max-width:760px){ .topbar{display:none} }
