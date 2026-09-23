@@ -562,7 +562,7 @@
     "contact.officeLabel": "ቢሮ",
     "contact.addr": "ሳሙኤል ደረሳ ሕንፃ፣ 4ኛ ፎቅ፣ ቢሮ ቁ. 102/4/11F<br>ቸርችል ጎዳና፣ ፒያሳ · አራዳ ክፍለ ከተማ፣ ወረዳ 01 · አዲስ አበባ፣ ኢትዮጵያ<br><span style=\"color:var(--muted);font-weight:500\">ከድሮው አንበሳ ፋርማሲ አጠገብ፣ ከ3F ሕንፃ ቅርብ</span>",
     "contact.phoneLabel": "ስልክ እና ሞባይል",
-    "contact.phoneNote": "ፋክስ +251 111 262530 · ፖ.ሳ.ቁ. 1000",
+    "contact.phoneNote": "ፖ.ሳ.ቁ. 1000",
     "contact.emailLabel": "ኢሜይል",
     "contact.tgLabel": "ቴሌግራም",
     "contact.cta1": "ይደውሉ +251 911 230787",
