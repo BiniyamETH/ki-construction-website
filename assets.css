@@ -735,3 +735,32 @@ html[lang="am"] body{font-family:"Noto Sans Ethiopic","Nyala","Kefa","Abyssinica
 html[lang="am"] h1,html[lang="am"] h2,html[lang="am"] h3,html[lang="am"] h4{letter-spacing:0;line-height:1.4}
 html[lang="am"] .eyebrow,html[lang="am"] .subhead,html[lang="am"] .cinfo .k,html[lang="am"] .brands .label,html[lang="am"] footer.site h2{letter-spacing:.02em}
 html[lang="am"] .hero .slogan,html[lang="am"] i{font-style:normal}
+
+/* Home hero fits one screen: height = viewport minus the sticky header (+ top bar on
+   desktop, + the hero's 4px bottom border); type and gaps scale with viewport height (svh) so short screens stay compact. */
+.hero{--hero-offset:107px}
+.hero .wrap{min-height:calc(100vh - var(--hero-offset));min-height:calc(100svh - var(--hero-offset));
+  padding-block:clamp(20px,4.6svh,72px) clamp(16px,3.4svh,40px)}
+.hero-panel>.eyebrow{margin-bottom:clamp(10px,2svh,22px)}
+.hero h1{max-width:21ch;font-size:clamp(2rem,min(4.3vw,5.9svh),3.7rem);line-height:1.04;margin-bottom:.3em}
+.hero .slogan{margin-bottom:clamp(.5em,1.4svh,1em)}
+.hero p.lead{line-height:1.55;margin-bottom:clamp(14px,2.8svh,28px)}
+.hero-cta .btn{min-height:clamp(46px,6svh,58px)}
+.hero-badges{margin-top:clamp(16px,4.5svh,56px);padding-top:clamp(10px,2svh,24px)}
+.hero-badges .b{min-height:clamp(40px,5svh,58px)}
+@media(max-width:760px){
+  .hero{--hero-offset:69px}
+  .hero .wrap{padding-block:clamp(16px,3.2svh,40px) clamp(14px,2.4svh,26px)}
+  .hero-panel>.eyebrow{margin-bottom:clamp(8px,1.6svh,20px)}
+  .hero h1{max-width:none;font-size:clamp(1.55rem,min(8.2vw,4.6svh),3rem);line-height:1.08}
+  .hero .slogan{font-size:clamp(.84rem,1.9svh,.9rem)}
+  .hero p.lead{font-size:clamp(.88rem,2.05svh,.98rem);line-height:1.5}
+  .hero-cta{gap:clamp(8px,1.3svh,12px)}
+  .hero-cta .btn{min-height:clamp(44px,6svh,54px)}
+  .hero-badges{margin-top:clamp(12px,2.4svh,32px);padding-top:clamp(8px,1.6svh,20px)}
+  .hero-badges .b,.hero-badges .b:first-child,.hero-badges .b:last-child{min-height:0;padding-block:4px}
+}
+@media(max-width:379px){
+  .hero .wrap{padding-top:clamp(14px,2.6svh,32px)}
+  .hero h1{font-size:clamp(1.45rem,min(8.2vw,4.1svh),1.85rem)}
+}

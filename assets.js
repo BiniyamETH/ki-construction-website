@@ -867,3 +867,18 @@
     });
   }
 })();
+
+/* home hero: fit exactly one screen — the top bar wraps to two lines on tablets, so
+   measure the real top bar + sticky header height instead of trusting the CSS fallback */
+(function () {
+  "use strict";
+  var hero = document.querySelector(".hero");
+  if (!hero) return;
+  var topbar = document.querySelector(".topbar"), header = document.querySelector("header.site");
+  function setOffset() {
+    var h = (topbar ? topbar.offsetHeight : 0) + (header ? header.offsetHeight : 0) + 4; // + hero's 4px bottom border
+    hero.style.setProperty("--hero-offset", h + "px");
+  }
+  setOffset();
+  window.addEventListener("resize", setOffset);
+})();
