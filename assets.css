@@ -601,7 +601,6 @@ header.site :focus-visible,.hero :focus-visible,.page-hero :focus-visible,.cta-b
 .quote-card a:hover{color:var(--charcoal-600);text-decoration:underline}
 .quote-card p{margin:0;font-size:.85rem;color:var(--muted)}
 .quote-form{display:grid;gap:20px}
-.quote-form .hp-field{position:absolute;left:-9999px;width:1px;height:1px;opacity:0}
 .quote-form .field{display:grid;gap:6px}
 .quote-form .field,.quote-form .row-2,.contact-grid>*{min-width:0}
 .quote-form label{font-weight:700;font-size:.92rem;color:var(--ink)}

@@ -43,9 +43,11 @@
       if (!mnav.contains(e.target) && !btn.contains(e.target)) setMenu(false);
     });
     var desktopNav = window.matchMedia("(min-width: 1040px)");
-    desktopNav.addEventListener("change", function (e) {
+    function onDesktopNavChange(e) {
       if (e.matches) setMenu(false);
-    });
+    }
+    if (desktopNav.addEventListener) desktopNav.addEventListener("change", onDesktopNavChange);
+    else if (desktopNav.addListener) desktopNav.addListener(onDesktopNavChange);
   }
 
   /* ---------- home hero: fixed headline, photos gently cross-fade (desktop only) ---------- */
