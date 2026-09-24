@@ -52,7 +52,6 @@
   (function () {
     var slides = document.querySelectorAll(".hero-slide");
     if (!slides.length) return;
-    var hero = document.querySelector(".hero");
 
     var reduceMotion = !!(window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches);
 
@@ -91,29 +90,6 @@
     var FADE_MS = 1800;
     var i = 0, busy = false, timer = null;
 
-    // dot indicators — one per photo; clicking jumps straight to that photo
-    var dots = [];
-    if (hero && slides.length > 1) {
-      var nav = document.createElement("div");
-      nav.className = "hero-dots";
-      for (var d = 0; d < slides.length; d++) {
-        var b = document.createElement("button");
-        b.type = "button";
-        b.setAttribute("aria-label", "Show photo " + (d + 1) + " of " + slides.length);
-        b.addEventListener("click", (function (idx) { return function () { go(idx); }; })(d));
-        nav.appendChild(b);
-        dots.push(b);
-      }
-      hero.appendChild(nav);
-    }
-    function markDot(idx) {
-      for (var k = 0; k < dots.length; k++) {
-        dots[k].classList.toggle("is-active", k === idx);
-        if (k === idx) dots[k].setAttribute("aria-current", "true");
-        else dots[k].removeAttribute("aria-current");
-      }
-    }
-
     function show(el, opacity) {
       el.style.transition = "none";
       el.style.display = "block";
@@ -123,7 +99,6 @@
     show(slides[0], 1);
     slides[0].style.zIndex = "1";
     slides[0].classList.add("is-active");
-    markDot(0);
 
     // the next photo slowly fades in on top of the current one — no movement, easy on the eyes
     function slideTo(nextIdx) {
@@ -133,7 +108,6 @@
         return new Promise(function (resolve) {
           var incoming = slides[nextIdx];
           var outgoing = slides[i];
-          markDot(nextIdx);
 
           function finish() {
             clearTimeout(fallback);
@@ -175,11 +149,6 @@
       timer = setTimeout(function () {
         slideTo((i + 1) % slides.length).then(schedule);
       }, HOLD_MS);
-    }
-    function go(idx) {
-      if (busy) return;
-      clearTimeout(timer);
-      slideTo(idx).then(schedule);
     }
 
     // pause while the tab is hidden so photos don't pile up in the background
