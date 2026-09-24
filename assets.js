@@ -48,7 +48,7 @@
     });
   }
 
-  /* ---------- home hero: fixed headline, photos slide in one after another ---------- */
+  /* ---------- home hero: fixed headline, photos gently cross-fade (desktop only) ---------- */
   (function () {
     var slides = document.querySelectorAll(".hero-slide");
     if (!slides.length) return;
@@ -87,8 +87,8 @@
       return ready[idx];
     }
 
-    var HOLD_MS = 5000;
-    var SLIDE_MS = 900;
+    var HOLD_MS = 6000;
+    var FADE_MS = 1800;
     var i = 0, busy = false, timer = null;
 
     // dot indicators — one per photo; clicking jumps straight to that photo
@@ -114,19 +114,18 @@
       }
     }
 
-    function show(el, x) {
+    function show(el, opacity) {
       el.style.transition = "none";
       el.style.display = "block";
-      el.style.opacity = "1";
-      el.style.transform = "translate3d(" + x + "%,0,0)";
+      el.style.opacity = String(opacity);
     }
 
-    show(slides[0], 0);
+    show(slides[0], 1);
     slides[0].style.zIndex = "1";
     slides[0].classList.add("is-active");
     markDot(0);
 
-    // incoming photo slides in from the right while the current one slides out to the left
+    // the next photo slowly fades in on top of the current one — no movement, easy on the eyes
     function slideTo(nextIdx) {
       if (busy || nextIdx === i) return Promise.resolve();
       busy = true;
@@ -140,9 +139,10 @@
             clearTimeout(fallback);
             outgoing.style.display = "none";
             outgoing.style.transition = "none";
+            outgoing.style.zIndex = "";
             outgoing.classList.remove("is-active");
             incoming.style.transition = "none";
-            incoming.style.transform = "translate3d(0,0,0)";
+            incoming.style.opacity = "1";
             incoming.style.zIndex = "1";
             incoming.classList.add("is-active");
             i = nextIdx;
@@ -151,21 +151,18 @@
           }
 
           if (reduceMotion) {
-            show(incoming, 0);
+            show(incoming, 1);
             var fallback = null;
             finish();
             return;
           }
 
-          show(incoming, 100);
+          show(incoming, 0);
           incoming.style.zIndex = "2";
-          var fallback = setTimeout(finish, SLIDE_MS + 400);
-          void incoming.offsetWidth; // commit the off-screen start position before animating
-          var t = "transform " + SLIDE_MS + "ms cubic-bezier(.65,0,.35,1)";
-          incoming.style.transition = t;
-          outgoing.style.transition = t;
-          incoming.style.transform = "translate3d(0,0,0)";
-          outgoing.style.transform = "translate3d(-100%,0,0)";
+          var fallback = setTimeout(finish, FADE_MS + 400);
+          void incoming.offsetWidth; // commit opacity 0 before starting the fade
+          incoming.style.transition = "opacity " + FADE_MS + "ms ease-in-out";
+          incoming.style.opacity = "1";
         });
       });
     }
