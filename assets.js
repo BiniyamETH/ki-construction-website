@@ -170,9 +170,11 @@
       });
     }
 
+    // phones: keep one fixed background photo — the slider only runs on wider screens
+    var mobile = window.matchMedia ? window.matchMedia("(max-width: 760px)") : null;
     function schedule() {
       clearTimeout(timer);
-      if (reduceMotion) return;
+      if (reduceMotion || (mobile && mobile.matches)) return;
       timer = setTimeout(function () {
         slideTo((i + 1) % slides.length).then(schedule);
       }, HOLD_MS);
@@ -188,6 +190,12 @@
       if (document.hidden) clearTimeout(timer);
       else schedule();
     });
+
+    if (mobile) {
+      var onChange = function () { schedule(); };
+      if (mobile.addEventListener) mobile.addEventListener("change", onChange);
+      else if (mobile.addListener) mobile.addListener(onChange);
+    }
 
     schedule();
   })();

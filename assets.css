@@ -781,3 +781,5 @@ html[lang="am"] .hero .slogan,html[lang="am"] i{font-style:normal}
 /* smaller header logo */
 header.site .brand img{width:46px;height:46px;border-radius:10px}
 @media(max-width:760px){ header.site .brand img{width:42px;height:42px;border-radius:9px} }
+/* phones show one fixed hero photo (no slider), so no slide indicators */
+@media(max-width:760px){ .hero-dots{display:none} }
