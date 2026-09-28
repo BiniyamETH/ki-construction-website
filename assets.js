@@ -50,10 +50,11 @@
     else if (desktopNav.addListener) desktopNav.addListener(onDesktopNavChange);
   }
 
-  /* ---------- home hero: fixed headline, photos gently cross-fade (desktop only) ---------- */
+  /* ---------- home hero: fixed headline, photos gently cross-fade ---------- */
   (function () {
     var slides = document.querySelectorAll(".hero-slide");
     if (!slides.length) return;
+    var controls = document.querySelectorAll("[data-hero-slide]");
 
     var reduceMotion = !!(window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches);
 
@@ -98,6 +99,12 @@
       el.style.opacity = String(opacity);
     }
 
+    function updateControls(activeIdx) {
+      controls.forEach(function (control, idx) {
+        control.setAttribute("aria-pressed", idx === activeIdx ? "true" : "false");
+      });
+    }
+
     show(slides[0], 1);
     slides[0].style.zIndex = "1";
     slides[0].classList.add("is-active");
@@ -122,6 +129,7 @@
             incoming.style.zIndex = "1";
             incoming.classList.add("is-active");
             i = nextIdx;
+            updateControls(i);
             busy = false;
             resolve();
           }
@@ -142,6 +150,15 @@
         });
       });
     }
+
+    controls.forEach(function (control) {
+      control.addEventListener("click", function () {
+        var nextIdx = parseInt(control.getAttribute("data-hero-slide"), 10);
+        if (isNaN(nextIdx) || nextIdx < 0 || nextIdx >= slides.length) return;
+        clearTimeout(timer);
+        slideTo(nextIdx).then(schedule);
+      });
+    });
 
     // phones: keep one fixed background photo — the slider only runs on wider screens
     var mobile = window.matchMedia ? window.matchMedia("(max-width: 760px)") : null;

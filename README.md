@@ -26,6 +26,8 @@ Plain static HTML/CSS/JS — no framework, no build step required to serve.
 | `contact.html` | Contact |
 | `assets.css` | Shared styles (loaded once, cached across pages) |
 | `assets.js` | Shared behaviour: mobile menu, EN / አማርኛ language toggle, footer year |
+| `home-refresh.css` | Homepage-only colors, layout, and product interactions |
+| `home-experience.js` | Featured equipment filters, gallery controls, and section reveals |
 | `img/` | Compressed images |
 
 ### Languages
@@ -39,6 +41,9 @@ choice is remembered in `localStorage`.
 The HTML pages and `img/` are produced by an internal build script that
 compresses source photos and assembles the shared header/footer. `assets.css`
 and `assets.js` are edited by hand.
+
+The homepage also loads `home-refresh.css` for its reference-inspired visual
+theme and uses `assets.js` directly so its hero slide controls stay in sync.
 
 ## Preview locally
 
