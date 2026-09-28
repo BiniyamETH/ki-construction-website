@@ -15,7 +15,6 @@ body.home-refresh{--maxw:1240px;background:#fff;color:#17212f}
 .home-refresh header.site .brand span b{color:#bfdbfe}
 .home-refresh .nav-links a{color:#fff;font-size:.8rem;text-transform:uppercase;letter-spacing:.025em}
 .home-refresh .nav-links a.active{background:#ffffff24;color:#fff}
-.home-refresh .sub a{color:#17212f}
 .home-refresh .langbtn{color:#fff}
 .home-refresh .langbtn[aria-pressed=true]{background:#fff;color:#1d4ed8}
 .home-refresh .btn{border-radius:10px}
