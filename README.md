@@ -32,17 +32,28 @@ Plain static HTML/CSS/JS — no framework, no build step required to serve.
 | `home-refresh.css` | Homepage-only layout and product interactions, using the shared navy/cyan palette |
 | `home-experience.js` | Featured equipment filters, gallery controls, and section reveals |
 | `img/` | Compressed images |
+| `404.html` | Page not found |
 | `robots.txt`, `sitemap.xml` | Search engine crawling and page list |
 
 ### Shared assets
 
-All pages load `assets.min.css`. Every page except the homepage loads
-`assets.min.js`; the homepage loads `assets.js` directly so its hero slide
-controls stay in sync with the latest source.
+All pages load `assets.min.css` and `assets.min.js`.
 
 `assets.css` and `assets.js` are the files to edit. After changing them,
 regenerate the matching `.min` file and bump the `?v=` query string on the
-`<link>` / `<script>` tags so browsers fetch the new version.
+`<link>` / `<script>` tags so browsers fetch the new version:
+
+```
+npx terser assets.js -c -m -o assets.min.js
+```
+
+### Images
+
+Pages use WebP images (`img/*.webp`). The `.jpg` originals are kept for
+social-media previews (`og:image`) and old links. Keep photos at most 800px
+wide (hero photos 1280px) and compress them before adding them.
+
+`404.html` is the "page not found" page GitHub Pages serves for unknown URLs.
 
 ### Languages
 
