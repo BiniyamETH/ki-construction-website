@@ -341,3 +341,29 @@ body.home-refresh{
   .home-hero-v2 .home-call-text>span{font-size:.82rem}
   .home-hero-v2 .hero-badges .b,.home-hero-v2 .hero-badges .b:first-child,.home-hero-v2 .hero-badges .b:last-child{flex-direction:column;align-items:flex-start;font-size:.7rem}
 }
+
+/* Phones: tighter hero so the headline, buttons and the agent/feature row
+   fit on screen together instead of pushing the trust row below the fold. */
+@media(max-width:760px){
+  .home-hero-v2 header.site .wrap.nav{min-height:64px}
+  .home-hero-v2 header.site .brand img{width:44px;height:44px;border-radius:10px}
+  .home-hero-v2 .nav .menu-btn{width:42px;height:42px;margin-left:10px}
+  .home-hero-v2 .hero .wrap{padding-block:26px 0}
+  .home-hero-v2 .hero-kicker{margin-bottom:14px}
+  .home-hero-v2 .hero-panel .hero-kicker .eyebrow{font-size:.68rem;gap:10px}
+  .home-hero-v2 .hero-panel .hero-kicker .eyebrow::before{width:26px}
+  .home-hero-v2 .hero h1{font-size:clamp(1.55rem,6.9vw,2.1rem);line-height:1.12}
+  .home-hero-v2 .hero p.lead{margin-top:12px;font-size:.95rem;line-height:1.5}
+  .home-hero-v2 .hero-cta{gap:10px;margin-top:20px}
+  .home-hero-v2 .hero-cta .btn{min-height:52px;font-size:1rem}
+  .home-hero-v2 .hero-note{margin-top:16px;font-size:.85rem}
+  .home-hero-v2 .hero-meta{margin-top:18px;padding-top:16px}
+  .home-hero-v2 .hero-agent-row{gap:12px}
+  .home-hero-v2 .hero-agent-row img{width:68px;padding:4px 6px}
+  .home-hero-v2 .hero-agent-row span{padding-left:12px;font-size:.88rem}
+  .home-hero-v2 .hero-agent small{margin-top:8px;font-size:.74rem}
+  .home-hero-v2 .hero-badges,.home-refresh.home-hero-v2 .hero-badges{margin-top:16px;padding:14px 0 20px}
+  .home-hero-v2 .hero-badges,.home-refresh.home-hero-v2 .hero-badges{grid-template-columns:1fr 1fr;gap:14px 12px;padding-bottom:24px}
+  .home-hero-v2 .hero-badges .b,.home-hero-v2 .hero-badges .b:first-child,.home-hero-v2 .hero-badges .b:last-child{flex-direction:row;align-items:center;gap:10px;padding:0;border-left:0;font-size:.8rem;line-height:1.3}
+  .home-hero-v2 .hero-badges .ic{width:20px;height:20px}
+}
