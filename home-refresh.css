@@ -387,3 +387,5 @@ body.home-refresh{
 @media(max-width:1039px){
   .home-hero-v2 header.site .home-call{min-height:44px;padding:0 4px}
 }
+
+.home-refresh .card.has-slider:hover .ph img{transform:none}
