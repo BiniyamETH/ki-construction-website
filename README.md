@@ -53,14 +53,18 @@ visitor's choice is remembered in `localStorage`.
 
 ### Editing pages
 
-The HTML pages are maintained by hand. The site header and footer are repeated
+The HTML pages are maintained by hand. Link between pages without the `.html`
+extension (`href="about"`), and keep each page's canonical URL and its
+`sitemap.xml` entry in the same form. The site header and footer are repeated
 in each page, so change them in every HTML file.
 
 ## Preview locally
 
 ```
-python -m http.server 8000
+npx serve .
 ```
 
-then open <http://localhost:8000>. (Or just open `index.html` — only the Google
-Maps embed on the contact page needs a connection.)
+then open the address it prints. Internal links use clean URLs without `.html`
+(`/about`, `/products`, …) to match the canonical tags and `sitemap.xml`;
+GitHub Pages and `serve` resolve them to the `.html` files, but
+`python -m http.server` and opening files directly do not.
