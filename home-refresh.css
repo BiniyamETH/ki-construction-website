@@ -130,7 +130,7 @@ body.home-refresh{--maxw:1240px;background:#fff;color:#17212f}
 .contact-layout{display:grid;grid-template-columns:1.1fr 1fr;align-items:center;gap:80px}
 .contact-layout h2{font-size:clamp(2rem,4vw,3.4rem);margin:20px 0}
 .contact-layout p{color:#aebfd8;max-width:52ch}
-.contact-layout>div>a{display:block;width:fit-content;text-decoration:none;color:#93c5fd}
+.contact-layout>div:first-child>a{display:block;width:fit-content;text-decoration:none;color:#93c5fd}
 .contact-layout .contact-number{font-size:1.6rem;font-weight:750;margin:30px 0 8px}
 .project-panel{background:#fff;border-radius:26px;padding:42px;color:#13264a}
 .project-panel h3{font-size:1.8rem}
