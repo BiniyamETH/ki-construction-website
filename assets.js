@@ -55,6 +55,36 @@
     var slides = document.querySelectorAll(".hero-slide");
     if (!slides.length) return;
     var controls = document.querySelectorAll("[data-hero-slide]");
+    var panel = document.querySelector(".hero-panel");
+    var heroCopy = [
+      { kicker: "The complete equipment range", title: 'Engineered for <span class="hl">Every Application</span>', lead: "From dependable power systems and heavy-duty machinery to water pumps and electromechanical equipment, we supply, deliver and support genuine products for projects across Ethiopia.", primary: "Explore Products", primaryHref: "products.html", secondary: "Contact", secondaryHref: "contact.html" },
+      { kicker: "Water pumping solutions", title: 'Move water with <span class="hl">Confidence</span>', lead: "Surface, centrifugal and deep-well pumping systems selected for reliable water supply, irrigation, building services and industrial applications.", primary: "Explore Pumps", primaryHref: "product-pumps.html", secondary: "Get Advice", secondaryHref: "contact.html" },
+      { kicker: "Solar pumping solutions", title: 'Harness the sun for <span class="hl">Reliable Supply</span>', lead: "Complete solar pumping systems for agricultural irrigation and remote water access, supported from product selection through commissioning.", primary: "Solar Solutions", primaryHref: "product-pumps.html", secondary: "Request a Quote", secondaryHref: "quote.html" },
+      { kicker: "Construction machinery", title: 'Built for <span class="hl">Demanding Sites</span>', lead: "Heavy equipment and attachments from established manufacturers, supplied with the technical guidance, parts and support your project requires.", primary: "View Machinery", primaryHref: "product-construction-machinery.html", secondary: "Contact", secondaryHref: "contact.html" },
+      { kicker: "Electromechanical solutions", title: 'Complete systems. <span class="hl">One supplier.</span>', lead: "Valves, fittings, controls and related equipment brought together for dependable water, irrigation and industrial installations.", primary: "Explore Solutions", primaryHref: "product-electro-mechanical.html", secondary: "Get Advice", secondaryHref: "contact.html" }
+    ];
+
+    function updatePanel(idx) {
+      if (!panel || !heroCopy[idx]) return;
+      var copy = heroCopy[idx];
+      var kicker = panel.querySelector(".hero-kicker .eyebrow");
+      var title = panel.querySelector("h1");
+      var lead = panel.querySelector(".lead");
+      var links = panel.querySelectorAll(".hero-cta a");
+      if (kicker) kicker.textContent = copy.kicker;
+      if (title) title.innerHTML = copy.title;
+      if (lead) lead.textContent = copy.lead;
+      if (links[0]) {
+        links[0].href = copy.primaryHref;
+        var primaryLabel = links[0].querySelector("span");
+        if (primaryLabel) primaryLabel.textContent = copy.primary;
+      }
+      if (links[1]) {
+        links[1].href = copy.secondaryHref;
+        var secondaryLabel = links[1].querySelector("span");
+        if (secondaryLabel) secondaryLabel.textContent = copy.secondary;
+      }
+    }
 
     var reduceMotion = !!(window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches);
 
@@ -114,6 +144,7 @@
       if (busy || nextIdx === i) return Promise.resolve();
       busy = true;
       return startLoading(nextIdx).then(function () {
+        if (panel && !reduceMotion) panel.classList.add("is-updating");
         return new Promise(function (resolve) {
           var incoming = slides[nextIdx];
           var outgoing = slides[i];
@@ -129,6 +160,8 @@
             incoming.style.zIndex = "1";
             incoming.classList.add("is-active");
             i = nextIdx;
+            updatePanel(i);
+            if (panel) requestAnimationFrame(function () { panel.classList.remove("is-updating"); });
             updateControls(i);
             busy = false;
             resolve();
