@@ -382,3 +382,8 @@ body.home-refresh{
   .home-hero-v2 .hero-backgrounds::after{background:linear-gradient(180deg,#070d17e0 0%,#070d17d1 45%,#070d17eb 100%)}
   .home-hero-v2 .hero-cta .btn-ghost{background:#070d17cc;border-color:#ffffffb3;-webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px)}
 }
+
+/* Phones: make the header phone number a full-size tap target */
+@media(max-width:1039px){
+  .home-hero-v2 header.site .home-call{min-height:44px;padding:0 4px}
+}
