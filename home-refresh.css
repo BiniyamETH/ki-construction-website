@@ -389,3 +389,18 @@ body.home-refresh{
 }
 
 .home-refresh .card.has-slider:hover .ph img{transform:none}
+
+/* "Construction materials & machinery importer in Addis Ababa" section */
+.home-refresh .importer-section{background:#fff;border-top:1px solid #e3e8f0}
+.importer-layout{display:grid;grid-template-columns:1.05fr 1fr;gap:56px;align-items:start}
+.importer-layout h2{margin:18px 0 20px}
+.importer-layout p{color:#4a5566;font-size:1.02rem;line-height:1.75;max-width:60ch}
+.importer-cta{display:flex;flex-wrap:wrap;gap:12px;margin-top:26px}
+.importer-list{margin:0;padding:0;list-style:none;display:grid;gap:12px}
+.importer-list a{position:relative;display:block;padding:18px 48px 18px 20px;border:1px solid #e3e8f0;border-left:3px solid var(--hp-cyan);border-radius:12px;background:#f7f9fc;text-decoration:none;transition:border-color .2s,background .2s,transform .2s}
+.importer-list a::after{content:"\2192";position:absolute;right:18px;top:50%;transform:translateY(-50%);color:var(--hp-cyan-dark);font-weight:800}
+.importer-list a:hover{background:#eaf9fe;border-color:#a7e5f6;transform:translateX(3px)}
+.importer-list strong{display:block;color:#17212f;font-size:1rem}
+.importer-list span{display:block;margin-top:4px;color:#586373;font-size:.88rem;line-height:1.5}
+@media(max-width:900px){.importer-layout{grid-template-columns:1fr;gap:32px}}
+@media(max-width:760px){.importer-cta .btn{flex:1 1 100%}}
