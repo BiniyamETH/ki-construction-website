@@ -50,6 +50,83 @@
     else if (desktopNav.addListener) desktopNav.addListener(onDesktopNavChange);
   }
 
+  /* ---------- product-card photo sliders (home + products) ---------- */
+  // Each range card shows the products inside it: swipe, the arrows, or wait —
+  // the photos advance on their own while the card is on screen and nobody is
+  // touching it. The track is a native scroll-snap row, so swiping needs no JS.
+  (function () {
+    var tracks = document.querySelectorAll(".ph-track");
+    if (!tracks.length) return;
+    var still = !!(window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches);
+    var AUTO_MS = 4500;
+
+    tracks.forEach(function (track, n) {
+      var ph = track.parentNode;
+      var slides = track.children;
+      var dots = ph.querySelectorAll(".ph-dots i");
+      var count = slides.length;
+      var paused = false, timer = null, resumeAt = 0, visible = false, near = false;
+
+      function current() { return Math.round(track.scrollLeft / (track.clientWidth || 1)); }
+      // only the first photo loads with the page; the rest load one step ahead
+      function ensure(idx) {
+        var img = slides[(idx + count) % count].querySelector("img[data-src]");
+        if (img) { img.src = img.getAttribute("data-src"); img.removeAttribute("data-src"); }
+      }
+      function go(idx) {
+        idx = (idx + count) % count;
+        ensure(idx); ensure(idx + 1);
+        track.scrollTo({ left: idx * track.clientWidth, behavior: still ? "auto" : "smooth" });
+      }
+      function paint() {
+        var c = current();
+        dots.forEach(function (d, i) { d.classList.toggle("on", i === c); });
+        if (near) { ensure(c); ensure(c + 1); }
+      }
+      function hold() { resumeAt = Date.now() + 8000; } // a person is browsing: wait before moving again
+
+      ph.querySelector(".ph-prev").addEventListener("click", function () { hold(); go(current() - 1); });
+      ph.querySelector(".ph-next").addEventListener("click", function () { hold(); go(current() + 1); });
+
+      var raf = 0;
+      track.addEventListener("scroll", function () {
+        if (raf) return;
+        raf = requestAnimationFrame(function () { raf = 0; paint(); });
+      }, { passive: true });
+      ["pointerdown", "touchstart", "wheel"].forEach(function (ev) {
+        track.addEventListener(ev, hold, { passive: true });
+      });
+      ph.addEventListener("mouseenter", function () { paused = true; });
+      ph.addEventListener("mouseleave", function () { paused = false; });
+      ph.addEventListener("focusin", function () { paused = true; });
+      ph.addEventListener("focusout", function () { paused = false; });
+      // don't fetch the second photo until the card is close to the screen
+      if ("IntersectionObserver" in window) {
+        new IntersectionObserver(function (entries, obs) {
+          if (!entries[0].isIntersecting) return;
+          near = true; ensure(1); obs.disconnect();
+        }, { rootMargin: "300px 0px" }).observe(ph);
+      } else {
+        near = true;
+      }
+      paint();
+
+      if (still || count < 2) return;
+      function tick() {
+        if (visible && !paused && !document.hidden && Date.now() >= resumeAt) go(current() + 1);
+        timer = setTimeout(tick, AUTO_MS);
+      }
+      if ("IntersectionObserver" in window) {
+        new IntersectionObserver(function (entries) {
+          visible = entries[0].isIntersecting;
+        }, { threshold: 0.6 }).observe(ph);
+      } else {
+        visible = true;
+      }
+      timer = setTimeout(tick, AUTO_MS + n * 700); // stagger the cards so they don't all move together
+    });
+  })();
+
   /* ---------- home hero: fixed headline, photos gently cross-fade ---------- */
   (function () {
     var slides = document.querySelectorAll(".hero-slide");
