@@ -781,3 +781,6 @@ header.site .brand img{width:46px;height:46px;border-radius:10px}
   .hero-slide img{animation:heroDrift 9s ease-out both}
 }
 @keyframes heroDrift{from{transform:scale(1.07)}to{transform:scale(1)}}
+
+/* room for the Request a Quote button in the desktop menu */
+@media(min-width:1040px){.brand span{white-space:nowrap}}@media(min-width:1040px) and (max-width:1279px){.nav-links{gap:0}.nav-links a{padding:.5em .55em;font-size:.9rem}.nav-quote{margin-left:4px}.brand span b{white-space:normal}}
