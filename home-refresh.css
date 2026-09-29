@@ -287,11 +287,11 @@ body.home-refresh{
 .home-hero-v2 .hero-backgrounds::after{background:linear-gradient(90deg,#070d17f5 0%,#070d17d9 38%,#070d1780 68%,#070d1740 100%),linear-gradient(0deg,#070d17d0 0%,transparent 45%)}
 .home-hero-v2 .hero .wrap{max-width:1560px;min-height:calc(100svh - var(--hero-offset,96px));display:flex;flex-direction:column;justify-content:flex-end;padding-block:64px 30px}
 .home-hero-v2 .hero-content{max-width:none;width:100%;padding:0;background:none;border:0;border-radius:0;backdrop-filter:none;box-shadow:none}
-.home-hero-v2 .hero-panel{max-width:960px;padding-inline:clamp(0px,5vw,84px)}
+.home-hero-v2 .hero-panel{max-width:1140px;padding-inline:clamp(0px,5vw,84px)}
 .home-hero-v2 .hero-kicker{display:flex;margin:0 0 24px}
 .home-hero-v2 .hero-panel .hero-kicker .eyebrow{display:flex;align-items:center;gap:16px;margin:0;padding:0;border:0;border-radius:0;background:none;color:#fff!important;font-size:.95rem;font-weight:800;letter-spacing:.02em;text-transform:uppercase}
 .home-hero-v2 .hero-panel .hero-kicker .eyebrow::before{content:"";display:block;width:42px;height:3px;background:var(--hp-cyan)}
-.home-hero-v2 .hero h1{max-width:24ch;margin:0;font-size:clamp(2.2rem,3.5vw,3.8rem);font-weight:800;line-height:1.1;letter-spacing:-.01em;text-transform:uppercase;color:#fff}
+.home-hero-v2 .hero h1{max-width:28ch;margin:0;font-size:clamp(2.2rem,3.5vw,3.8rem);font-weight:800;line-height:1.1;letter-spacing:-.01em;text-transform:uppercase;color:#fff}
 .home-hero-v2 .hero h1 .hl{color:var(--hp-cyan)}
 .home-hero-v2 .hero p.lead{max-width:46ch;margin:26px 0 0;color:#fff;font-size:clamp(1.08rem,1.55vw,1.5rem);line-height:1.5}
 .home-hero-v2 .hero-cta{display:flex;flex-wrap:wrap;gap:20px;margin-top:34px}
@@ -374,4 +374,11 @@ body.home-refresh{
   .home-hero-v2 .nav-links .sub a{display:block;height:auto;padding:11px 14px;border-radius:8px;color:#dce4f1;font-size:.92rem;font-weight:600;line-height:1.3;letter-spacing:0;text-transform:none;white-space:nowrap}
   .home-hero-v2 .nav-links .sub a:hover,.home-hero-v2 .nav-links .sub a:focus-visible{background:#05a9df1f;color:#fff}
   .home-hero-v2 .nav-links .sub a:first-child{margin-bottom:4px;padding-bottom:13px;border-bottom:1px solid #ffffff14;border-radius:8px 8px 0 0;color:var(--hp-cyan)}
+}
+
+/* Phones: darker, even overlay so the photo never competes with the text and
+   buttons, and a solid dark Call button instead of a see-through one. */
+@media(max-width:760px){
+  .home-hero-v2 .hero-backgrounds::after{background:linear-gradient(180deg,#070d17e0 0%,#070d17d1 45%,#070d17eb 100%)}
+  .home-hero-v2 .hero-cta .btn-ghost{background:#070d17cc;border-color:#ffffffb3;-webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px)}
 }
