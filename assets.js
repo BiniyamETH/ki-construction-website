@@ -56,6 +56,7 @@
     if (!slides.length) return;
     var controls = document.querySelectorAll("[data-hero-slide]");
     var panel = document.querySelector(".hero-panel");
+    var panelBox = document.querySelector(".hero-panels");
     var heroCopy = [
       { kicker: "The complete equipment range", title: 'Engineered for <span class="hl">Every Application</span>', lead: "From dependable power systems and heavy-duty machinery to water pumps and electromechanical equipment, we supply, deliver and support genuine products for projects across Ethiopia.", primary: "Explore Products", primaryHref: "products.html", secondary: "Contact", secondaryHref: "contact.html" },
       { kicker: "Water pumping solutions", title: 'Move water with <span class="hl">Confidence</span>', lead: "Surface, centrifugal and deep-well pumping systems selected for reliable water supply, irrigation, building services and industrial applications.", primary: "Explore Pumps", primaryHref: "product-pumps.html", secondary: "Get Advice", secondaryHref: "contact.html" },
@@ -87,6 +88,28 @@
     }
 
     var reduceMotion = !!(window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches);
+
+    // Copy fades out, swaps while hidden, then fades back in while the photo is
+    // still cross-fading. The panel's height glides to the new copy's height so
+    // the card doesn't jump when a headline or lead wraps to a different length.
+    var TEXT_OUT_MS = 450;
+    function swapPanel(idx) {
+      if (!panel) return;
+      if (reduceMotion || !panelBox) { updatePanel(idx); return; }
+      panel.classList.add("is-updating");
+      setTimeout(function () {
+        var from = panelBox.offsetHeight;
+        panelBox.style.height = from + "px";
+        updatePanel(idx);
+        panelBox.style.height = "auto";
+        var to = panelBox.offsetHeight;
+        panelBox.style.height = from + "px";
+        void panelBox.offsetHeight;
+        panelBox.style.height = to + "px";
+        panel.classList.remove("is-updating");
+        setTimeout(function () { panelBox.style.height = ""; }, 550);
+      }, TEXT_OUT_MS);
+    }
 
     // The first image is real HTML, visible without JavaScript and discoverable
     // by the preload scanner. Later slides keep their URLs in data attributes
@@ -144,7 +167,7 @@
       if (busy || nextIdx === i) return Promise.resolve();
       busy = true;
       return startLoading(nextIdx).then(function () {
-        if (panel && !reduceMotion) panel.classList.add("is-updating");
+        swapPanel(nextIdx);
         return new Promise(function (resolve) {
           var incoming = slides[nextIdx];
           var outgoing = slides[i];
@@ -160,8 +183,6 @@
             incoming.style.zIndex = "1";
             incoming.classList.add("is-active");
             i = nextIdx;
-            updatePanel(i);
-            if (panel) requestAnimationFrame(function () { panel.classList.remove("is-updating"); });
             updateControls(i);
             busy = false;
             resolve();

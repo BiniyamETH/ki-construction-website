@@ -179,8 +179,11 @@ body.home-refresh{
 .home-refresh .hero-backgrounds::after{background:linear-gradient(90deg,#071321d9 0%,#07132186 54%,#07132130 84%),linear-gradient(0deg,#07132173,transparent 55%)}
 .home-refresh .hero .wrap{min-height:calc(100svh - 140px);padding-block:88px 34px;align-items:flex-start}
 .home-refresh .hero-content{max-width:760px;padding:46px 38px 26px;background:#071321df;border:1px solid #ffffff16;border-radius:17px;backdrop-filter:blur(8px);box-shadow:0 25px 65px #0003}
-.home-refresh .hero-panel{opacity:1;transform:translateY(0);transition:opacity .6s ease,transform .6s ease}
-.home-refresh .hero-panel.is-updating{opacity:0;transform:translateY(12px)}
+.home-refresh .hero-panels{transition:height .5s cubic-bezier(.4,0,.2,1)}
+.home-refresh .hero-panel{opacity:1;transform:translateY(0);transition:opacity .6s cubic-bezier(.4,0,.2,1),transform .6s cubic-bezier(.4,0,.2,1)}
+.home-refresh .hero-panel.is-updating{opacity:0;transform:translateY(8px);transition-duration:.45s}
+.home-refresh .equipment-card.is-entering{animation:cardIn .45s cubic-bezier(.2,.65,.3,1) both}
+@keyframes cardIn{from{opacity:0;transform:translateY(14px) scale(.98)}to{opacity:1;transform:none}}
 .hero-kicker{display:flex;align-items:center;gap:22px;margin-bottom:28px}
 .hero-kicker img{width:66px;height:66px;border-radius:14px;background:#fff;object-fit:contain;box-shadow:0 0 0 1px #ffffff2b}
 .home-refresh .hero-panel>.hero-kicker .eyebrow{margin:0;padding:8px 18px;color:var(--hp-amber)!important;background:#f6a51c12;border:1px solid #f6a51c55;font-weight:800;letter-spacing:.08em}

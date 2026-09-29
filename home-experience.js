@@ -9,7 +9,13 @@
         item.setAttribute("aria-pressed", String(item === button));
       });
       document.querySelectorAll(".equipment-card").forEach(function (card) {
-        card.hidden = category !== "all" && card.getAttribute("data-category") !== category;
+        var hide = category !== "all" && card.getAttribute("data-category") !== category;
+        card.hidden = hide;
+        card.classList.remove("is-entering");
+        if (!hide && !reducedMotion.matches) {
+          void card.offsetWidth; // restart the entrance animation
+          card.classList.add("is-entering");
+        }
       });
     });
   });
@@ -25,8 +31,17 @@
     var observer = new IntersectionObserver(function (entries) {
       entries.forEach(function (entry) {
         if (!entry.isIntersecting) return;
-        entry.target.classList.add("is-visible");
-        observer.unobserve(entry.target);
+        var el = entry.target;
+        el.classList.add("is-visible");
+        observer.unobserve(el);
+        // once revealed, drop the reveal styles so the card's own hover
+        // transitions apply again without the stagger delay
+        el.addEventListener("transitionend", function done(e) {
+          if (e.target !== el || e.propertyName !== "opacity") return;
+          el.removeEventListener("transitionend", done);
+          el.style.transitionDelay = "";
+          el.classList.remove("reveal", "is-visible");
+        });
       });
     }, { threshold: 0.08 });
     document.querySelectorAll(".equipment-card, .partner-tile, .why-image, .project-panel").forEach(function (item, index) {
