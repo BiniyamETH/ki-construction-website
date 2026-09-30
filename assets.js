@@ -640,7 +640,7 @@
     "cert3.cap": "Caprari — የፓምፕ ቴክኒክ ስልጠና፣ ኢንጂነር ከድር ኢብራሂም",
     "cert4.cap": "SANY Heavy Industry — የምርት ስልጠና የምስክር ወረቀት",
     "ach.photoSubhead": "በሜዳ ላይ እና በኤግዚቢሽኑ",
-    "photo1.cap": "በኤግዚቢሽን ላይ ከ Power Trader አጋሮች ጋር",
+    "photo1.cap": "ከ SDLG ምስራቅ አፍሪካ የሽያጭ ሥራ አስኪያጅ ጋር",
     "photo2.cap": "ከደቡብ ኮሪያ ኤምባሲ ኢትዮጵያ የKOTRA ኢትዮጵያ ሥራ አስኪያጅ ጋር",
     "photo3.cap": "ከኮንስትራክሽን ማኔጅመንት ኢንስቲትዩት ፕሬዚዳንት ጋር",
     "photo4.cap": "ከ KI የአገልግሎት ኢንጂነር እና ደንበኞች ጋር",
