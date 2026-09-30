@@ -641,7 +641,7 @@
     "cert4.cap": "SANY Heavy Industry — የምርት ስልጠና የምስክር ወረቀት",
     "ach.photoSubhead": "በሜዳ ላይ እና በኤግዚቢሽኑ",
     "photo1.cap": "በኤግዚቢሽን ላይ ከ Power Trader አጋሮች ጋር",
-    "photo2.cap": "ከ Power Trader Co.፣ ደቡብ ኮሪያ ጋር ውይይት",
+    "photo2.cap": "ከደቡብ ኮሪያ ኤምባሲ ኢትዮጵያ የKOTRA ኢትዮጵያ ሥራ አስኪያጅ ጋር",
     "photo3.cap": "ለሳይት ኢንጂነሮች Power ብሬከሮችን ማስተዋወቅ",
     "photo4.cap": "የ KI የሽያጭ እና የቴክኒክ ቡድን",
     "photo5.cap": "በቻይና ከአምራች አጋር ጋር ውይይት",
