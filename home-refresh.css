@@ -28,7 +28,7 @@ body.home-refresh{--maxw:1240px;background:#fff;color:#17212f}
 .home-refresh .hero h1 .hl{color:#60a5fa}
 .home-refresh .hero .slogan{color:#bfdbfe;margin-top:20px;font-size:.95rem}
 .home-refresh .hero p.lead{color:#e1e8ed;font-size:1.08rem;max-width:62ch}
-.home-refresh .hero-backgrounds::after{background:linear-gradient(90deg,#0e1f3d9c,#0e1f3d30),linear-gradient(0deg,#0e1f3d70,transparent)}
+.home-refresh .hero-backgrounds::after{background:linear-gradient(90deg,#0b18309c,#0b183030),linear-gradient(0deg,#0b183070,transparent)}
 .home-refresh .hero-tex{display:none}
 .home-refresh .hero-glow{opacity:.25}
 .home-refresh .hero-cta .btn{min-height:54px;border-radius:12px}
@@ -138,7 +138,7 @@ body.home-refresh{--maxw:1240px;background:#fff;color:#17212f}
 .project-panel .btn{width:100%;margin:12px 0 0}
 .project-panel small{display:block;color:#6b7686;font-size:.75rem;line-height:1.6;margin-top:24px}
 .home-refresh .cta-band{display:none}
-.home-refresh footer.site{background:#0e1f3d}
+.home-refresh footer.site{background:#0b1830}
 .home-refresh :focus-visible{outline:3px solid #2563eb;outline-offset:4px}
 @media(max-width:1000px){.featured-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.why-layout{gap:25px}.home-refresh .why-copy .value-grid{grid-template-columns:1fr}.partner-tile{height:250px}.contact-layout{gap:35px}.home-refresh .hero-content{max-width:760px}.home-refresh .hero h1{font-size:2.9rem}}
 @media(max-width:760px){.home-refresh .wrap{padding-inline:20px}.home-refresh main>section{padding:65px 0}.home-refresh .sec-head{margin-bottom:36px}.home-refresh .sec-head p{font-size:1rem}.home-refresh .hero .wrap{padding-block:36px;min-height:calc(100svh - 76px)}.home-refresh .hero-content{padding:26px 22px;text-align:center;border-radius:20px}.home-refresh .hero-panel>.eyebrow{margin-inline:auto;font-size:.64rem}.home-refresh .hero h1{font-size:clamp(1.8rem,6.6vw,2.8rem);margin-inline:auto}.home-refresh .hero p.lead{font-size:.98rem}.home-refresh .hero-cta{grid-template-columns:1fr}.home-refresh .hero-pagination{justify-content:center}.home-refresh .hero-badges .b{flex-direction:row;text-align:left}.home-refresh .hero-badges .b:last-child{grid-column:auto}.home-refresh .hero-badges{justify-content:center}.home-refresh header.site .brand span{display:block;font-size:.9rem}.home-refresh header.site .home-call{display:none}.featured-grid,.why-layout,.contact-layout{grid-template-columns:1fr}.partner-grid{grid-template-columns:1fr}.partner-tile{height:260px}.why-image{min-height:360px;max-height:440px}.home-refresh .why-copy .value-grid{grid-template-columns:1fr 1fr}.home-refresh .sectors-section .value-grid{grid-template-columns:1fr 1fr}.home-refresh .photo-rail figure{flex-basis:82%}.home-refresh .testimonial-rail blockquote{flex-basis:90%}.project-panel{padding:28px}.equipment-image{height:240px}.equipment-body h3{min-height:0}.equipment-body p{min-height:0}.home-refresh .brands .wrap{justify-content:center}.home-refresh .brands-row{justify-content:center}.home-refresh .brands .label{text-align:center}.rail-toolbar p{font-size:.83rem}.home-refresh .card .body{padding:25px}.product-filters{gap:7px}.product-filters button{padding:9px 14px;font-size:.78rem}}
@@ -149,7 +149,7 @@ body.home-refresh{--maxw:1240px;background:#fff;color:#17212f}
    light blue accent, adapted to KI's own identity and content. */
 body.home-refresh{
   --hp-navy:#0e1f3d;
-  --hp-navy-deep:#0e1f3d;
+  --hp-navy-deep:#0b1830;
   --hp-cyan:#2563eb;
   --hp-cyan-dark:#1d4ed8;
   --hp-amber:#93c5fd;
@@ -176,9 +176,9 @@ body.home-refresh{
 .home-refresh .hero{background:var(--hp-navy-deep);padding:0}
 .home-refresh main>.hero{padding:0}
 .home-refresh .hero-backgrounds{inset:0;border:0;border-radius:0;overflow:hidden}
-.home-refresh .hero-backgrounds::after{background:linear-gradient(90deg,#0e1f3dd9 0%,#0e1f3d86 54%,#0e1f3d30 84%),linear-gradient(0deg,#0e1f3d73,transparent 55%)}
+.home-refresh .hero-backgrounds::after{background:linear-gradient(90deg,#071321d9 0%,#07132186 54%,#07132130 84%),linear-gradient(0deg,#07132173,transparent 55%)}
 .home-refresh .hero .wrap{min-height:calc(100svh - 140px);padding-block:88px 34px;align-items:flex-start}
-.home-refresh .hero-content{max-width:760px;padding:46px 38px 26px;background:#0e1f3ddf;border:1px solid #ffffff16;border-radius:17px;backdrop-filter:blur(8px);box-shadow:0 25px 65px #0003}
+.home-refresh .hero-content{max-width:760px;padding:46px 38px 26px;background:#071321df;border:1px solid #ffffff16;border-radius:17px;backdrop-filter:blur(8px);box-shadow:0 25px 65px #0003}
 .home-refresh .hero-panels{transition:height .5s cubic-bezier(.4,0,.2,1)}
 .home-refresh .hero-panel{opacity:1;transform:translateY(0);transition:opacity .6s cubic-bezier(.4,0,.2,1),transform .6s cubic-bezier(.4,0,.2,1)}
 .home-refresh .hero-panel.is-updating{opacity:0;transform:translateY(8px);transition-duration:.45s}
@@ -194,7 +194,7 @@ body.home-refresh{
 .home-refresh .hero-cta .btn{min-width:210px;min-height:58px;border-radius:12px;font-weight:800}
 .home-refresh .hero-cta .btn-brand{background:var(--hp-cyan);box-shadow:0 12px 28px #2563eb35}
 .home-refresh .hero-cta .btn-brand:hover{background:var(--hp-cyan-dark)}
-.home-refresh .hero-cta .btn-ghost{background:#0e1f3d80;border-color:#ffffff45}
+.home-refresh .hero-cta .btn-ghost{background:#07132180;border-color:#ffffff45}
 .home-refresh .hero-badges{display:flex;flex-wrap:wrap;gap:12px 24px;margin-top:28px;padding-top:22px;border-top:1px solid #ffffff1c}
 .home-refresh .hero-badges .b,.home-refresh .hero-badges .b:first-child,.home-refresh .hero-badges .b:last-child{min-height:0;padding:0;border:0;background:transparent;border-radius:0;font-size:.72rem;letter-spacing:.015em;justify-content:flex-start}
 .home-refresh .hero-badges .ic{width:16px;height:16px}
@@ -220,7 +220,7 @@ body.home-refresh{
   .home-refresh .hero,.home-refresh main>.hero{padding:0}
   .home-refresh .hero-backgrounds{inset:0;border-radius:0}
   .home-refresh .hero .wrap{padding-block:28px;min-height:0;align-items:flex-start}
-  .home-refresh .hero-content{padding:30px 22px 24px;text-align:left;border-radius:15px;background:#0e1f3ddf}
+  .home-refresh .hero-content{padding:30px 22px 24px;text-align:left;border-radius:15px;background:#071321df}
   .hero-kicker{justify-content:flex-start;gap:12px;margin-bottom:24px}
   .hero-kicker img{width:52px;height:52px;border-radius:11px}
   .home-refresh .hero-panel>.hero-kicker .eyebrow{margin:0;font-size:.6rem;padding:7px 11px}
@@ -237,7 +237,7 @@ body.home-refresh{
    and a full-bleed hero with the copy straight on the photo, a trust/feature row
    along the bottom and an accent rule under it. */
 .home-hero-v2 .topbar{display:none!important}
-.home-hero-v2 header.site{background:#0e1f3d;border-bottom:1px solid #ffffff14;box-shadow:none}
+.home-hero-v2 header.site{background:#0b1320;border-bottom:1px solid #ffffff14;box-shadow:none}
 .home-hero-v2 header.site::after{display:none}
 .home-hero-v2 header.site .wrap.nav{max-width:1560px;display:flex;align-items:center;gap:0;min-height:76px}
 .home-hero-v2 .nav-tagline{display:none}
@@ -284,7 +284,7 @@ body.home-refresh{
 
 .home-hero-v2 .hero,.home-hero-v2 main>.hero{border:0;border-bottom:5px solid var(--hp-cyan)}
 .home-hero-v2 .hero-glow{display:none}
-.home-hero-v2 .hero-backgrounds::after{background:linear-gradient(90deg,#0e1f3df5 0%,#0e1f3dd9 38%,#0e1f3d80 68%,#0e1f3d40 100%),linear-gradient(0deg,#0e1f3dd0 0%,transparent 45%)}
+.home-hero-v2 .hero-backgrounds::after{background:linear-gradient(90deg,#070d17f5 0%,#070d17d9 38%,#070d1780 68%,#070d1740 100%),linear-gradient(0deg,#070d17d0 0%,transparent 45%)}
 .home-hero-v2 .hero .wrap{max-width:1560px;min-height:calc(100svh - var(--hero-offset,96px));display:flex;flex-direction:column;justify-content:flex-end;padding-block:64px 30px}
 .home-hero-v2 .hero-content{max-width:none;width:100%;padding:0;background:none;border:0;border-radius:0;backdrop-filter:none;box-shadow:none}
 .home-hero-v2 .hero-panel{max-width:1140px;padding-inline:clamp(0px,5vw,84px)}
@@ -379,8 +379,8 @@ body.home-refresh{
 /* Phones: darker, even overlay so the photo never competes with the text and
    buttons, and a solid dark Call button instead of a see-through one. */
 @media(max-width:760px){
-  .home-hero-v2 .hero-backgrounds::after{background:linear-gradient(180deg,#0e1f3de0 0%,#0e1f3dd1 45%,#0e1f3deb 100%)}
-  .home-hero-v2 .hero-cta .btn-ghost{background:#0e1f3dcc;border-color:#ffffffb3;-webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px)}
+  .home-hero-v2 .hero-backgrounds::after{background:linear-gradient(180deg,#070d17e0 0%,#070d17d1 45%,#070d17eb 100%)}
+  .home-hero-v2 .hero-cta .btn-ghost{background:#070d17cc;border-color:#ffffffb3;-webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px)}
 }
 
 /* Phones: make the header phone number a full-size tap target */
