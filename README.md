@@ -29,7 +29,7 @@ Plain static HTML/CSS/JS — no framework, no build step required to serve.
 | `contact.html` | Contact |
 | `assets.css` / `assets.min.css` | Shared styles — source and the minified copy every page loads |
 | `assets.js` / `assets.min.js` | Shared behaviour: mobile menu, hero slides, language strings, footer year — source and minified copy |
-| `home-refresh.css` | Homepage-only layout and product interactions, using the shared navy/blue palette |
+| `home-refresh.css` | Homepage-only layout and product interactions, using the shared navy/cyan palette |
 | `home-experience.js` | Featured equipment filters, gallery controls, and section reveals |
 | `img/` | Compressed images |
 | `404.html` | Page not found |
