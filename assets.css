@@ -68,7 +68,7 @@ section.alt{background:var(--mist);border-block:1px solid var(--line)}
 @media(max-width:760px){ .topbar{display:none} }
 
 /* header */
-header.site{position:sticky;top:0;z-index:50;background:rgba(14,31,61,.94);backdrop-filter:blur(10px);
+header.site{position:sticky;top:0;z-index:50;background:rgba(11,19,32,.96);backdrop-filter:blur(10px);
   border-bottom:1px solid rgba(255,255,255,.08);color:#fff}
 /* mobile: the topbar buffer above is hidden here, so the header sits flush at
    the very top of the viewport with a rotating photo right behind it —
