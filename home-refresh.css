@@ -404,3 +404,14 @@ body.home-refresh{
 .importer-list span{display:block;margin-top:4px;color:#586373;font-size:.88rem;line-height:1.5}
 @media(max-width:900px){.importer-layout{grid-template-columns:1fr;gap:32px}}
 @media(max-width:760px){.importer-cta .btn{flex:1 1 100%}}
+
+/* Readability and call-to-action emphasis */
+.home-refresh .card p{font-size:1rem}
+.equipment-body p{font-size:.98rem;color:#4a5566}
+.home-refresh .eyebrow{font-size:.78rem}
+.home-refresh .card .more,.equipment-tag,.equipment-actions a{font-size:.8rem}
+.home-hero-v2 .hero-note{color:#e6edf6}
+.home-hero-v2 .hero-cta .btn-brand,.home-hero-v2 .nav-cta{box-shadow:0 12px 30px -10px rgba(37,99,235,.85);transition:transform .2s,box-shadow .2s,background .2s}
+.home-hero-v2 .hero-cta .btn-brand:hover,.home-hero-v2 .nav-cta:hover{transform:translateY(-2px);box-shadow:0 16px 34px -10px rgba(37,99,235,.95)}
+@media (prefers-reduced-motion:reduce){.home-hero-v2 .hero-cta .btn-brand:hover,.home-hero-v2 .nav-cta:hover{transform:none}}
+.home-refresh .hero-badges .ic,.home-hero-v2 .hero-badges .ic,.home-hero-v2 header.site .home-call svg{color:#60a5fa}
