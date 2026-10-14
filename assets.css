@@ -432,6 +432,25 @@ a.card:hover .ph img,.card:hover .ph img{transform:scale(1.04)}
 .team div{background:var(--mist);border:1px solid var(--line);border-radius:10px;padding:12px 14px}
 .team b{display:block;font-size:.92rem}
 .team span{font-size:.8rem;color:var(--muted)}
+.founder-section{background:var(--mist);border-block:1px solid var(--line)}
+.founder-grid{display:grid;gap:30px;align-items:start}
+@media(min-width:900px){.founder-grid{grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr);gap:54px;align-items:center}}
+.founder-media{margin:0}
+.founder-media img{display:block;aspect-ratio:16/10;object-fit:cover}
+.founder-copy h2{font-size:clamp(1.7rem,3vw,2.4rem);margin:.2em 0 .1em}
+.founder-role{font-weight:700;color:var(--brand-strong);margin:0 0 1.2em}
+.founder-copy>p:not(.founder-role){color:var(--muted);max-width:64ch}
+.founder-copy h3{font-size:1rem;margin:1.6em 0 .8em}
+.founder-timeline{list-style:none;margin:0 0 22px;padding:0;border-left:2px solid var(--brand)}
+.founder-timeline li{position:relative;display:grid;grid-template-columns:100px 1fr;gap:12px;padding:0 0 16px 20px}
+.founder-timeline li:last-child{padding-bottom:0}
+.founder-timeline li::before{content:"";position:absolute;left:-6px;top:5px;width:10px;height:10px;background:var(--brand);border-radius:50%}
+.founder-timeline li>span{font-size:.82rem;font-weight:800;color:var(--charcoal)}
+.founder-timeline strong{display:block;font-size:.93rem}
+.founder-timeline p{font-size:.87rem;color:var(--muted);margin:.2em 0 0}
+.founder-link{display:inline-flex;align-items:center;gap:8px;font-weight:800;text-decoration:none;color:var(--brand-strong)}
+.founder-link:hover{text-decoration:underline}
+@media(max-width:479px){.founder-timeline li{grid-template-columns:1fr;gap:3px}}
 
 /* achievements */
 .ach-lead{display:grid;gap:22px;margin-bottom:40px}
