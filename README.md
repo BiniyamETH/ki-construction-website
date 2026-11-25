@@ -71,6 +71,43 @@ extension (`href="about"`), and keep each page's canonical URL and its
 `sitemap.xml` entry in the same form. The site header and footer are repeated
 in each page, so change them in every HTML file.
 
+## Search engines & SEO
+
+The site is registered in Google Search Console and Bing Webmaster Tools
+(domain property `kiconstruction.site`, sitemap `sitemap.xml` submitted to both).
+
+**AI search** (ChatGPT, Claude, Perplexity, Gemini)
+
+- `llms.txt` — plain-text company summary with links to every product page.
+  Update it when products, brands, phones or the address change.
+- `robots.txt` — explicitly allows AI crawlers (OAI-SearchBot, GPTBot,
+  ClaudeBot, PerplexityBot, Google-Extended and others) and Bingbot.
+- `index.html` — `Organization` JSON-LD with founding date, founder, brands
+  and product types.
+
+**Product-page keywords** — each product page targets buyer searches
+(suggested keywords, not volume-verified):
+
+| Page | Target searches |
+|---|---|
+| `product-generating-sets` | generator price in Ethiopia, diesel generator suppliers, Perkins generators Addis Ababa |
+| `product-pumps` | water pump price in Ethiopia, solar water pumps in Ethiopia |
+| `product-hydraulic-breakers` | hydraulic breaker suppliers in Ethiopia |
+| `product-construction-machinery` | construction machinery, spare parts, concrete mixer price in Ethiopia |
+| `product-electro-mechanical` | industrial valves suppliers in Ethiopia |
+
+Each of these pages has a keyword-led `<title>` and meta/`og` description, a
+visible "Prices & questions" section and matching `FAQPage` JSON-LD in the
+`<head>`. No prices are published: answers explain what a price depends on and
+invite a quote. If you change a question or answer, change it in both places.
+
+**After changing a page**
+
+1. Update that page's `<lastmod>` date in `sitemap.xml`.
+2. In Search Console, use *URL inspection* → *Request indexing* for the page.
+   (In Nov 2026 four product pages were "Discovered – currently not indexed"
+   until indexing was requested.)
+
 ## Preview locally
 
 ```
