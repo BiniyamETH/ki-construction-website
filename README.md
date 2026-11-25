@@ -34,6 +34,7 @@ Plain static HTML/CSS/JS — no framework, no build step required to serve.
 | `img/` | Compressed images |
 | `404.html` | Page not found |
 | `robots.txt`, `sitemap.xml` | Search engine crawling and page list |
+| `llms.txt` | Plain-text company summary for AI assistants (ChatGPT, Claude, Perplexity) |
 
 ### Shared assets
 
